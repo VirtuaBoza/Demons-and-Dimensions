@@ -13,12 +13,11 @@ public class FightMenuButton : MonoBehaviour {
 	}
 	
 	public void EmboldenText(){
-		Debug.Log("This is supposed to make the text bold");
 		buttonText.fontStyle = FontStyle.Bold;
 	}
 
 	public void UnboldenText(){
-		Debug.Log("This is supposed to make the text bold");
 		buttonText.fontStyle = FontStyle.Normal;
 	}
+
 }
