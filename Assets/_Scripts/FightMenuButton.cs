@@ -27,6 +27,13 @@ public class FightMenuButton : MonoBehaviour, IPointerEnterHandler, ISelectHandl
 
 		}
 
+		FightMenuButton[] fightMenuButtons = transform.parent.GetComponentsInChildren<FightMenuButton>();
+		foreach(FightMenuButton fightMenuButton in fightMenuButtons){
+			if(fightMenuButton.subMenuInactive){
+				fightMenuButton.GetComponent<Button>().image.overrideSprite = GetComponent<FightMenuButton>().subMenuInactive;
+			}
+		}
+
 	}
 	
 	public void EmboldenText(){
