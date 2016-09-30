@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using System.Collections;
 
-public class FightMenuButton : MonoBehaviour, IPointerEnterHandler, ISelectHandler, IDeselectHandler {
+public class FightMenuButton : MonoBehaviour, ISelectHandler, IDeselectHandler {
 
 	public Sprite subMenuInactive;
 
@@ -14,9 +14,9 @@ public class FightMenuButton : MonoBehaviour, IPointerEnterHandler, ISelectHandl
 		eventSystem = GameObject.Find ("EventSystem");
 	}
 
-	public void OnPointerEnter(PointerEventData eventData) {
-		OnSelect(eventData);
-	}
+//	public void OnPointerEnter(PointerEventData eventData) {
+	//		OnSelect(eventData);    IF YOU PUT THIS BACK, ADD IPointerEnterHandler to the top!!!!!!!!!!!!!!
+//	}
 
 	public void OnSelect(BaseEventData eventData) {
 
