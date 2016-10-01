@@ -11,9 +11,5 @@ public class MoveButton : MonoBehaviour {
 		buttonText = GetComponentInChildren<Text>();
 		buttonText.text = "Move (" + 3.ToString() + ")"; //TODO This will pull the acting player's move count
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }

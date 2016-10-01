@@ -33,8 +33,7 @@ public class TargetSelectButton : MonoBehaviour, IPointerEnterHandler, ISelectHa
 	void MyOnClick() {
 		FightGround fightGround = GetComponentInParent<FightGround>();
 		fightGround.ExitTargetSelection();
-		var child = GameObject.FindObjectOfType<FightMenuFrame>().transform.GetChild(3);
-		child.gameObject.SetActive(false);
+		GameObject.Find("SelectTargetPanel").SetActive(false);
 		GameObject.FindObjectOfType<FightMenuFrame>().EnableFightMenu();
 	}
 

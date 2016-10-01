@@ -5,10 +5,16 @@ using System.Collections;
 public class FightGround : MonoBehaviour {
 
 	private bool spellMode = false;
-	private bool targetIsFriendly = false;
+	private bool buffMode = false;
+
 
 	public void EnterSpellMode() {
 		spellMode = true;
+	}
+
+	public void EnterBuffMode() {
+		spellMode = true;
+		buffMode = true;
 	}
 
 	//TODO filter target options unless spell mode is true
@@ -27,26 +33,22 @@ public class FightGround : MonoBehaviour {
 		}
 
 		if(spellMode){
-			if(targetIsFriendly){
-				print("Exiting in spell mode, target friendly");
+			if(buffMode){
 				ActivateOptions(2);
 			} else {
-				print("Exiting in spell mode, target enemy");
 				ActivateOptions(1);
 			}
 		} else {
-			print("Exiting not in spell mode");
 			ActivateOptions(0);
 		}
 
 		spellMode = false;
-		targetIsFriendly = false;
+		buffMode = false;
 
 	}
 
 	private void ActivateOptions(int index){
 		var child = GameObject.Find("Parent").transform.GetChild(index);
-		child.gameObject.SetActive(true);
 		Button[] options = child.GetComponentsInChildren<Button>();
 		options[0].Select();
 	}
