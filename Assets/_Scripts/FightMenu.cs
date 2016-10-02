@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class FightMenuFrame : MonoBehaviour {
+public class FightMenu : MonoBehaviour {
 
 	public void DisableFightMenu (){
 		Button[] buttons = GetComponentsInChildren<Button>();
