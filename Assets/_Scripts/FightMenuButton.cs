@@ -17,7 +17,6 @@ public class FightMenuButton : MonoBehaviour, ISelectHandler, IDeselectHandler {
 //	}
 
 	public void OnSelect(BaseEventData eventData) {
-
 		EmboldenText();
 
 		if (eventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject != gameObject){
@@ -33,7 +32,6 @@ public class FightMenuButton : MonoBehaviour, ISelectHandler, IDeselectHandler {
 
 	public void OnDeselect(BaseEventData eventData) {
 		UnboldenText ();
-
 	}
 
 	public void UnboldenText(){
