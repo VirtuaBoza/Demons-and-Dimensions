@@ -34,7 +34,7 @@ public class TargetSelectButton : MonoBehaviour, IPointerEnterHandler, ISelectHa
 		FightGround fightGround = GetComponentInParent<FightGround>();
 		fightGround.ExitTargetSelection();
 		GameObject.Find("SelectTargetPanel").SetActive(false);
-		GameObject.FindObjectOfType<FightMenu>().EnableFightMenu();
+		GameObject.FindObjectOfType<FightMenuFrame>().EnableFightMenu();
 	}
 
 	void Destroy () {

@@ -48,9 +48,6 @@ public class FightGround : MonoBehaviour {
 	}
 
 	private void ActivateOptions(int index){
-		GameObject fightMenuTransform = Transform.Find("FightMenuFrame").GetChild(1);
-		fightMenuTransform.gameObject.SetActive(true);
-
 		var child = GameObject.Find("Parent").transform.GetChild(index);
 		Button[] options = child.GetComponentsInChildren<Button>();
 		options[0].Select();
