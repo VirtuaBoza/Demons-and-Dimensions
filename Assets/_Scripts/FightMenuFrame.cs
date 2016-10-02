@@ -18,4 +18,12 @@ public class FightMenuFrame : MonoBehaviour {
 		}
 	}
 
+	public void Inactivate () {
+		gameObject.SetActive(false);
+	}
+
+	public void Activate () {
+		gameObject.SetActive(true);
+	}
+
 }

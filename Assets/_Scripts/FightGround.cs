@@ -24,6 +24,9 @@ public class FightGround : MonoBehaviour {
 			button.interactable = true;
 		}
 		buttons[0].Select();
+
+		FindObjectOfType<FightMenuFrame>().Inactivate();
+
 	}
 		
 	public void ExitTargetSelection () {
@@ -48,6 +51,7 @@ public class FightGround : MonoBehaviour {
 	}
 
 	private void ActivateOptions(int index){
+
 		var child = GameObject.Find("Parent").transform.GetChild(index);
 		Button[] options = child.GetComponentsInChildren<Button>();
 		options[0].Select();
