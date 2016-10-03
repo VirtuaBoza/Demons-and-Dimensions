@@ -6,6 +6,8 @@ using System.Collections;
 
 public class FightMenuButton : MonoBehaviour, ISelectHandler, IDeselectHandler {
 
+	public bool isSelected = false;
+
 	private GameObject eventSystem;
 
 	void Awake () {
@@ -17,6 +19,7 @@ public class FightMenuButton : MonoBehaviour, ISelectHandler, IDeselectHandler {
 //	}
 
 	public void OnSelect(BaseEventData eventData) {
+		isSelected = true;
 		EmboldenText();
 
 		if (eventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject != gameObject){
@@ -31,7 +34,10 @@ public class FightMenuButton : MonoBehaviour, ISelectHandler, IDeselectHandler {
 	}
 
 	public void OnDeselect(BaseEventData eventData) {
+		isSelected = false;
 		UnboldenText ();
+
+
 	}
 
 	public void UnboldenText(){
