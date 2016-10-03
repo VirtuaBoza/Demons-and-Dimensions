@@ -19,6 +19,7 @@ public class ActionsButton : MonoBehaviour {
 	void Update () {
 		if(Input.GetKeyDown("right") && GetComponent<FightMenuButton>().isSelected){
 			toggle.isOn = true;
+			GetComponentInChildren<ToggleGroup>().SetAllTogglesOff();
 			GetComponentInChildren<AttackButton>().GetComponent<Toggle>().Select();
 		}
 	}
