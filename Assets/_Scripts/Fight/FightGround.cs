@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class FightGround : MonoBehaviour {
 
+	public GameObject targetSelectButton,prefab;
+	[Range(1,50)]public int numberOfEnemies = 1;
+
 	private bool spellMode = false;
 	private bool buffMode = false;
+	private List<Vector3> positionList = new List<Vector3>();
 
 	private FightMenu fightMenu;
 	private FightMenuFrame fightMenuFrame;
@@ -13,6 +18,26 @@ public class FightGround : MonoBehaviour {
 	void Start () {
 		fightMenu = FindObjectOfType<FightMenu>();
 		fightMenuFrame = FindObjectOfType<FightMenuFrame>();
+	}
+
+	void Awake () {
+		
+		for (int i = 1; i <= numberOfEnemies; i++){
+			InstantiateCharacter();
+		}
+	}
+
+	private void InstantiateCharacter() {
+		Vector3 position = new Vector3(Random.Range(0, 5) + 0.5f, Random.Range(-5, 5) + 0.5f + transform.position.y, 0);
+		if (positionList.Contains(position)){
+			InstantiateCharacter();
+		} else {
+			positionList.Add(position);
+		}
+		GameObject character = Instantiate(prefab, position, Quaternion.identity) as GameObject;
+		character.transform.parent = transform;
+		GameObject button = Instantiate(targetSelectButton, position, Quaternion.identity) as GameObject;
+		button.transform.parent = transform;
 	}
 
 	public void EnterTargetSelection (string AorSorB){
