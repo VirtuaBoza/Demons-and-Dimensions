@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 251b78905b7179143a6e0aee2ccd83b7
-timeCreated: 1475017976
+guid: 4a9bf0ab7524e9045b129cd75be94fb1
+timeCreated: 1479754370
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -15,7 +15,10 @@ ModelImporter:
     100014: mesh_0008
     100016: mesh_0009
     100018: mesh_0010
-    100020: //RootNode
+    100020: mesh_0011
+    100022: mesh_0012
+    100024: mesh_0013
+    100026: //RootNode
     400000: mesh_0001
     400002: mesh_0002
     400004: mesh_0003
@@ -26,7 +29,10 @@ ModelImporter:
     400014: mesh_0008
     400016: mesh_0009
     400018: mesh_0010
-    400020: //RootNode
+    400020: mesh_0011
+    400022: mesh_0012
+    400024: mesh_0013
+    400026: //RootNode
     2300000: mesh_0001
     2300002: mesh_0002
     2300004: mesh_0003
@@ -37,6 +43,9 @@ ModelImporter:
     2300014: mesh_0008
     2300016: mesh_0009
     2300018: mesh_0010
+    2300020: mesh_0011
+    2300022: mesh_0012
+    2300024: mesh_0013
     3300000: mesh_0001
     3300002: mesh_0002
     3300004: mesh_0003
@@ -47,6 +56,9 @@ ModelImporter:
     3300014: mesh_0008
     3300016: mesh_0009
     3300018: mesh_0010
+    3300020: mesh_0011
+    3300022: mesh_0012
+    3300024: mesh_0013
     4300000: mesh_0001
     4300002: mesh_0002
     4300004: mesh_0003
@@ -57,6 +69,9 @@ ModelImporter:
     4300014: mesh_0008
     4300016: mesh_0009
     4300018: mesh_0010
+    4300020: mesh_0011
+    4300022: mesh_0012
+    4300024: mesh_0013
     11400000: mesh_0001
     11400002: mesh_0002
     11400004: mesh_0003
@@ -67,6 +82,9 @@ ModelImporter:
     11400014: mesh_0008
     11400016: mesh_0009
     11400018: mesh_0010
+    11400020: mesh_0011
+    11400022: mesh_0012
+    11400024: mesh_0013
   materials:
     importMaterials: 0
     materialName: 0
