@@ -10,21 +10,21 @@ public class CameraFollow : MonoBehaviour {
 	public Vector2 maxXAndY;
 	public Vector2 minXAndY;
 
-	private Transform player;
+	private Transform playerTransform;
 
 	// Use this for initialization
 	void Awake () {
-		player = FindObjectOfType<Player>().transform;
+		playerTransform = FindObjectOfType<Player>().transform;
 	}
 
 	// Returns true is the distance between the camera and the player in the x axis is greater than the x margin
 	bool CheckXMargin () {
-		return Mathf.Abs(transform.position.x - player.position.x) > xMargin;
+		return Mathf.Abs(transform.position.x - playerTransform.position.x) > xMargin;
 	}
 
 	// Returns true is the distance between the camera and the player in the y axis is greater than the y margin
 	bool CheckYMargin() {
-		return Mathf.Abs(transform.position.y - player.position.y) > yMargin;
+		return Mathf.Abs(transform.position.y - playerTransform.position.y) > yMargin;
 	}
 		
 	void FixedUpdate () {
@@ -39,13 +39,13 @@ public class CameraFollow : MonoBehaviour {
 		// If the player has moved beyond the x margin...
 		if(CheckXMargin()) {
 			// ... the target x coordinate should be a Lerp between the camera's current x position and the player's current x position
-			targetX = Mathf.Lerp(transform.position.x, player.position.x, xSmooth * Time.deltaTime);
+			targetX = Mathf.Lerp(transform.position.x, playerTransform.position.x, xSmooth * Time.deltaTime);
 		}
 
 		// If the player has moved beyond the y margin...
 		if(CheckYMargin()) {
 			// ... the target y coordinate should be a Lerp between the camera's current y position and the player's current y position
-			targetY = Mathf.Lerp(transform.position.y, player.position.y, ySmooth * Time.deltaTime);
+			targetY = Mathf.Lerp(transform.position.y, playerTransform.position.y, ySmooth * Time.deltaTime);
 		}
 
 		// The target x and y coordinates should not be larger than maximum or smaller than the minimum
