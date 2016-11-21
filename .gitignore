@@ -28,3 +28,6 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# This to keep the .obj files that Tiled2Unity needs
+!*.obj
