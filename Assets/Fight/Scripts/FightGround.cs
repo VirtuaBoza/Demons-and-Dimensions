@@ -30,16 +30,16 @@ public class FightGround : MonoBehaviour {
 	}
 
 	private void InstantiateEnemy() {
-		Vector3 position = new Vector3(Random.Range(0, 5) + 0.5f, Random.Range(-5, 5) + 0.5f + transform.position.y, 0);
+		Vector3 position = new Vector3(Random.Range(5, 9), Random.Range(1, 9), transform.position.z);
 		if (positionList.Contains(position)){
 			InstantiateEnemy();
 		} else {
 			positionList.Add(position);
 		}
 		GameObject character = Instantiate(prefab, position, Quaternion.identity) as GameObject;
-		character.transform.SetParent(transform,true);
-		GameObject button = Instantiate(targetSelectButton, position, Quaternion.identity) as GameObject;
-		button.transform.SetParent(transform,true);
+		character.transform.SetParent(transform,false);
+		GameObject button = Instantiate(targetSelectButton, Vector3.zero, Quaternion.identity) as GameObject;
+		button.transform.SetParent(character.transform, false);
 	}
 
 	public void EnterTargetSelection (string AorSorB){
