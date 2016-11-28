@@ -38,6 +38,7 @@ public class FightGround : MonoBehaviour {
 		}
 		GameObject character = Instantiate(prefab, position, Quaternion.identity) as GameObject;
 		character.transform.SetParent(transform,false);
+		character.GetComponent<SpriteRenderer> ().sortingOrder = 9 - ((int)position.y);
 		GameObject button = Instantiate(targetSelectButton, Vector3.zero, Quaternion.identity) as GameObject;
 		button.transform.SetParent(character.transform, false);
 	}
