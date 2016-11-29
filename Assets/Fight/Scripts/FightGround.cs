@@ -5,10 +5,11 @@ using System.Collections.Generic;
 
 public class FightGround : MonoBehaviour {
 
-	public GameObject targetSelectButton,prefab;
+	public GameObject targetSelectButton,prefab,crystalPrefab,damienPrefab,hunterPrefab,teddyPrefab;
 	[Range(1,50)]public int numberOfEnemies = 1;
 	public Sprite[] arenas = new Sprite[2];
 	public int mapIndex = 0;
+	public bool isCrystalPlaying, isDamienPlaying, isHunterPlaying, isTeddyPlaying;
 
 	private bool spellMode = false;
 	private bool buffMode = false;
@@ -25,8 +26,28 @@ public class FightGround : MonoBehaviour {
 			InstantiateEnemy();
 		}
 
+		InstantiateFriendlies ();
+
 		Image myImage = GetComponent<Image>();
 		myImage.overrideSprite = arenas[mapIndex];
+	}
+
+	private void InstantiateFriendlies() {
+		if (isCrystalPlaying) {
+			
+		}
+
+		if (isDamienPlaying) {
+			
+		}
+
+		if (isHunterPlaying) {
+			
+		}
+
+		if (isTeddyPlaying) {
+			
+		}
 	}
 
 	private void InstantiateEnemy() {
