@@ -21,7 +21,7 @@ public class Player : MonoBehaviour {
 
 		if (((recordMode && moveX != 0f) || (recordMode && moveY != 0f)) && timer == 0f) {
 			frame++;
-			Debug.Log ("Frame: " + frame + "X: " + transform.position.x + " Y: " + transform.position.y);
+			Debug.Log ("Frame: " + frame + " X: " + transform.position.x + " Y: " + transform.position.y);
 			timer += Time.deltaTime;
 			if (timer >= (1/15)){
 				timer = 0f;

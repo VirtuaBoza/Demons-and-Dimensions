@@ -37,9 +37,7 @@ public class DialogManager : MonoBehaviour {
 	}
 
 	void ColorSpeakerText (string speaker) {
-		Debug.Log("ColorSpeakerText was called");
 		if (speaker.Contains("Damien")) {
-			Debug.Log("Damien is speaking, his name should be red");
 			this.speaker.color = Color.red;
 		} else if (speaker.Contains("Crystal")) {
 			this.speaker.color = Color.blue;
