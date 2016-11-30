@@ -5,8 +5,9 @@ using System.Collections.Generic;
 
 public class Arena : MonoBehaviour {
 
-	public GameObject targetSelectButton,batPrefab,crystalPrefab,damienPrefab,hunterPrefab,teddyPrefab;
-	public int numberOfBats = 1;
+	public GameObject targetSelectButton,crystalPrefab,damienPrefab,hunterPrefab,teddyPrefab;
+	public int[] numberOfEnemies;
+	public GameObject[] enemyPrefabs;
 	public Sprite[] arenas = new Sprite[2];
 	public int mapIndex = 0;
 	public bool isCrystalPlaying, isDamienPlaying, isHunterPlaying, isTeddyPlaying;
@@ -20,10 +21,8 @@ public class Arena : MonoBehaviour {
 	private List<Vector3> positionList = new List<Vector3>();
 
 	void Start () {
-
-		for (int i = 1; i <= numberOfBats; i++){
-			InstantiateEnemies();
-		}
+		
+		InstantiateEnemies();
 
 		InstantiateFriendlies ();
 
@@ -79,13 +78,16 @@ public class Arena : MonoBehaviour {
 	}
 
 	private void InstantiateEnemies() {
-		for (int i = 1; i <= numberOfBats; i++) {
-			Vector3 position = FindOpenPosition (false);
-			GameObject character = Instantiate(batPrefab, position, Quaternion.identity) as GameObject;
-			character.transform.SetParent(transform,false);
-			character.GetComponent<SpriteRenderer> ().sortingOrder = 10 - ((int)position.y);
-			Enemy enemy = character.GetComponent<Enemy>();
-			enemyLayoutGroup.PopulateInfoBox(enemy.myName, enemy.hp, enemy.maxHp);
+		
+		for (int index = 0; index < numberOfEnemies.Length; index++) {
+			for (int number = 1; number <= numberOfEnemies[index]; number++) {
+				Vector3 position = FindOpenPosition (false);
+				GameObject character = Instantiate(enemyPrefabs[index], position, Quaternion.identity) as GameObject;
+				character.transform.SetParent(transform,false);
+				character.GetComponent<SpriteRenderer> ().sortingOrder = 10 - ((int)position.y);
+				Enemy enemy = character.GetComponent<Enemy>();
+				enemyLayoutGroup.PopulateInfoBox(enemy.myName, enemy.hp, enemy.maxHp);
+			}
 		}
 	}
 
