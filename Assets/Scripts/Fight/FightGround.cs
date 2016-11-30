@@ -33,20 +33,52 @@ public class FightGround : MonoBehaviour {
 	}
 
 	private void InstantiateFriendlies() {
+
+		Vector3 position = new Vector3(Random.Range(1, 5), Random.Range(1, 9), transform.position.z);
+		if (positionList.Contains(position)){
+			InstantiateFriendlies();
+		} else {
+			positionList.Add(position);
+		}
+
 		if (isCrystalPlaying) {
-			
+			GameObject character = Instantiate(crystalPrefab, position, Quaternion.identity) as GameObject;
+			character.transform.SetParent(transform,false);
+			character.GetComponent<SpriteRenderer> ().sortingOrder = 9 - ((int)position.y);
+			GameObject button = Instantiate(targetSelectButton, Vector3.zero, Quaternion.identity) as GameObject;
+			button.transform.SetParent(character.transform, false);
+			isCrystalPlaying = false;
+			InstantiateFriendlies ();
 		}
 
 		if (isDamienPlaying) {
-			
+			GameObject character = Instantiate(damienPrefab, position, Quaternion.identity) as GameObject;
+			character.transform.SetParent(transform,false);
+			character.GetComponent<SpriteRenderer> ().sortingOrder = 9 - ((int)position.y);
+			GameObject button = Instantiate(targetSelectButton, Vector3.zero, Quaternion.identity) as GameObject;
+			button.transform.SetParent(character.transform, false);
+			isDamienPlaying = false;
+			InstantiateFriendlies ();
 		}
 
 		if (isHunterPlaying) {
-			
+			GameObject character = Instantiate(hunterPrefab, position, Quaternion.identity) as GameObject;
+			character.transform.SetParent(transform,false);
+			character.GetComponent<SpriteRenderer> ().sortingOrder = 9 - ((int)position.y);
+			GameObject button = Instantiate(targetSelectButton, Vector3.zero, Quaternion.identity) as GameObject;
+			button.transform.SetParent(character.transform, false);
+			isHunterPlaying = false;
+			InstantiateFriendlies ();
 		}
 
 		if (isTeddyPlaying) {
-			
+			GameObject character = Instantiate(teddyPrefab, position, Quaternion.identity) as GameObject;
+			character.transform.SetParent(transform,false);
+			character.GetComponent<SpriteRenderer> ().sortingOrder = 9 - ((int)position.y);
+			GameObject button = Instantiate(targetSelectButton, Vector3.zero, Quaternion.identity) as GameObject;
+			button.transform.SetParent(character.transform, false);
+			isTeddyPlaying = false;
+			InstantiateFriendlies ();
 		}
 	}
 
