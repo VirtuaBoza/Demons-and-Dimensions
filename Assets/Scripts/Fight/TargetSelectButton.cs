@@ -3,18 +3,20 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
 
-public class TargetSelectButton : MonoBehaviour, IPointerEnterHandler, ISelectHandler {
+public class TargetSelectButton : MonoBehaviour, ISelectHandler, IPointerEnterHandler {
 
 	private Button button;
-	private GameObject eventSystem;
+	private Arena arena;
 
 	// Use this for initialization
 	void Start () {
+
+		arena = GetComponentInParent<Arena>();
+
 		button = GetComponent<Button>();
 
 		button.onClick.AddListener(() => MyOnClick());
 
-		eventSystem = GameObject.Find ("EventSystem");
 	}
 
 	public void OnPointerEnter(PointerEventData eventData) {
@@ -23,16 +25,14 @@ public class TargetSelectButton : MonoBehaviour, IPointerEnterHandler, ISelectHa
 
 	public void OnSelect(BaseEventData eventData) {
 
-		if (eventSystem.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject != gameObject){
-			eventSystem.GetComponent<UnityEngine.EventSystems.EventSystem> ().SetSelectedGameObject (gameObject);
-
+		if (EventSystem.current.GetComponent<EventSystem>().currentSelectedGameObject != gameObject){
+			EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject (gameObject);
 		}
 
 	}
 
 	void MyOnClick() {
-		FightGround fightGround = GetComponentInParent<FightGround>();
-		fightGround.ExitTargetSelection();
+		arena.ExitTargetSelection();
 	}
 
 	void Destroy () {

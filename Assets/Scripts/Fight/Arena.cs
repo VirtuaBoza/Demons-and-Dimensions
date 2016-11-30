@@ -3,24 +3,21 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class FightGround : MonoBehaviour {
+public class Arena : MonoBehaviour {
 
 	public GameObject targetSelectButton,prefab,crystalPrefab,damienPrefab,hunterPrefab,teddyPrefab;
 	[Range(1,50)]public int numberOfEnemies = 1;
 	public Sprite[] arenas = new Sprite[2];
 	public int mapIndex = 0;
 	public bool isCrystalPlaying, isDamienPlaying, isHunterPlaying, isTeddyPlaying;
+	public FightMenu fightMenu;
+	public FightMenuFrame fightMenuFrame;
 
 	private bool spellMode = false;
 	private bool buffMode = false;
 	private List<Vector3> positionList = new List<Vector3>();
 
-	private FightMenu fightMenu;
-	private FightMenuFrame fightMenuFrame;
-
 	void Start () {
-		fightMenu = FindObjectOfType<FightMenu>();
-		fightMenuFrame = FindObjectOfType<FightMenuFrame>();
 
 		for (int i = 1; i <= numberOfEnemies; i++){
 			InstantiateEnemy();
@@ -44,41 +41,33 @@ public class FightGround : MonoBehaviour {
 		if (isCrystalPlaying) {
 			GameObject character = Instantiate(crystalPrefab, position, Quaternion.identity) as GameObject;
 			character.transform.SetParent(transform,false);
-			character.GetComponent<SpriteRenderer> ().sortingOrder = 9 - ((int)position.y);
-			GameObject button = Instantiate(targetSelectButton, Vector3.zero, Quaternion.identity) as GameObject;
-			button.transform.SetParent(character.transform, false);
+			character.GetComponent<SpriteRenderer> ().sortingOrder = 10 - ((int)position.y);
 			isCrystalPlaying = false;
-			InstantiateFriendlies ();
+			InstantiateFriendlies();
 		}
 
 		if (isDamienPlaying) {
 			GameObject character = Instantiate(damienPrefab, position, Quaternion.identity) as GameObject;
 			character.transform.SetParent(transform,false);
-			character.GetComponent<SpriteRenderer> ().sortingOrder = 9 - ((int)position.y);
-			GameObject button = Instantiate(targetSelectButton, Vector3.zero, Quaternion.identity) as GameObject;
-			button.transform.SetParent(character.transform, false);
+			character.GetComponent<SpriteRenderer> ().sortingOrder = 10 - ((int)position.y);
 			isDamienPlaying = false;
-			InstantiateFriendlies ();
+			InstantiateFriendlies();
 		}
 
 		if (isHunterPlaying) {
 			GameObject character = Instantiate(hunterPrefab, position, Quaternion.identity) as GameObject;
 			character.transform.SetParent(transform,false);
-			character.GetComponent<SpriteRenderer> ().sortingOrder = 9 - ((int)position.y);
-			GameObject button = Instantiate(targetSelectButton, Vector3.zero, Quaternion.identity) as GameObject;
-			button.transform.SetParent(character.transform, false);
+			character.GetComponent<SpriteRenderer> ().sortingOrder = 10 - ((int)position.y);
 			isHunterPlaying = false;
-			InstantiateFriendlies ();
+			InstantiateFriendlies();
 		}
 
 		if (isTeddyPlaying) {
 			GameObject character = Instantiate(teddyPrefab, position, Quaternion.identity) as GameObject;
 			character.transform.SetParent(transform,false);
-			character.GetComponent<SpriteRenderer> ().sortingOrder = 9 - ((int)position.y);
-			GameObject button = Instantiate(targetSelectButton, Vector3.zero, Quaternion.identity) as GameObject;
-			button.transform.SetParent(character.transform, false);
+			character.GetComponent<SpriteRenderer> ().sortingOrder = 10 - ((int)position.y);
 			isTeddyPlaying = false;
-			InstantiateFriendlies ();
+			InstantiateFriendlies();
 		}
 	}
 
@@ -91,30 +80,40 @@ public class FightGround : MonoBehaviour {
 		}
 		GameObject character = Instantiate(prefab, position, Quaternion.identity) as GameObject;
 		character.transform.SetParent(transform,false);
-		character.GetComponent<SpriteRenderer> ().sortingOrder = 9 - ((int)position.y);
-		GameObject button = Instantiate(targetSelectButton, Vector3.zero, Quaternion.identity) as GameObject;
-		button.transform.SetParent(character.transform, false);
+		character.GetComponent<SpriteRenderer> ().sortingOrder = 10 - ((int)position.y);
 	}
 
-	public void EnterTargetSelection (string AorSorB){
-		if(AorSorB == "A"){
-			//something
-		} else if (AorSorB == "S") {
-			spellMode = true;
-		} else if (AorSorB == "B") {
+	public void EnterTargetSelection (string aOrBOrC){
+		if(aOrBOrC == "A" || aOrBOrC == "C"){
+			Enemy[] enemies = GetComponentsInChildren<Enemy>();
+			foreach (Enemy enemy in enemies) {
+				GameObject button = Instantiate(targetSelectButton, enemy.transform.position, Quaternion.identity) as GameObject;
+				button.transform.SetParent(enemy.transform);
+			}
+		} else if (aOrBOrC == "B") {
+			Transform[] characters = GetComponentsInChildren<Transform>();
+			foreach (Transform character in characters) {
+				if (character.tag == "Friendly") {
+					GameObject button = Instantiate(targetSelectButton, character.position, Quaternion.identity) as GameObject;
+					button.transform.SetParent(character);
+				}
+			}
 			buffMode = true;
+		} 
+
+		if (aOrBOrC == "C") {
+			spellMode = true;
 		}
+
 		Button[] buttons = GetComponentsInChildren<Button>();
-		foreach(Button button in buttons){
-			button.interactable = true;
-		}
 		buttons[0].Select();
+
 	}
 		
 	public void ExitTargetSelection () {
 		Button[] buttons = GetComponentsInChildren<Button>();
 		foreach(Button button in buttons){
-			button.interactable = false;
+			Destroy(button.gameObject);
 		}
 
 		fightMenu.ActivateMenu(true);
