@@ -22,7 +22,7 @@ public class DialogManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetKeyDown(KeyCode.RightArrow) && dialogIndex <= linesOfText.Length){
+		if (Input.GetKeyDown(KeyCode.RightArrow) && dialogIndex + 1 <= linesOfText.Length){
 			speakerIndex += 2;
 			dialogIndex += 2;
 			UpdateText();
