@@ -95,7 +95,7 @@ public class Arena : MonoBehaviour {
 		if (isFriendly) {
 			Vector3 position = new Vector3(Random.Range(1, 5), Random.Range(1, 9), transform.position.z);
 			if (positionList.Contains(position)){
-				FindOpenPosition(true);
+				return FindOpenPosition(true);
 			} else {
 				positionList.Add(position);
 				return position;
@@ -103,29 +103,24 @@ public class Arena : MonoBehaviour {
 		} else {
 			Vector3 position = new Vector3(Random.Range(5, 9), Random.Range(1, 9), transform.position.z);
 			if (positionList.Contains(position)){
-				FindOpenPosition(false);
+				return FindOpenPosition(false);
 			} else {
 				positionList.Add(position);
 				return position;
 			}
 		}
-		return Vector3.zero;
 	}
 
 	public void EnterTargetSelection (string aOrBOrC){
 		if(aOrBOrC == "A" || aOrBOrC == "C"){
 			Enemy[] enemies = GetComponentsInChildren<Enemy>();
 			foreach (Enemy enemy in enemies) {
-				GameObject button = Instantiate(targetSelectButton, enemy.transform.position, Quaternion.identity) as GameObject;
-				button.transform.SetParent(enemy.transform);
+				Instantiate(targetSelectButton, enemy.transform, false);
 			}
 		} else if (aOrBOrC == "B") {
-			Transform[] characters = GetComponentsInChildren<Transform>();
-			foreach (Transform character in characters) {
-				if (character.tag == "Friendly") {
-					GameObject button = Instantiate(targetSelectButton, character.position, Quaternion.identity) as GameObject;
-					button.transform.SetParent(character);
-				}
+			Friendly[] friendlies = GetComponentsInChildren<Friendly>();
+			foreach (Friendly friendly in friendlies) {
+				Instantiate(targetSelectButton, friendly.transform, false);
 			}
 			buffMode = true;
 		} 
