@@ -9,13 +9,14 @@ public class DialogManager : MonoBehaviour {
 	public Text speaker, dialog;
 	public float letterPause = 0.05f;
 	public float sentencePause = 0.5f;
-	public AudioClip sound;
+	public AudioClip crystalTypeSound,damienTypeSound,hunterTypeSound,teddyTypeSound,otherTypeSound;
 	public bool soundEnabled = true;
 	public Image dialogArrow;
 
 	private int speakerIndex = 0;
 	private int dialogIndex = 1;
-	private bool isTyping = false; 
+	private bool isTyping = false;
+	private IEnumerator coroutine;
 
 	// Use this for initialization
 	void Start () {
@@ -28,39 +29,49 @@ public class DialogManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-		if (Input.GetKeyDown(KeyCode.Space) && dialogIndex + 1 <= linesOfText.Length){
+		if (Input.GetKeyDown(KeyCode.Space)){
 			UpdateText ();
 		}
-			
 	}
 
 	public void UpdateText () {
-		if(!isTyping){
+		if (isTyping) {
+			FinishTyping ();
+		} else if (dialogIndex + 1 < linesOfText.Length) {
 			isTyping = true;
 			speakerIndex += 2;
 			dialogIndex += 2;
 			speaker.text = linesOfText[speakerIndex];
 			ColorSpeakerText(linesOfText[speakerIndex]);
 			dialog.text = "";
-			StartCoroutine(TypeText());
+			coroutine = TypeText (speaker.text);
+			StartCoroutine(coroutine);
 			dialogArrow.gameObject.SetActive (false);
 		} else {
-			FinishTyping ();
+			EndScene();
 		}
 	}
 
-	IEnumerator TypeText() {
+	IEnumerator TypeText(string speaker) {
 		int charPosition = 0;
 		foreach (char letter in linesOfText[dialogIndex].ToCharArray()){
 			dialog.text += letter;
-			if (sound && soundEnabled) {
-				GetComponent<AudioSource> ().PlayOneShot (sound);
-			}
 			charPosition++;
 			if (charPosition == linesOfText[dialogIndex].ToCharArray().Length){
-				Debug.Log ("Reached last character");
 				FinishTyping ();
+			}
+			if (soundEnabled && charPosition % 2 == 0 && charPosition != linesOfText[dialogIndex].ToCharArray().Length) {
+				if (speaker.Contains("Damien")) {
+					GetComponent<AudioSource> ().PlayOneShot (damienTypeSound);
+				} else if (speaker.Contains("Crystal")) {
+					GetComponent<AudioSource> ().PlayOneShot (crystalTypeSound);
+				} else if (speaker.Contains("Teddy")) {
+					GetComponent<AudioSource> ().PlayOneShot (teddyTypeSound);
+				} else if (speaker.Contains("Hunter")) {
+					GetComponent<AudioSource> ().PlayOneShot (hunterTypeSound);
+				} else {
+					GetComponent<AudioSource> ().PlayOneShot (otherTypeSound);
+				}
 			}
 			if(letter == '.' || letter == '?') {
 				yield return new WaitForSeconds (sentencePause);
@@ -88,4 +99,9 @@ public class DialogManager : MonoBehaviour {
 			this.speaker.color = Color.green;
 		}
 	}
+
+	void EndScene () {
+		Debug.Log("This log indicates that the scene should end here when i can manage to get around to adding that feature");
+	}
+
 }
