@@ -19,7 +19,7 @@ public class Slot : MonoBehaviour, IDropHandler {
 			inv.items[droppedItem.itemSlotID] = new Item();
 			inv.items[slotID] = droppedItem.item;
 			droppedItem.itemSlotID = slotID;
-		} else {
+		} else if (droppedItem.itemSlotID != slotID){
 			Transform presentItem = this.transform.GetChild(0);
 			presentItem.GetComponent<ItemInfo>().itemSlotID = droppedItem.itemSlotID;
 			presentItem.transform.SetParent(inv.slots[droppedItem.itemSlotID].transform);

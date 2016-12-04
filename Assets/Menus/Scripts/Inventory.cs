@@ -11,19 +11,16 @@ public class Inventory : MonoBehaviour {
 	public List<GameObject> slots = new List<GameObject>();
 
 	ItemDatabase database;
-	GameObject slotPanel;
 	int numberOfSlots;
 
 	void Start () {
 		database = GetComponent<ItemDatabase>();
-		slotPanel = transform.FindChild("SlotPanel").gameObject;
-		numberOfSlots = 8;
-		for (int i = 0; i < numberOfSlots; i++){
+
+		foreach (Slot slot in GetComponentsInChildren<Slot>()) {
+			slots.Add(slot.gameObject);
 			items.Add (new Item());
-			slots.Add(Instantiate(inventorySlot));
-			slots[i].GetComponent<Slot>().slotID = i;
-			slots[i].transform.SetParent(slotPanel.transform,false);
 		}
+
 		AddItem(0);
 		AddItem(1);
 		AddItem(1);
@@ -43,6 +40,7 @@ public class Inventory : MonoBehaviour {
 					items[i] = itemToAdd;
 					GameObject itemObj = Instantiate(inventoryItem);
 					itemObj.GetComponent<ItemInfo>().item = itemToAdd;
+					itemObj.GetComponent<ItemInfo>().amount = 1;
 					itemObj.GetComponent<ItemInfo>().itemSlotID = i;
 					itemObj.transform.SetParent(slots[i].transform,false);
 					itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
