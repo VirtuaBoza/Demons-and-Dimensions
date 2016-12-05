@@ -31,3 +31,6 @@ sysinfo.txt
 
 # This is to keep the .obj files that Tiled2Unity needs
 !*.obj
+
+# This is to keep the .dll file for the LitJson plugin
+!*.dll

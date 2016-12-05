@@ -30,7 +30,7 @@ public class Tooltip : MonoBehaviour {
 	}
 
 	public void ContstructInfoString () {
-		info = "<color=#0047ba><b>" + item.Title + "</b></color>\n\n" + item.Description + "\nPower: " + item.Power;
+		info = "<color=#0047ba><b>" + item.Title + "</b></color>\n\n" + item.Itemtype;
 		tooltip.transform.GetComponentInChildren<Text>().text = info;
 	}
 

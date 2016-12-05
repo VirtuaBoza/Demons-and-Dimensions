@@ -10,7 +10,7 @@ public class ItemDatabase : MonoBehaviour {
 	private JsonData itemData;
 
 	void Start(){
-		itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/StreamingAssets/Items.json"));
+		itemData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/StreamingAssets/DDItems.json"));
 		ConstructItemDatabase();
 	}
 
@@ -25,44 +25,110 @@ public class ItemDatabase : MonoBehaviour {
 
 	void ConstructItemDatabase () {
 		for (int i = 0; i < itemData.Count; i++){
-			itemDatabase.Add(new Item((int)itemData[i]["id"], 
-				itemData[i]["title"].ToString(), 
-				(int)itemData[i]["value"], 
-				(int)itemData[i]["stats"]["power"], 
-				(int)itemData[i]["stats"]["defense"], 
-				(int)itemData[i]["stats"]["vitality"], 
-				itemData[i]["description"].ToString(), 
-				(bool)itemData[i]["stackable"], 
-				(int)itemData[i]["rarity"], 
-				itemData[i]["slug"].ToString()));
+			if (itemData[i]["itemtype"].ToString().Contains("Armor")) {
+				itemDatabase.Add(new Item((int)itemData[i]["id"], 
+					itemData[i]["title"].ToString(), 
+					itemData[i]["itemtype"].ToString(), 
+					(int)itemData[i]["ac"], 
+					itemData[i]["modifier"].ToString(), 
+					(int)itemData[i]["modifiermax"], 
+					(int)itemData[i]["str"], 
+					(bool)itemData[i]["stealthdisadv"], 
+					itemData[i]["slug"].ToString()));
+			} else if (itemData[i]["itemtype"].ToString().Contains("Weapon")) {
+				itemDatabase.Add(new Item((int)itemData[i]["id"], 
+					itemData[i]["title"].ToString(), 
+					itemData[i]["itemtype"].ToString(),
+					(int)itemData[i]["damagerange"],
+					(int)itemData[i]["damagemulti"],
+					itemData[i]["damagetype"].ToString(),
+					(bool)itemData[i]["properties"]["ammunition"],
+					(bool)itemData[i]["properties"]["finesse"],
+					(bool)itemData[i]["properties"]["heavy"],
+					(bool)itemData[i]["properties"]["light"],
+					(bool)itemData[i]["properties"]["loading"],
+					(bool)itemData[i]["properties"]["reach"],
+					(bool)itemData[i]["properties"]["thrown"],
+					(bool)itemData[i]["properties"]["twohanded"],
+					(bool)itemData[i]["properties"]["versatile"],
+					(int)itemData[i]["range"],
+					(int)itemData[i]["maxrange"],
+					itemData[i]["slug"].ToString()));
+			} else {
+				Debug.LogWarning ("ConstructItemDatabase doesn't recognize the itemtype");	
+			} 
+
 		}
 	}
 
 }
 
 public class Item {
-
+	
+	// Properties of all items
 	public int ID { get; set; }
 	public string Title { get; set; }
-	public int Value { get; set; }
-	public int Power { get; set; }
-	public int Defense { get; set; }
-	public int Vitality { get; set; }
-	public string Description { get; set; }
-	public bool Stackable { get; set; }
-	public int Rarity { get; set; }
+	public string Itemtype { get; set; }
+
+	// Properties of armor
+	public int Ac { get; set; }
+	public string Modifier { get; set; }
+	public int Modifiermax { get; set; }
+	public int Str { get; set; }
+	public bool Stealthdisadv { get; set; }
+
+	// Properties of weapons
+	public int Damagerange { get; set; }
+	public int Damagemulti { get; set; }
+	public string Damagetype { get; set; }
+	public bool Ammunition { get; set; }
+	public bool Finesse { get; set; }
+	public bool Heavy { get; set; }
+	public bool Light { get; set; }
+	public bool Loading { get; set; }
+	public bool Reach { get; set; }
+	public bool Thrown { get; set; }
+	public bool Twohanded { get; set; }
+	public bool Versatile { get; set; }
+	public int Range { get; set; }
+	public int Maxrange { get; set; }
 	public string Slug { get; set; }
 	public Sprite Sprite { get; set; }
 
-	public Item (int id, string title, int value, int power, int defense, int vitality, string description, bool stackable, int rarity, string slug){
+	// Constructor for an armor item
+	public Item (int id, string title, string itemtype, int ac, string modifier, int modifiermax, int str, bool stealthdisadv, string slug){
 		this.ID = id;
 		this.Title = title;
-		this.Value = value;
-		this.Power = power;
-		this.Defense = defense;
-		this.Vitality = vitality;
-		this.Description = description;
-		this.Stackable = stackable;
+		this.Itemtype = itemtype;
+		this.Ac = ac;
+		this.Modifier = modifier;
+		this.Modifiermax = modifiermax;
+		this.Str = str;
+		this.Stealthdisadv = stealthdisadv;
+		this.Slug = slug;
+		this.Sprite = Resources.Load<Sprite>("Sprites/Items/" + slug);
+	}
+
+	// Constructor for a weapon item
+	public Item (int id, string title, string itemtype, int damagerange, int damagemulti, string damagetype, bool ammunition, bool finesse, bool heavy,
+		bool light, bool loading, bool reach, bool thrown, bool twohanded, bool versatile, int range, int maxrange, string slug) {
+		this.ID = id;
+		this.Title = title;
+		this.Itemtype = itemtype;
+		this.Damagerange = damagerange;
+		this.Damagemulti = damagemulti;
+		this.Damagetype = damagetype;
+		this.Ammunition = ammunition;
+		this.Finesse = finesse;
+		this.Heavy = heavy;
+		this.Light = light;
+		this.Loading = loading;
+		this.Reach = reach;
+		this.Thrown = thrown;
+		this.Twohanded = twohanded;
+		this.Versatile = versatile;
+		this.Range = range;
+		this.Maxrange = maxrange;
 		this.Slug = slug;
 		this.Sprite = Resources.Load<Sprite>("Sprites/Items/" + slug);
 	}
