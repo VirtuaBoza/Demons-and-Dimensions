@@ -32,7 +32,7 @@ public class ItemInfo : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 	}
 
 	public void OnEndDrag (PointerEventData eventData) {
-		this.transform.SetParent(inv.slots[itemSlotID].transform);
+		this.transform.SetParent (inv.slots[itemSlotID].transform);
 		this.transform.position = inv.slots[itemSlotID].transform.position;
 		GetComponent<CanvasGroup>().blocksRaycasts = true;
 	}

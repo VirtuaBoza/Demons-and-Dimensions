@@ -11,13 +11,12 @@ public class Inventory : MonoBehaviour {
 	public List<GameObject> slots = new List<GameObject>();
 
 	ItemDatabase database;
-	int numberOfSlots;
 
 	void Start () {
 		database = GetComponent<ItemDatabase>();
 
 		foreach (Slot slot in GetComponentsInChildren<Slot>()) {
-			slots.Add(slot.gameObject);
+			slots.Add (slot.gameObject);
 			items.Add (new Item());
 		}
 
@@ -41,15 +40,6 @@ public class Inventory : MonoBehaviour {
 				break;
 			}
 		}
-	}
-
-	GameObject CheckIfItemIsInInventory (Item item) {
-		for (int i = 0; i < items.Count; i++){
-			if (items[i].ID == item.ID){
-				return slots[i];
-			}
-		}
-		return null;
 	}
 
 }

@@ -1,34 +1,66 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using System.Collections;
 using System;
 
 public class Slot : MonoBehaviour, IDropHandler {
 
 	public int slotID;
+	public Image weaponTypeIcon, armorTypeIcon;
+	public enum SlotType {All, Armor, Weapon}
+	public SlotType slotItemType = SlotType.All;
 
 	private Inventory inv;
 
 	void Start () {
 		inv = GetComponentInParent<Inventory>();
+		switch (slotItemType) {
+		case SlotType.All:
+			// Do nothing
+			break;
+		case SlotType.Armor:
+			Instantiate (armorTypeIcon, this.transform, false);
+			break;
+		case SlotType.Weapon:
+			Instantiate (weaponTypeIcon, this.transform, false);
+			break;
+		}
 	}
 
 	public void OnDrop (PointerEventData eventData) {
+
+		// Get the item info of the dropped item
 		ItemInfo droppedItem = eventData.pointerDrag.GetComponent<ItemInfo>();
-		if (inv.items[slotID].ID == -1) {
-			inv.items[droppedItem.itemSlotID] = new Item();
-			inv.items[slotID] = droppedItem.item;
-			droppedItem.itemSlotID = slotID;
-		} else if (droppedItem.itemSlotID != slotID){
-			Transform presentItem = this.transform.GetChild(0);
-			presentItem.GetComponent<ItemInfo>().itemSlotID = droppedItem.itemSlotID;
-			presentItem.transform.SetParent(inv.slots[droppedItem.itemSlotID].transform);
-			presentItem.position = inv.slots[droppedItem.itemSlotID].transform.position;
 
-			droppedItem.itemSlotID = slotID;
+		if (slotItemType == SlotType.All || (droppedItem.item.Itemtype.Contains("Armor") && slotItemType == SlotType.Armor) || (droppedItem.item.Itemtype.Contains("Weapon") && slotItemType == SlotType.Weapon)) {
 
-			inv.items[droppedItem.itemSlotID] = presentItem.GetComponent<ItemInfo>().item;
-			inv.items[slotID] = droppedItem.item;
-		}
+			// If the item from the inventory's item list at the index that matches this slot's ID number is a non-item...
+			if (inv.items[slotID].ID == -1) {
+				// ... then put a non-item in the item list at the index that matches the slot ID of where the item came from...
+				inv.items[droppedItem.itemSlotID] = new Item();
+				// ... and put the dropped item in the item list at the index that matches this slot ID...
+				inv.items[slotID] = droppedItem.item;
+				// ... and update the item's slot ID with this slot ID.
+				droppedItem.itemSlotID = slotID;
+
+				// Otherwise, if the dropped item's slot ID is not this slot ID...
+			} else if (droppedItem.itemSlotID != slotID){
+				// ... cache the item in this slot...
+				Transform presentItem = this.transform.GetChild(0);
+				// ... reassign the item in this slot ID to the dropped item's slot ID...
+				presentItem.GetComponent<ItemInfo>().itemSlotID = droppedItem.itemSlotID;
+				// ... change the parent of the item that was in this slot to the dropped item's slot...
+				presentItem.transform.SetParent(inv.slots[droppedItem.itemSlotID].transform);
+				// ... change the position of the item that was in this slot to it's new parent's position...
+				presentItem.position = inv.slots[droppedItem.itemSlotID].transform.position;
+				// ... assign the dropped item to this slot...
+				droppedItem.itemSlotID = slotID;
+				// ... put the item that was in this slot into the item list at the dropped item's index...
+				inv.items[droppedItem.itemSlotID] = presentItem.GetComponent<ItemInfo>().item;
+				// ... and put the new item into the index of the item list that matches this slot ID.
+				inv.items[slotID] = droppedItem.item;
+			}
+		} 
 	}
 }

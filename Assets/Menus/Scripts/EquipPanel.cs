@@ -7,6 +7,10 @@ public class EquipPanel : MonoBehaviour {
 	public Text nameFrameText;
 	public GameObject crystalPanel, teddyPanel, hunterPanel, damienPanel;
 
+	void Start () {
+		ShowEquipPanel (0);
+	}
+
 	public void ShowEquipPanel(int index){
 		if (index == 0){
 			crystalPanel.transform.SetAsLastSibling();
