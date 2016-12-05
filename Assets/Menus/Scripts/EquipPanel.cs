@@ -6,26 +6,39 @@ public class EquipPanel : MonoBehaviour {
 
 	public Text nameFrameText;
 	public GameObject crystalPanel, teddyPanel, hunterPanel, damienPanel;
+	public GameObject[] characterPanels; 
+	public enum Character {Crystal, Teddy, Hunter, Damien}
+	public Character currentCharacter = Character.Crystal;
 
 	void Start () {
-		ShowEquipPanel (0);
+		characterPanels = new GameObject[] { crystalPanel, teddyPanel, hunterPanel, damienPanel};
+		FindRightPanel (Character.Crystal);
 	}
 
-	public void ShowEquipPanel(int index){
-		if (index == 0){
-			crystalPanel.transform.SetAsLastSibling();
-			nameFrameText.text = "Crystal";
-		} else if (index == 1) {
-			teddyPanel.transform.SetAsLastSibling();
-			nameFrameText.text = "Teddy";
-		} else if (index == 2) {
-			hunterPanel.transform.SetAsLastSibling();
-			nameFrameText.text = "Hunter";
-		} else if (index == 3) {
-			damienPanel.transform.SetAsLastSibling();
-			nameFrameText.text = "Damien";
-		} else {
-			Debug.LogWarning("Invalid equip panel index.");
+	public void FindRightPanel(Character character){
+		switch (character) {
+		case Character.Crystal:
+			ShowAppropriatePanel (crystalPanel);
+			break;
+		case Character.Teddy:
+			ShowAppropriatePanel (teddyPanel);
+			break;
+		case Character.Hunter:
+			ShowAppropriatePanel (hunterPanel);
+			break;
+		case Character.Damien:
+			ShowAppropriatePanel (damienPanel);
+			break;
+		}
+	}
+
+	public void ShowAppropriatePanel(GameObject rightPanel) {
+		foreach (GameObject panel in characterPanels) {
+			if (panel == rightPanel) {
+				panel.SetActive (true);
+			} else {
+				panel.SetActive (false);
+			}
 		}
 	}
 }

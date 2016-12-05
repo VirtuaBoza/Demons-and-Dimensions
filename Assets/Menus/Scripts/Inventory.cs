@@ -12,13 +12,18 @@ public class Inventory : MonoBehaviour {
 
 	ItemDatabase database;
 
-	void Start () {
+	void Awake () {
 		database = GetComponent<ItemDatabase>();
 
 		foreach (Slot slot in GetComponentsInChildren<Slot>()) {
 			slots.Add (slot.gameObject);
+			Debug.Log ("Slot with ID: " + slot.slotID + " was added to the inventories slots list");
 			items.Add (new Item());
 		}
+	}
+
+	void Start () {
+		
 
 		AddItem(0);
 		AddItem(12);
