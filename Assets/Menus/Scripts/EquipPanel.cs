@@ -39,6 +39,7 @@ public class EquipPanel : MonoBehaviour {
 			} else {
 				panel.SetActive (false);
 			}
+
 		}
 	}
 }
