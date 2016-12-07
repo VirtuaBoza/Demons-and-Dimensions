@@ -13,8 +13,10 @@ public class Slot : MonoBehaviour, IDropHandler {
 
 	private Inventory inv;
 
-	void Start () {
-		inv = GetComponentInParent<Inventory>();
+	void Start ()
+	{
+		inv = FindObjectOfType<Inventory>();
+
 		switch (slotItemType) {
 		case SlotType.All:
 			// Do nothing

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour {
 
-	public GameObject inventorySlot, inventoryItem;
+	public GameObject inventoryPanel, inventorySlot, inventoryItem;
 
 	public List<Item> items = new List<Item>();
 	public List<GameObject> slots = new List<GameObject>();
@@ -15,7 +15,7 @@ public class Inventory : MonoBehaviour {
 	void Awake () {
 		database = GetComponent<ItemDatabase>();
 
-		foreach (Slot slot in GetComponentsInChildren<Slot>()) {
+		foreach (Slot slot in inventoryPanel.GetComponentsInChildren<Slot>()) {
 			slots.Add (slot.gameObject);
 			items.Add (new Item());
 		}

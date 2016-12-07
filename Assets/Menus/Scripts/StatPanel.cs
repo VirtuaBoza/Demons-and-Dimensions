@@ -9,9 +9,9 @@ public class StatPanel : MonoBehaviour {
 	public Text nameFrameText, lvlFrameText, classFrameText, xpFrameText;
 	public CHARACTER currentCharacter;
 	public Toggle blueToggle, orangeToggle, greenToggle, redToggle;
-	public List<CharacterSheet> characterSheets = new List<CharacterSheet>();
 
-	void Start () {
+	void OnEnable ()
+	{
 		Toggle[] toggles = new Toggle[] {blueToggle, orangeToggle, greenToggle, redToggle};
 		toggles[(int)currentCharacter].isOn = true;
 	}
@@ -40,12 +40,4 @@ public class StatPanel : MonoBehaviour {
 			break;
 		}
 	}
-}
-
-public class CharacterSheet {
-
-	public string characterName, characterClass;
-	public int lvl, xp, maxHP, currentHP, baseAC, currentAC, proBonus, speed, 
-	strScore, dexScore, conScore, intScore, wisScore, chaScore;
-
 }

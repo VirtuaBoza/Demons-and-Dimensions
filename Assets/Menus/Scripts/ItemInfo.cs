@@ -13,7 +13,7 @@ public class ItemInfo : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 	private InventoryTooltip tooltip;
 
 	void Start () {
-		inv = GetComponentInParent<Inventory>();
+		inv = FindObjectOfType<Inventory>();
 		tooltip = GetComponentInParent<InventoryTooltip>();
 	}
 
