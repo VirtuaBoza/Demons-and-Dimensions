@@ -5,14 +5,11 @@ using System.Collections;
 public class StatPanel : MonoBehaviour {
 
 
-	public Text nameFrameText;
-	public GameObject crystalPanel, teddyPanel, hunterPanel, damienPanel;
-	public GameObject[] characterPanels; 
+	public Text nameFrameText, lvlFrameText, classFrameText, xpFrameText;
 	public CHARACTER currentCharacter;
 	public Toggle blueToggle, orangeToggle, greenToggle, redToggle;
 
 	void Start () {
-		characterPanels = new GameObject[] { crystalPanel, teddyPanel, hunterPanel, damienPanel};
 		Toggle[] toggles = new Toggle[] {blueToggle, orangeToggle, greenToggle, redToggle};
 		toggles[(int)currentCharacter].isOn = true;
 	}
@@ -21,35 +18,43 @@ public class StatPanel : MonoBehaviour {
 		switch (index) {
 		case 0:
 			currentCharacter = CHARACTER.Crystal;
-			ShowAppropriatePanel(crystalPanel);
 			nameFrameText.text = "Crystal";
+			classFrameText.text = "Mage";
 			break;
 		case 1:
 			currentCharacter = CHARACTER.Teddy;
-			ShowAppropriatePanel(teddyPanel);
 			nameFrameText.text = "Teddy";
+			classFrameText.text = "Warrior";
 			break;
 		case 2:
 			currentCharacter = CHARACTER.Hunter;
-			ShowAppropriatePanel(hunterPanel);
 			nameFrameText.text = "Hunter";
+			classFrameText.text = "Thief";
 			break;
 		case 3:
 			currentCharacter = CHARACTER.Damien;
-			ShowAppropriatePanel(damienPanel);
 			nameFrameText.text = "Damien";
+			classFrameText.text = "DM";
 			break;
 		}
 	}
+}
 
-	void ShowAppropriatePanel(GameObject rightPanel) {
-		foreach (GameObject panel in characterPanels) {
-			if (panel == rightPanel) {
-				panel.SetActive (true);
-			} else {
-				panel.SetActive (false);
-			}
-		}
-	}
+public class CharacterSheet {
+
+	public int maxHP;
+	public int currentHP;
+	public int baseAC;
+	public int currentAC;
+	public int proBonus;
+	public int speed;
+	public int strScore;
+	public int dexScore;
+	public int conScore;
+	public int intScore;
+	public int wisScore;
+	public int chaScore;
+
+
 
 }
