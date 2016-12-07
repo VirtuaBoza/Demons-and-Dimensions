@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class StatPanel : MonoBehaviour {
 
@@ -8,6 +9,7 @@ public class StatPanel : MonoBehaviour {
 	public Text nameFrameText, lvlFrameText, classFrameText, xpFrameText;
 	public CHARACTER currentCharacter;
 	public Toggle blueToggle, orangeToggle, greenToggle, redToggle;
+	public List<CharacterSheet> characterSheets = new List<CharacterSheet>();
 
 	void Start () {
 		Toggle[] toggles = new Toggle[] {blueToggle, orangeToggle, greenToggle, redToggle};
@@ -42,19 +44,8 @@ public class StatPanel : MonoBehaviour {
 
 public class CharacterSheet {
 
-	public int maxHP;
-	public int currentHP;
-	public int baseAC;
-	public int currentAC;
-	public int proBonus;
-	public int speed;
-	public int strScore;
-	public int dexScore;
-	public int conScore;
-	public int intScore;
-	public int wisScore;
-	public int chaScore;
-
-
+	public string characterName, characterClass;
+	public int lvl, xp, maxHP, currentHP, baseAC, currentAC, proBonus, speed, 
+	strScore, dexScore, conScore, intScore, wisScore, chaScore;
 
 }
