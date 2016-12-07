@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class Tooltip : MonoBehaviour {
+public class InventoryTooltip : MonoBehaviour {
 
 	private Item item;
 	private string info;

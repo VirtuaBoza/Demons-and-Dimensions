@@ -10,11 +10,11 @@ public class ItemInfo : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 	public int itemSlotID;
 
 	private Inventory inv;
-	private Tooltip tooltip;
+	private InventoryTooltip tooltip;
 
 	void Start () {
 		inv = GetComponentInParent<Inventory>();
-		tooltip = GetComponentInParent<Tooltip>();
+		tooltip = GetComponentInParent<InventoryTooltip>();
 	}
 
 	public void OnBeginDrag (PointerEventData eventData) {
