@@ -47,7 +47,7 @@ public class Player : MonoBehaviour {
 			} else {
 				float moveX = Input.GetAxis("Horizontal");
 				float moveY = Input.GetAxis("Vertical");
-				float xAndY = Mathf.Sqrt(Mathf.Pow(Mathf.Abs(moveX),2) + Mathf.Pow(Mathf.Abs(moveY),2));
+				float xAndY = Mathf.Sqrt(Mathf.Pow(moveX,2) + Mathf.Pow(moveY,2));
 				transform.Translate(moveX * playerSpeed * Time.deltaTime / xAndY, moveY * playerSpeed * Time.deltaTime / xAndY, transform.position.z, Space.Self);
 				Animate(moveX,moveY);
 
