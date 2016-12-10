@@ -16,7 +16,6 @@ public class EquipPanel : MonoBehaviour {
 		characterPanels = new GameObject[] { crystalPanel, teddyPanel, hunterPanel, damienPanel};
 		Toggle[] toggles = new Toggle[] {blueToggle, orangeToggle, greenToggle, redToggle};
 		toggles[(int)currentCharacter].isOn = true;
-		//SwitchCharacter ((int)currentCharacter);
 	}
 
 	public void SwitchCharacter (int index) {

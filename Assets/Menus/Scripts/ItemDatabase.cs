@@ -14,15 +14,6 @@ public class ItemDatabase : MonoBehaviour {
 		ConstructItemDatabase();
 	}
 
-	public Item FetchItemByID (int id){
-		for (int i = 0; i < itemDatabase.Count; i++) {
-			if (itemDatabase[i].ID == id) {
-				return itemDatabase[i];
-			}
-		}
-		return null;
-	}
-
 	void ConstructItemDatabase () {
 		for (int i = 0; i < itemData.Count; i++){
 			if (itemData[i]["itemtype"].ToString().Contains("Armor")) {
@@ -59,6 +50,15 @@ public class ItemDatabase : MonoBehaviour {
 			} 
 
 		}
+	}
+
+	public Item FetchItemByID (int id){
+		for (int i = 0; i < itemDatabase.Count; i++) {
+			if (itemDatabase[i].ID == id) {
+				return itemDatabase[i];
+			}
+		}
+		return null;
 	}
 
 }
