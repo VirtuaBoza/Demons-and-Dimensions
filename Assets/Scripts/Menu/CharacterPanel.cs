@@ -40,7 +40,7 @@ public class CharacterPanel : MonoBehaviour {
 		hpText.text = characters[index].CurrentHP.ToString();
 		maxHpText.text = "/" + characters[index].BaseHp.ToString();
 		acText.text = characters[index].Ac.ToString();
-		profText.text = characters[index].ProfBonus.ToString();
+		profText.text = "+" + characters[index].ProfBonus.ToString();
 		speedText.text = characters[index].Speed.ToString() + "ft";
 		if (characters[index].StrModifier < 0) {strModText.text = characters[index].StrModifier.ToString();}
 		else {strModText.text = "+" + characters[index].StrModifier.ToString();}

@@ -165,10 +165,21 @@ public class Character {
 	public int Ac {
 		get {
 			int ac = 10;
+			bool dexMods = true;
+			bool dexModsMax2 = false;
 			foreach(Item item in this.Equipment){
 				if(item.Itemtype == "Armor" || item.Itemtype == "Shield") {
 					ac += item.Ac;
+					if(!item.Dexmodifies) {dexMods = false;}
+					else if (item.Modifiermax2) {dexModsMax2 = true;}
+					if(item.Str != 0){
+						if(this.Lvl < item.Str) {this.Speed -= 10;}
+					}
 				}
+			}
+			if (dexMods){
+				if (dexModsMax2) {ac += Mathf.Min(this.DexModifier,2);}
+				else {ac += this.DexModifier;}
 			}
 			return ac;
 		}
