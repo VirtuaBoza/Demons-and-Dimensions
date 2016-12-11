@@ -8,13 +8,12 @@ public class Inventory : MonoBehaviour {
 	public GameObject inventoryPanel, inventorySlot, inventoryItem;
 
 	public List<Item> items = new List<Item>();
-	public List<GameObject> slots = new List<GameObject>();
+	[HideInInspector]public List<GameObject> slots = new List<GameObject>();
 
-	ItemDatabase database;
+	private ItemDatabase database;
 
 	void Awake () {
-		database = GetComponent<ItemDatabase>();
-
+		database = FindObjectOfType<ItemDatabase>();
 		foreach (Slot slot in inventoryPanel.GetComponentsInChildren<Slot>()) {
 			slots.Add (slot.gameObject);
 			items.Add (new Item());

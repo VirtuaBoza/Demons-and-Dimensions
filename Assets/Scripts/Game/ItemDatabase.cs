@@ -6,7 +6,7 @@ using System.IO;
 
 public class ItemDatabase : MonoBehaviour {
 
-	private List<Item> itemDatabase = new List<Item>();
+	public List<Item> itemDatabase = new List<Item>();
 	private JsonData itemData;
 
 	void Start(){
@@ -16,7 +16,7 @@ public class ItemDatabase : MonoBehaviour {
 
 	void ConstructItemDatabase () {
 		for (int i = 0; i < itemData.Count; i++){
-			if (itemData[i]["itemtype"].ToString().Contains("Armor")) {
+			if (itemData[i]["itemtype"].ToString().Contains("Armor") || itemData[i]["itemtype"].ToString().Contains("Shield")) {
 				itemDatabase.Add(new Item((int)itemData[i]["id"], 
 					itemData[i]["title"].ToString(), 
 					itemData[i]["itemtype"].ToString(), 

@@ -24,7 +24,7 @@
 	{
 		"id": 2,
 		"title": "Shield",
-		"itemtype": "Armor",
+		"itemtype": "Shield",
 		"ac": 2,
 		"dexmodifies": false,
 		"modifiermax2": false,
