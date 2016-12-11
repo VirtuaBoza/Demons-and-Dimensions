@@ -1,30 +1,167 @@
 ﻿[
 	{
 		"id": 0,
-		"title": "Steel Gloves",
-		"value": 6,
-		"stats": {
-			"power": 1,
-			"defense": 4,
-			"vitality": 2
-		},
-		"description": "Gloves made from steel.",
-		"stackable": false,
-		"rarity": 2,
-		"slug": "steel_gloves"
+		"title": "Leather Armor",
+		"itemtype": "Armor",
+		"ac": 1,
+		"dexmodifies": true,
+		"modifiermax2": false,
+		"str": 0,
+		"stealthdisadv": true,
+		"slug": "leather_armor"
 	},
 	{
 		"id": 1,
-		"title": "Great Stick",
-		"value": 543,
-		"stats": {
-			"power": 56,
-			"defense": 2,
-			"vitality": 54
+		"title": "Chain Mail",
+		"itemtype": "Armor",
+		"ac": 6,
+		"dexmodifies": false,
+		"modifiermax2": false,
+		"str": 13,
+		"stealthdisadv": true,
+		"slug": "chain_mail"
+	},
+	{
+		"id": 2,
+		"title": "Shield",
+		"itemtype": "Armor",
+		"ac": 2,
+		"dexmodifies": false,
+		"modifiermax2": false,
+		"str": 0,
+		"stealthdisadv": false,
+		"slug": "shield"
+	},
+		{
+		"id": 3,
+		"title": "Dagger",
+		"itemtype": "Weapon",
+		"damagerange": 4,
+		"damagemulti": 1,
+		"damagetype": "piercing",
+		"properties": {
+			"ammunition": false,
+			"finesse": true,
+			"heavy": false,
+			"light": true,
+			"loading": false,
+			"reach": false,
+			"thrown": true,
+			"twohanded": false,
+			"versatile": false
 		},
-		"description": "It's a stick! What do you want!?",
-		"stackable": true,
-		"rarity": 6,
-		"slug": "great_stick"
+		"range": 20,
+		"maxrange": 60,
+		"slug": "dagger"
+	},
+	{
+		"id": 4,
+		"title": "Handaxe",
+		"itemtype": "Weapon",
+		"damagerange": 6,
+		"damagemulti": 1,
+		"damagetype": "slashing",
+		"properties": {
+			"ammunition": false,
+			"finesse": false,
+			"heavy": false,
+			"light": true,
+			"loading": false,
+			"reach": false,
+			"thrown": true,
+			"twohanded": false,
+			"versatile": false
+		},
+		"range": 20,
+		"maxrange": 60,
+		"slug": "handaxe"
+	},
+	{
+		"id": 5,
+		"title": "Quarterstaff",
+		"itemtype": "Weapon",
+		"damagerange": 6,
+		"damagemulti": 1,
+		"damagetype": "bludgeoning",
+		"properties": {
+			"ammunition": false,
+			"finesse": false,
+			"heavy": false,
+			"light": false,
+			"loading": false,
+			"reach": false,
+			"thrown": false,
+			"twohanded": false,
+			"versatile": true
+		},
+		"range": 0,
+		"maxrange": 0,
+		"slug": "quarterstaff"
+	},
+	{
+		"id": 6,
+		"title": "Battleaxe",
+		"itemtype": "Weapon",
+		"damagerange": 8,
+		"damagemulti": 1,
+		"damagetype": "slashing",
+		"properties": {
+			"ammunition": false,
+			"finesse": false,
+			"heavy": false,
+			"light": false,
+			"loading": false,
+			"reach": false,
+			"thrown": false,
+			"twohanded": false,
+			"versatile": true
+		},
+		"range": 0,
+		"maxrange": 0,
+		"slug": "battleaxe"
+	},
+	{
+		"id": 7,
+		"title": "Rapier",
+		"itemtype": "Weapon",
+		"damagerange": 8,
+		"damagemulti": 1,
+		"damagetype": "piercing",
+		"properties": {
+			"ammunition": false,
+			"finesse": true,
+			"heavy": false,
+			"light": false,
+			"loading": false,
+			"reach": false,
+			"thrown": false,
+			"twohanded": false,
+			"versatile": false
+		},
+		"range": 0,
+		"maxrange": 0,
+		"slug": "rapier"
+	},
+	{
+		"id": 8,
+		"title": "Shortbow",
+		"itemtype": "Weapon",
+		"damagerange": 6,
+		"damagemulti": 1,
+		"damagetype": "piercing",
+		"properties": {
+			"ammunition": true,
+			"finesse": false,
+			"heavy": false,
+			"light": false,
+			"loading": false,
+			"reach": false,
+			"thrown": false,
+			"twohanded": true,
+			"versatile": false
+		},
+		"range": 80,
+		"maxrange": 320,
+		"slug": "shortbow"
 	}
 ]

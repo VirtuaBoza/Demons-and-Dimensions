@@ -1,0 +1,94 @@
+[
+	{
+		"id": 0,
+		"name": "Crystal",
+		"class": "Mage",
+		"race": "Elf",
+		"speed": 30,
+		"basehp": 7,
+		"hitdice": 6,
+		"baseabilityscores": {
+			"str": 8,
+			"dex": 12,
+			"con": 12,
+			"int": 14,
+			"wis": 15,
+			"cha": 14
+		},
+		"throwprofs": {
+			"str": false,
+			"dex": false,
+			"con": false,
+			"int": false,
+			"wis": true,
+			"cha": true
+		},
+		"startingequipment": [
+								5
+								]
+	},
+	{
+		"id": 1,
+		"name": "Teddy",
+		"class": "Warrior",
+		"race": "Dwarf",
+		"speed": 25,
+		"basehp": 13,
+		"hitdice": 10,
+		"baseabilityscores": {
+			"str": 17,
+			"dex": 13,
+			"con": 16,
+			"int": 8,
+			"wis": 10,
+			"cha": 12
+		},
+		"throwprofs": {
+			"str": true,
+			"dex": false,
+			"con": true,
+			"int": false,
+			"wis": false,
+			"cha": false
+		},
+		"startingequipment": [
+								1,
+								6,
+								2,
+								4,
+								4
+								]
+	},
+	{
+		"id": 2,
+		"name": "Hunter",
+		"class": "Thief",
+		"race": "Human",
+		"speed": 30,
+		"basehp": 8,
+		"hitdice": 8,
+		"baseabilityscores": {
+			"str": 13,
+			"dex": 16,
+			"con": 11,
+			"int": 15,
+			"wis": 9,
+			"cha": 14
+		},
+		"throwprofs": {
+			"str": false,
+			"dex": true,
+			"con": false,
+			"int": true,
+			"wis": false,
+			"cha": false
+		},
+		"startingequipment": [
+								7,
+								8,
+								0,
+								3,
+								3
+								]
+	}
+]
