@@ -7,8 +7,8 @@ using System;
 public class Slot : MonoBehaviour, IDropHandler {
 
 	public int slotID;
-	public Image weaponTypeIcon, armorTypeIcon;
-	public enum SlotType {All, Armor, Weapon}
+	public Image armorTypeIcon, bootsTypeIcon, helmetTypeIcon, weaponTypeIcon;
+	public enum SlotType {All, Armor, Boots, Helmet, Weapon}
 	public SlotType slotItemType = SlotType.All;
 
 	private Inventory inv;
@@ -24,6 +24,12 @@ public class Slot : MonoBehaviour, IDropHandler {
 		case SlotType.Armor:
 			Instantiate (armorTypeIcon, this.transform, false);
 			break;
+		case SlotType.Boots:
+			Instantiate (bootsTypeIcon, this.transform, false);
+			break;
+		case SlotType.Helmet:
+			Instantiate (helmetTypeIcon, this.transform, false);
+			break;
 		case SlotType.Weapon:
 			Instantiate (weaponTypeIcon, this.transform, false);
 			break;
@@ -35,7 +41,11 @@ public class Slot : MonoBehaviour, IDropHandler {
 		// Get the item info of the dropped item
 		ItemInfo droppedItem = eventData.pointerDrag.GetComponent<ItemInfo>();
 
-		if (slotItemType == SlotType.All || (droppedItem.item.Itemtype.Contains("Armor") && slotItemType == SlotType.Armor) || (droppedItem.item.Itemtype.Contains("Weapon") && slotItemType == SlotType.Weapon)) {
+		if (slotItemType == SlotType.All || 
+			(droppedItem.item.Itemtype.Contains("Armor") && slotItemType == SlotType.Armor) || 
+			((droppedItem.item.Itemtype.Contains("Weapon") || droppedItem.item.Itemtype.Contains("Shield")) && slotItemType == SlotType.Weapon) || 
+			(droppedItem.item.Itemtype.Contains("Helmet") && slotItemType == SlotType.Helmet) ||
+			(droppedItem.item.Itemtype.Contains("Boots") && slotItemType == SlotType.Boots)) {
 
 			// If the item from the inventory's item list at the index that matches this slot's ID number is a non-item...
 			if (inv.items[slotID].ID == -1) {

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: eba27ec70c957c548adecd461b1c388b
-timeCreated: 1480966324
+guid: 3652ce6a16caa054da0587330087792c
+timeCreated: 1481507154
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -12,6 +12,7 @@ TextureImporter:
     21300010: SlotTypeIcons_5
     21300012: SlotTypeIcons_6
     21300014: SlotTypeIcons_7
+    21300016: SlotTypeIcons_8
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -65,7 +66,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -78,7 +79,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 32
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -91,7 +92,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 32
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -104,7 +105,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
-        y: 32
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -117,7 +118,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -130,7 +131,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 0
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -143,7 +144,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 0
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -156,6 +157,19 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SlotTypeIcons_8
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 0
         width: 32
         height: 32

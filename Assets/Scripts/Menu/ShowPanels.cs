@@ -7,7 +7,10 @@ public class ShowPanels : MonoBehaviour {
 	public GameObject optionsTint;							//Store a reference to the Game Object OptionsTint 
 	public GameObject menuPanel;							//Store a reference to the Game Object MenuPanel 
 	public GameObject pausePanel;							//Store a reference to the Game Object PausePanel 
+	public GameObject characterPanel;
 	public GameObject inventoryPanel;
+	public GameObject statPanel;
+	public GameObject spellPanel;
 	public GameObject backgroundBlocker;
 
 
@@ -54,13 +57,35 @@ public class ShowPanels : MonoBehaviour {
 
 	public void ShowInventoryPanel()
 	{
+		characterPanel.SetActive (true);
 		inventoryPanel.SetActive (true);
+		statPanel.SetActive (false);
+		spellPanel.SetActive(false);
+		backgroundBlocker.SetActive(true);
+	}
+
+	public void ShowStatPanel()
+	{
+		characterPanel.SetActive (true);
+		inventoryPanel.SetActive (false);
+		statPanel.SetActive (true);
+		spellPanel.SetActive(false);
+		backgroundBlocker.SetActive(true);
+	}
+
+	public void ShowSpellPanel()
+	{
+		characterPanel.SetActive (true);
+		inventoryPanel.SetActive (false);
+		statPanel.SetActive (false);
+		spellPanel.SetActive(true);
 		backgroundBlocker.SetActive(true);
 	}
 		
-	public void HideInventoryPanel()
+	public void HideCharacterPanel()
 	{
-		inventoryPanel.SetActive (false);
+		characterPanel.SetActive (false);
 		backgroundBlocker.SetActive(false);
 	}
+		
 }
