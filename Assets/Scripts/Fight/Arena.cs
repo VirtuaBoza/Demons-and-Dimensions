@@ -16,6 +16,8 @@ public class Arena : MonoBehaviour {
 	public FriendlyLayoutGroup friendlyLayoutGroup;
 	public EnemyLayoutGroup enemyLayoutGroup;
 
+	public List<Enemy> enemiesInBattle = new List<Enemy>();
+
 	private bool spellMode = false;
 	private bool buffMode = false;
 	private List<Vector3> positionList = new List<Vector3>();
@@ -87,6 +89,8 @@ public class Arena : MonoBehaviour {
 				character.GetComponent<SpriteRenderer> ().sortingOrder = 10 - ((int)position.y);
 				Enemy enemy = character.GetComponent<Enemy>();
 				enemyLayoutGroup.PopulateInfoBox(enemy.myName, enemy.hp, enemy.maxHp);
+
+				enemiesInBattle.Add(enemy);
 			}
 		}
 	}
