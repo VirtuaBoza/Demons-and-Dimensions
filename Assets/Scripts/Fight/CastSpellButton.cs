@@ -7,9 +7,9 @@ public class CastSpellButton : MonoBehaviour {
 	void Update () {
 		if(Input.GetKeyDown("right") && GetComponent<FightMenuButton>().isSelected){
 			GetComponent<Toggle>().isOn = true;
-			FindObjectOfType<Arena>().EnterTargetSelection("C");
+			FindObjectOfType<Arena>().EnterTargetSelection(ACTION.Casting);
 			FindObjectOfType<FightMenuFrame>().ActivateTargetPanel(true);
-			FindObjectOfType<FightMenu>().ActivateMenu(false);
+			FindObjectOfType<FightMenuFrame>().ActivateFightMenu(false);
 		}
 	}
 

@@ -9,12 +9,11 @@ public class CharacterPanel : MonoBehaviour {
 	strModText, dexModText, conModText, intModText, wisModText, chaModText,
 	strScoreText, dexScoreText, conScoreText, intScoreText, wisScoreText, chaScoreText,
 	strThrowModText, dexThrowModText, conThrowModText, intThrowModText, wisThrowModText, chaThrowModText;
-	public CHARACTER currentCharacter;
 	public Toggle blueToggle, orangeToggle, greenToggle, redToggle;
 
 	public List<Character> characters = new List<Character>();
 
-
+	private CHARACTER currentCharacter;
 	CharacterDatabase database;
 
 	void Start () {
@@ -34,45 +33,48 @@ public class CharacterPanel : MonoBehaviour {
 		currentCharacter = (CHARACTER)index;
 
 		nameText.text = characters[index].Name;
-		lvlText.text = "Lvl " + characters[index].Lvl.ToString();
+		lvlText.text = "Lvl " + characters[index].GetLvl().ToString();
 		classText.text = characters[index].Class;
 		xpText.text = characters[index].Xp.ToString() + " XP";
 		hpText.text = characters[index].CurrentHP.ToString();
 		maxHpText.text = "/" + characters[index].BaseHp.ToString();
-		acText.text = characters[index].Ac.ToString();
-		profText.text = "+" + characters[index].ProfBonus.ToString();
+		acText.text = characters[index].GetAc().ToString();
+		profText.text = "+" + characters[index].GetProfBonus().ToString();
 		speedText.text = characters[index].Speed.ToString() + "ft";
-		if (characters[index].StrModifier < 0) {strModText.text = characters[index].StrModifier.ToString();}
-		else {strModText.text = "+" + characters[index].StrModifier.ToString();}
-		if (characters[index].DexModifier < 0) {dexModText.text = characters[index].DexModifier.ToString();}
-		else {dexModText.text = "+" + characters[index].DexModifier.ToString();}
-		if (characters[index].ConModifier < 0) {conModText.text = characters[index].ConModifier.ToString();}
-		else {conModText.text = "+" + characters[index].ConModifier.ToString();}
-		if (characters[index].IntModifier < 0) {intModText.text = characters[index].IntModifier.ToString();}
-		else {intModText.text = "+" + characters[index].IntModifier.ToString();}
-		if (characters[index].WisModifier < 0) {wisModText.text = characters[index].WisModifier.ToString();}
-		else {wisModText.text = "+" + characters[index].WisModifier.ToString();}
-		if (characters[index].ChaModifier < 0) {chaModText.text = characters[index].ChaModifier.ToString();}
-		else {chaModText.text = "+" + characters[index].ChaModifier.ToString();}
-		strScoreText.text = characters[index].StrScore.ToString();
-		dexScoreText.text = characters[index].DexScore.ToString();
-		conScoreText.text = characters[index].ConScore.ToString();
-		intScoreText.text = characters[index].IntScore.ToString();
-		wisScoreText.text = characters[index].WisScore.ToString();
-		chaScoreText.text = characters[index].ChaScore.ToString();
-		if (characters[index].StrThrowMod < 0) {strThrowModText.text = characters[index].StrThrowMod.ToString();}
-		else {strThrowModText.text = "+" + characters[index].StrThrowMod.ToString();}
-		if (characters[index].DexThrowMod < 0) {dexThrowModText.text = characters[index].DexThrowMod.ToString();}
-		else {dexThrowModText.text = "+" + characters[index].DexThrowMod.ToString();}
-		if (characters[index].ConThrowMod < 0) {conThrowModText.text = characters[index].ConThrowMod.ToString();}
-		else {conThrowModText.text = "+" + characters[index].ConThrowMod.ToString();}
-		if (characters[index].IntThrowMod < 0) {intThrowModText.text = characters[index].IntThrowMod.ToString();}
-		else {intThrowModText.text = "+" + characters[index].IntThrowMod.ToString();}
-		if (characters[index].WisThrowMod < 0) {wisThrowModText.text = characters[index].WisThrowMod.ToString();}
-		else {wisThrowModText.text = "+" + characters[index].WisThrowMod.ToString();}
-		if (characters[index].ChaThrowMod < 0) {chaThrowModText.text = characters[index].ChaThrowMod.ToString();}
-		else {chaThrowModText.text = "+" + characters[index].ChaThrowMod.ToString();}
 
+		strModText.text = DisplayAbilityScoreModifier(characters[index], ABILITY.Str);
+		dexModText.text = DisplayAbilityScoreModifier(characters[index], ABILITY.Dex);
+		conModText.text = DisplayAbilityScoreModifier(characters[index], ABILITY.Con);
+		intModText.text = DisplayAbilityScoreModifier(characters[index], ABILITY.Int);
+		wisModText.text = DisplayAbilityScoreModifier(characters[index], ABILITY.Wis);
+		chaModText.text = DisplayAbilityScoreModifier(characters[index], ABILITY.Cha);
+
+		strScoreText.text = characters[index].abilityScoreDictionary[ABILITY.Str].ToString();
+		dexScoreText.text = characters[index].abilityScoreDictionary[ABILITY.Dex].ToString();
+		conScoreText.text = characters[index].abilityScoreDictionary[ABILITY.Con].ToString();
+		intScoreText.text = characters[index].abilityScoreDictionary[ABILITY.Int].ToString();
+		wisScoreText.text = characters[index].abilityScoreDictionary[ABILITY.Wis].ToString();
+		chaScoreText.text = characters[index].abilityScoreDictionary[ABILITY.Cha].ToString();
+
+		strThrowModText.text = DisplayThrowModifier(characters[index], ABILITY.Str);
+		dexThrowModText.text = DisplayThrowModifier(characters[index], ABILITY.Dex);
+		conThrowModText.text = DisplayThrowModifier(characters[index], ABILITY.Con);
+		intThrowModText.text = DisplayThrowModifier(characters[index], ABILITY.Int);
+		wisThrowModText.text = DisplayThrowModifier(characters[index], ABILITY.Wis);
+		chaThrowModText.text = DisplayThrowModifier(characters[index], ABILITY.Cha);
+
+	}
+
+	private string DisplayAbilityScoreModifier(Character character, ABILITY ability) {
+		string result = character.GetAbilityScoreModifier(ability).ToString();
+		if (character.GetAbilityScoreModifier(ability) > 0) result = "+" + result;
+		return result;
+	}
+
+	private string DisplayThrowModifier(Character character, ABILITY ability) {
+		string result = character.GetThrowMod(ability).ToString();
+		if (character.GetThrowMod(ability) > 0) result = "+" + result;
+		return result;
 	}
 
 }
