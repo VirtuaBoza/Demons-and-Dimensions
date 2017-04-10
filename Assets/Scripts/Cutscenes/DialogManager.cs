@@ -18,8 +18,14 @@ public class DialogManager : MonoBehaviour {
 	private bool isTyping = false;
 	private IEnumerator coroutine;
 
+	private Choreographer choreographer;
+	private int choreographyIndex = 0;
+
 	// Use this for initialization
 	void Start () {
+
+		choreographer = FindObjectOfType<Choreographer>();
+
 		if (textFile != null) {
 			linesOfText = (textFile.text.Split('\n'));
 			UpdateText();
@@ -47,6 +53,9 @@ public class DialogManager : MonoBehaviour {
 			coroutine = TypeText (speaker.text);
 			StartCoroutine(coroutine);
 			dialogArrow.gameObject.SetActive (false);
+
+			choreographer.CueBlocking(choreographyIndex);
+			choreographyIndex++;
 		} else {
 			EndScene();
 		}

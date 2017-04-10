@@ -218,19 +218,37 @@ namespace Tiled2Unity
             this.assetImporter.userData = "tiled2unity";
 
             TextureImporter textureImporter = this.assetImporter as TextureImporter;
+
             textureImporter.textureType = TextureImporterType.Default;
             textureImporter.npotScale = TextureImporterNPOTScale.None;
             textureImporter.convertToNormalmap = false;
-            textureImporter.lightmap = false;
+
+            //textureImporter.lightmap = false;
+			// This is depricated, and I don't know how to replace this
+
             textureImporter.alphaIsTransparency = true;
-            textureImporter.grayscaleToAlpha = false;
-            textureImporter.linearTexture = false;
+
+            //textureImporter.grayscaleToAlpha = false;
+			// This is depricated, and this is my replacement:
+			textureImporter.alphaSource = TextureImporterAlphaSource.FromInput;
+
+            //textureImporter.linearTexture = false;
+			// This is depricated, and this my replacement:
+			textureImporter.sRGBTexture = false;
+
             textureImporter.spriteImportMode = SpriteImportMode.None;
             textureImporter.mipmapEnabled = false;
-            textureImporter.generateCubemap = TextureImporterGenerateCubemap.None;
+
+            //textureImporter.generateCubemap = TextureImporterGenerateCubemap.None;
+			// This is depricated, and this my replacement:
+			textureImporter.textureShape = TextureImporterShape.Texture2D;
+
             textureImporter.filterMode = FilterMode.Point;
             textureImporter.wrapMode = TextureWrapMode.Clamp;
-            textureImporter.textureFormat = TextureImporterFormat.AutomaticTruecolor;
+
+            //textureImporter.textureFormat = TextureImporterFormat.AutomaticTruecolor;
+			// This is depricated, and this my replacement:
+			textureImporter.textureCompression = TextureImporterCompression.Compressed;
         }
 
     }

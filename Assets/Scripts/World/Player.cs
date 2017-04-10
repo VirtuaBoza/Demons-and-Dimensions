@@ -7,18 +7,19 @@ public class Player : MonoBehaviour {
 
 	private Animator animator;
 	private Vector3 target, lastTarget;
-	private bool isMovingToTarget = false;
+	private bool isMovingToTarget = true;
 
 	// Use this for initialization
 	void Start () {
 		animator = GetComponent <Animator>();
 		target = transform.position;
 		lastTarget = target;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
+		
 		// Moves character with mouseclick
 		if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0){
 			GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -27,13 +28,16 @@ public class Player : MonoBehaviour {
 
 			// Resets animation
 			if (transform.position == target || target != lastTarget){
+				
 				ResetAnimation();
 			} else {
-
+				
 				// Animates movement
+
 				float xDiff = target.x - transform.position.x;
 				float yDiff = target.y - transform.position.y;
 				Animate(xDiff, yDiff);
+
 			}
 
 			lastTarget = target;
@@ -54,11 +58,13 @@ public class Player : MonoBehaviour {
 				target = transform.position;
 			}
 		}
+
 	}
 
 	// Called by Ground.cs when the ground is clicked
 	public void MovePlayer(Vector3 here){
 		target = here;
+
 	}
 
 	void Animate (float x, float y) {
