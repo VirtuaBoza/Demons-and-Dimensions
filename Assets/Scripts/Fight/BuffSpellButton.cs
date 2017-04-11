@@ -7,7 +7,7 @@ public class BuffSpellButton : MonoBehaviour {
 	void Update () {
 		if(Input.GetKeyDown("right") && GetComponent<FightMenuButton>().isSelected){
 			GetComponent<Toggle>().isOn = true;
-			FindObjectOfType<Arena>().EnterTargetSelection(ACTION.Buffing);
+			FindObjectOfType<FightManager>().EnterTargetSelection(ACTION.Buffing);
 			FindObjectOfType<FightMenuFrame>().ActivateTargetPanel(true);
 			FindObjectOfType<FightMenuFrame>().ActivateFightMenu(false);
 		}

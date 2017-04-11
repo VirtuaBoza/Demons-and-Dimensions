@@ -8,7 +8,7 @@ public class AttackButton : MonoBehaviour {
 	void Update () {
 		if(Input.GetKeyDown("right") && GetComponent<FightMenuButton>().isSelected){
 			GetComponent<Toggle>().isOn = true;
-			FindObjectOfType<Arena>().EnterTargetSelection(ACTION.Attacking);
+			FindObjectOfType<FightManager>().EnterTargetSelection(ACTION.Attacking);
 			FindObjectOfType<FightMenuFrame>().ActivateTargetPanel(true);
 			FindObjectOfType<FightMenuFrame>().ActivateFightMenu(false);
 		}

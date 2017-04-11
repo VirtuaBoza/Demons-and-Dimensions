@@ -17,7 +17,6 @@ public class Ground : MonoBehaviour {
 		
 		Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		target.z = player.transform.position.z;
-		Debug.Log(target);
 		player.MovePlayer(target);
 	}
 }

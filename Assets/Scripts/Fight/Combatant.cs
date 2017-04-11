@@ -10,16 +10,23 @@ public class Combatant : MonoBehaviour {
 	public int maxHp;
 	public int initiative;
 	public bool isFriendly;
-	public GameObject infoBox;
+	[HideInInspector]public GameObject infoBox;
+
+	private Button button;
+
+	void Awake() {
+		button = GetComponentInChildren<Button>();
+	}
 
 	public void StartTurn() {
-		GetComponentInChildren<Image>().GetComponent<Animator>().SetBool("isTurn",true);
-		infoBox.GetComponent<Animator>().SetBool("isTurn",true);
+		button.gameObject.SetActive(true);
+		button.interactable = false;
+		infoBox.GetComponent<Animator>().SetBool("isTurn", true);
 	}
 
 	public void EndTurn() {
-		GetComponentInChildren<Image>().GetComponent<Animator>().SetBool("isTurn",false);
-		infoBox.GetComponent<Animator>().SetBool("isTurn",false);
+		button.gameObject.SetActive(false);
+		infoBox.GetComponent<Animator>().SetBool("isTurn", false);
 	}
 
 }

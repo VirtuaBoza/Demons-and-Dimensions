@@ -4,11 +4,9 @@ using System.Collections;
 public class Actor : MonoBehaviour {
 
 	public float playerSpeed = 3f;
-	public string actorName;
 
 	private Animator animator;
 	private Vector3 target, lastTarget;
-	private bool isMovingToTarget = true;
 
 	// Use this for initialization
 	void Start () {
@@ -22,7 +20,6 @@ public class Actor : MonoBehaviour {
 		
 		GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 		transform.position = Vector3.MoveTowards(transform.position, target, playerSpeed * Time.deltaTime);
-		isMovingToTarget = true;
 
 		// Resets animation
 		if (transform.position == target || target != lastTarget){
@@ -48,17 +45,13 @@ public class Actor : MonoBehaviour {
 	}
 
 	void Animate (float x, float y) {
-		if (isMovingToTarget) {
-			if (Mathf.Abs(x) > Mathf.Abs(y)){
-				animator.SetFloat("speedX", x);
-			} else {
-				animator.SetFloat("speedY", y);
-			}
-		} else {
+		if (Mathf.Abs(x) > Mathf.Abs(y)){
 			animator.SetFloat("speedX", x);
+			animator.SetFloat("speedY", 0f);
+		} else {
 			animator.SetFloat("speedY", y);
+			animator.SetFloat("speedX", 0f);
 		}
-
 	}
 
 	void ResetAnimation(){

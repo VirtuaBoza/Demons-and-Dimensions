@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class DialogManager : MonoBehaviour {
 
@@ -10,79 +11,85 @@ public class DialogManager : MonoBehaviour {
 	public float letterPause = 0.05f;
 	public float sentencePause = 0.5f;
 	public AudioClip crystalTypeSound,damienTypeSound,hunterTypeSound,teddyTypeSound,otherTypeSound;
-	public bool soundEnabled = true;
-	public Image dialogArrow;
+	public Image advanceDialogArrow;
+	public int nextSceneIndex;
+	public AnimationClip fadeColorAnimationClip;
 
-	private int speakerIndex = 0;
-	private int dialogIndex = 1;
+	private int speakerIndex = 1;
+	private int dialogIndex = 2;
 	private bool isTyping = false;
 	private IEnumerator coroutine;
+	private AudioSource audioSource;
 
 	private Choreographer choreographer;
 	private int choreographyIndex = 0;
+	public Animator animColorFade;
 
 	// Use this for initialization
-	void Start () {
+	void Start() {
 
+		audioSource = GetComponent<AudioSource>();
 		choreographer = FindObjectOfType<Choreographer>();
+
+		if (GameObject.Find("FadeImage")) {
+			animColorFade = GameObject.Find("FadeImage").GetComponent<Animator>();
+		}
 
 		if (textFile != null) {
 			linesOfText = (textFile.text.Split('\n'));
-			UpdateText();
+			Invoke ("UpdateText", fadeColorAnimationClip.length * .5f);
 		}
-		dialogArrow.gameObject.SetActive (false);
+		advanceDialogArrow.gameObject.SetActive (false);
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update() {
 		if (Input.GetKeyDown(KeyCode.Space)){
 			UpdateText ();
 		}
 	}
 
-	public void UpdateText () {
+	private void UpdateText() {
 		if (isTyping) {
 			FinishTyping ();
-		} else if (dialogIndex + 1 < linesOfText.Length) {
+		} else if (dialogIndex < linesOfText.Length) {
 			isTyping = true;
-			speakerIndex += 2;
-			dialogIndex += 2;
 			speaker.text = linesOfText[speakerIndex];
+			choreographer.SetSpeaker(speaker.text);
 			ColorSpeakerText(linesOfText[speakerIndex]);
 			dialog.text = "";
 			coroutine = TypeText (speaker.text);
 			StartCoroutine(coroutine);
-			dialogArrow.gameObject.SetActive (false);
-
+			advanceDialogArrow.gameObject.SetActive (false);
 			choreographer.CueBlocking(choreographyIndex);
-			choreographyIndex++;
 		} else {
+			choreographer.CueBlocking(choreographyIndex);
 			EndScene();
 		}
 	}
 
 	IEnumerator TypeText(string speaker) {
-		int charPosition = 0;
-		foreach (char letter in linesOfText[dialogIndex].ToCharArray()){
+		int charPosition = 1;
+		foreach (char letter in linesOfText[dialogIndex].ToCharArray()) {
 			dialog.text += letter;
 			charPosition++;
-			if (charPosition == linesOfText[dialogIndex].ToCharArray().Length){
-				FinishTyping ();
+			if (charPosition == linesOfText[dialogIndex].ToCharArray().Length) {
+				FinishTyping();
 			}
-			if (soundEnabled && charPosition % 2 == 0 && charPosition != linesOfText[dialogIndex].ToCharArray().Length) {
+			if (charPosition % 2 == 0 && charPosition != linesOfText[dialogIndex].ToCharArray().Length) {
 				if (speaker.Contains("Damien")) {
-					GetComponent<AudioSource> ().PlayOneShot (damienTypeSound);
+					audioSource.PlayOneShot (damienTypeSound);
 				} else if (speaker.Contains("Crystal")) {
-					GetComponent<AudioSource> ().PlayOneShot (crystalTypeSound);
+					audioSource.PlayOneShot (crystalTypeSound);
 				} else if (speaker.Contains("Teddy")) {
-					GetComponent<AudioSource> ().PlayOneShot (teddyTypeSound);
+					audioSource.PlayOneShot (teddyTypeSound);
 				} else if (speaker.Contains("Hunter")) {
-					GetComponent<AudioSource> ().PlayOneShot (hunterTypeSound);
+					audioSource.PlayOneShot (hunterTypeSound);
 				} else {
-					GetComponent<AudioSource> ().PlayOneShot (otherTypeSound);
+					audioSource.PlayOneShot (otherTypeSound);
 				}
 			}
-			if(letter == '.' || letter == '?') {
+			if (letter == '.' || letter == '?' || letter == '!') {
 				yield return new WaitForSeconds (sentencePause);
 			} else {
 				yield return new WaitForSeconds (letterPause);
@@ -93,11 +100,14 @@ public class DialogManager : MonoBehaviour {
 	void FinishTyping() {
 		StopAllCoroutines();
 		isTyping = false;
-		dialog.text = linesOfText [dialogIndex];
-		dialogArrow.gameObject.SetActive (true);
+		dialog.text = linesOfText[dialogIndex];
+		dialogIndex += 3;
+		speakerIndex += 3;
+		choreographyIndex++;
+		advanceDialogArrow.gameObject.SetActive (true);
 	}
 
-	void ColorSpeakerText (string speaker) {
+	void ColorSpeakerText(string speaker) {
 		if (speaker.Contains("Damien")) {
 			this.speaker.color = Color.red;
 		} else if (speaker.Contains("Crystal")) {
@@ -109,8 +119,16 @@ public class DialogManager : MonoBehaviour {
 		}
 	}
 
-	void EndScene () {
-		Debug.Log("This log indicates that the scene should end here when i can manage to get around to adding that feature");
+	void EndScene() {
+		//Use invoke to delay calling of LoadDelayed by half the length of fadeColorAnimationClip
+		Invoke ("LoadDelayed", fadeColorAnimationClip.length * .5f);
+
+		//Set the trigger of Animator animColorFade to start transition to the FadeToOpaque state.
+		animColorFade.SetTrigger ("fade");
+	}
+
+	void LoadDelayed() {
+		SceneManager.LoadScene (nextSceneIndex);
 	}
 
 }

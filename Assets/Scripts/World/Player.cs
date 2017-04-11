@@ -68,17 +68,13 @@ public class Player : MonoBehaviour {
 	}
 
 	void Animate (float x, float y) {
-		if (isMovingToTarget) {
-			if (Mathf.Abs(x) > Mathf.Abs(y)){
-				animator.SetFloat("speedX", x);
-			} else {
-				animator.SetFloat("speedY", y);
-			}
-		} else {
+		if (Mathf.Abs(x) > Mathf.Abs(y)){
 			animator.SetFloat("speedX", x);
+			animator.SetFloat("speedY", 0f);
+		} else {
 			animator.SetFloat("speedY", y);
+			animator.SetFloat("speedX", 0f);
 		}
-
 	}
 
 	void ResetAnimation(){
