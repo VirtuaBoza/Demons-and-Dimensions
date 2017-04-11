@@ -19,20 +19,14 @@ public class Arena : MonoBehaviour {
 	public EnemyLayoutGroup enemyLayoutGroup;
 	public List<Combatant> combatants = new List<Combatant>();
 
-	private bool spellMode = false;
-	private bool buffMode = false;
 	private List<Vector3> positionList = new List<Vector3>();
 	private List<int> initiativeList = new List<int>();
 
 	void Start () {
-
 		Image myImage = GetComponent<Image>();
 		myImage.overrideSprite = arenas[mapIndex];
-
 		InstantiateEnemies();
-
 		InstantiateFriendlies ();
-
 		FindObjectOfType<FightManager>().StartFight(combatants);
 	}
 
@@ -49,15 +43,12 @@ public class Arena : MonoBehaviour {
 		if (isCrystalPlaying) {
 			PlaceCharacter(true,crystalPrefab);
 		}
-
 		if (isDamienPlaying) {
 			PlaceCharacter(true,damienPrefab);
 		}
-
 		if (isHunterPlaying) {
 			PlaceCharacter(true,hunterPrefab);
 		}
-
 		if (isTeddyPlaying) {
 			PlaceCharacter(true,teddyPrefab);
 		}
@@ -105,50 +96,6 @@ public class Arena : MonoBehaviour {
 			initiativeList.Add(roll);
 			return roll;
 		}
-	}
-
-	public void EnterTargetSelection (ACTION action){
-
-		if(action == ACTION.Attacking || action == ACTION.Casting){
-			foreach (Combatant combatant in combatants) {
-				if (!combatant.isFriendly) Instantiate(targetSelectButton, combatant.transform, false);
-			}
-		} else if (action == ACTION.Buffing) {
-			foreach (Combatant combatant in combatants) {
-				if (combatant.isFriendly) Instantiate(targetSelectButton, combatant.transform, false);
-			}
-			buffMode = true;
-		}
-
-		if (action == ACTION.Casting) {
-			spellMode = true;
-		}
-
-		Button[] buttons = GetComponentsInChildren<Button>();
-		buttons[0].Select();
-
-	}
-		
-	public void ExitTargetSelection () {
-		Button[] buttons = GetComponentsInChildren<Button>();
-		foreach(Button button in buttons){
-			Destroy(button.gameObject);
-		}
-
-		fightMenuFrame.ActivateFightMenu(true);
-		fightMenuFrame.ActivateTargetPanel(false);
-
-		if(spellMode){
-			FindObjectOfType<AttackSpellOptions>().GetComponentsInChildren<Button>()[0].Select();
-		} else if(buffMode){
-				FindObjectOfType<BuffSpellOptions>().GetComponentsInChildren<Button>()[0].Select();
-		} else {
-			FindObjectOfType<AttackOptions>().GetComponentsInChildren<Button>()[0].Select();
-		}
-
-		spellMode = false;
-		buffMode = false;
-
 	}
 
 }
