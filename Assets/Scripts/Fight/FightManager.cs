@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class FightManager : MonoBehaviour {
 
+	public GameObject moveTarget;
+
+	public List<Vector3> currentPositionList = new List<Vector3>();
+
 	private FightMenuFrame fightMenuFrame;
 	private List<Combatant> currentCombatants = new List<Combatant>();
 	private Dictionary<Combatant, Button> combatantButtons = new Dictionary<Combatant, Button>();
@@ -17,11 +21,12 @@ public class FightManager : MonoBehaviour {
 	}
 
 	public void StartFight(List<Combatant> combatants) {
-		currentCombatants = combatants;
 		foreach (Combatant combatant in combatants) {
 			combatantButtons.Add(combatant,combatant.GetComponentInChildren<Button>());
 			combatant.GetComponentInChildren<Button>().gameObject.SetActive(false);
+			currentPositionList.Add(combatant.transform.localPosition);
 		}
+		currentCombatants = combatants;
 		RunGame();
 	}
 
@@ -30,6 +35,7 @@ public class FightManager : MonoBehaviour {
 		if (currentCombatants[0].isFriendly) {
 			fightMenuFrame.ActivateWaitPanel(false);
 			fightMenuFrame.ActivateFightMenu(true);
+			FindObjectOfType<MoveButton>().UpdateText(currentCombatants[0].remainingMoves);
 		} else {
 			fightMenuFrame.ActivateWaitPanel(true);
 			fightMenuFrame.ActivateFightMenu(false);
@@ -44,14 +50,11 @@ public class FightManager : MonoBehaviour {
 		RunGame();
 	}
 
-	public void EnterTargetSelection(string AorBorC) {
-		if (AorBorC.Contains("A")) EnterTargetSelection(ACTION.Attacking);
-		else if (AorBorC.Contains("B")) EnterTargetSelection(ACTION.Buffing);
-		else if (AorBorC.Contains("C")) EnterTargetSelection(ACTION.Casting);
-		else Debug.Log("You sent something other than A, B, or C");
-	}
+	public void EnterTargetSelection(ACTION action){
+		
+		fightMenuFrame.ActivateFightMenu(false);
+		fightMenuFrame.ActivateTargetPanel(true);
 
-	public void EnterTargetSelection (ACTION action){
 		bool oneIsSelected = false;
 		if(action == ACTION.Attacking || action == ACTION.Casting){
 			foreach (KeyValuePair<Combatant, Button> entry in combatantButtons) {
@@ -84,7 +87,7 @@ public class FightManager : MonoBehaviour {
 
 	}
 
-	public void ExitTargetSelection () {
+	public void ExitTargetSelection() {
 		
 		Debug.Log("Resolve the selection.");
 
@@ -102,5 +105,56 @@ public class FightManager : MonoBehaviour {
 		spellMode = false;
 		buffMode = false;
 
+	}
+
+	public void EnterMoveSelection() {
+
+		fightMenuFrame.ActivateFightMenu(false);
+		fightMenuFrame.ActivateTargetPanel(true);
+
+		bool oneIsSelected = false;
+		foreach (Combatant combatant in currentCombatants) {
+			if (combatant.isTurn) {
+				for (int x = 1; x <= 8; x++) {
+					for (int y = 1; y <= 8; y++) {
+						Vector3 possibleOption = new Vector3(x,y);
+						if (Mathf.Abs(x - combatant.transform.localPosition.x) + Mathf.Abs(y - combatant.transform.localPosition.y) <= combatant.remainingMoves && !currentPositionList.Contains(possibleOption)) {
+							GameObject target = Instantiate(moveTarget,FindObjectOfType<Arena>().transform,false) as GameObject;
+							target.transform.localPosition = possibleOption;
+							if (!oneIsSelected) {
+								target.GetComponent<Button>().Select();
+								oneIsSelected = true;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public void ExitMoveSelection(Vector3 target) {
+		foreach (MoveTarget targetButton in FindObjectsOfType<MoveTarget>()) {
+			Destroy(targetButton.gameObject);
+		}
+		foreach (Combatant combatant in currentCombatants) {
+			if (combatant.isTurn) {
+				UpdatePositionList(combatant.transform.localPosition,target);
+				combatant.MoveCombatant(target);
+				fightMenuFrame.ActivateFightMenu(true);
+				fightMenuFrame.ActivateTargetPanel(false);
+				FindObjectOfType<MoveButton>().UpdateText(combatant.remainingMoves);
+				if (combatant.remainingMoves > 0) FindObjectOfType<MoveButton>().GetComponent<Button>().Select();
+				else {
+					FindObjectOfType<MoveButton>().GetComponent<Button>().interactable = false;
+					if (combatant.remainingActions > 0) FindObjectOfType<ActionsButton>().GetComponent<Toggle>().Select();
+					else GameObject.Find("EndTurn").GetComponent<Button>().Select();
+				}
+			}
+		}
+	}
+
+	public void UpdatePositionList(Vector3 oldPosition, Vector3 newPosition) {
+		currentPositionList.Remove(oldPosition);
+		currentPositionList.Add(newPosition);
 	}
 }

@@ -9,7 +9,10 @@ public class MoveButton : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		buttonText = GetComponentInChildren<Text>();
-		buttonText.text = "Move (" + 3.ToString() + ")"; //TODO This will pull the acting player's move count
+	}
+
+	public void UpdateText(int moves) {
+		buttonText.text = "Move (" + moves.ToString() + ")";
 	}
 
 }

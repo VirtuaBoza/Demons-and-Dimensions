@@ -8,7 +8,7 @@ public enum ACTION {Attacking,Buffing,Casting}
 
 public class Arena : MonoBehaviour {
 
-	public GameObject targetSelectButton,crystalPrefab,damienPrefab,hunterPrefab,teddyPrefab;
+	public GameObject crystalPrefab,damienPrefab,hunterPrefab,teddyPrefab;
 	[Range(1,16)]public int[] numberOfEnemiesByType;
 	public GameObject[] enemyPrefabs;
 	public Sprite[] arenas = new Sprite[2];

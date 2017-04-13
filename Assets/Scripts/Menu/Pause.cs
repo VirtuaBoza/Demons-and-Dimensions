@@ -54,11 +54,10 @@ public class Pause : MonoBehaviour {
 			(Input.GetKeyDown (KeyCode.I) && (currentPanel == CHARACTERPANEL.Inventory)) || 
 			(Input.GetKeyDown (KeyCode.S) && (currentPanel == CHARACTERPANEL.Spells))) && !startScript.inMainMenu && !isPaused) 
 		{
-			//Call the UnPause function to unpause the game
 			statToggle.isOn = false;
 			inventoryToggle.isOn = false;
 			spellsToggle.isOn = false;
-			HideCharacterPanel ();
+			UnPauseFromCharacterPanel ();
 		}
 
 		if(Input.GetKeyDown(KeyCode.N)) Debug.Log(currentPanel);
@@ -116,7 +115,7 @@ public class Pause : MonoBehaviour {
 		showPanels.ShowSpellPanel();
 	}
 
-	public void HideCharacterPanel()
+	public void UnPauseFromCharacterPanel()
 	{
 		currentPanel = CHARACTERPANEL.None;
 		//Set time.timescale to 1, this will cause animations and physics to continue updating at regular speed
