@@ -7,7 +7,7 @@ public class FightMenuFrame : MonoBehaviour {
 	private GameObject fightMenu,targetPanel,waitPanel;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		fightMenu = GetComponentInChildren<FightMenu>().gameObject;
 		ActivateFightMenu(true);
 		targetPanel = GetComponentInChildren<TargetPanel>().gameObject;

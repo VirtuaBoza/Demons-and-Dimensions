@@ -13,27 +13,30 @@ public class Combatant : MonoBehaviour {
 	public int remainingActions = 1;
 	public int initiative;
 	public bool isFriendly;
-	public bool isTurn = false;
+	[HideInInspector]public bool isTurn = false;
 	public float moveSpeed = 3f;
-	[HideInInspector]public GameObject infoBox;
+	[HideInInspector]public InfoBox infoBox;
 
 	private Button button;
 	private Animator animator;
 	private bool isMoving = false;
 	private Vector3 targetPosition = new Vector3();
+	private Text popUpText;
 
 	void Awake() {
 		button = GetComponentInChildren<Button>();
 		animator = GetComponent<Animator>();
+		popUpText = GetComponentInChildren<Text>();
 	}
 
 	void Update() {
 		if (isMoving && targetPosition != transform.localPosition) {
 			transform.localPosition = Vector3.MoveTowards(transform.localPosition, targetPosition, moveSpeed * Time.deltaTime);
-			GetComponent<SpriteRenderer>().sortingOrder = 10 - ((int)transform.localPosition.y);
+			GetComponent<Renderer>().sortingOrder = 10 - ((int)transform.localPosition.y);
 		} else if (isMoving) {
 			isMoving = false;
 			ResetAnimation();
+			if (GetComponent<AI>()) GetComponent<AI>().FinishedMoving();
 		}
 	}
 
@@ -74,5 +77,20 @@ public class Combatant : MonoBehaviour {
 	void ResetAnimation(){
 		animator.SetFloat("speedX", 0f);
 		animator.SetFloat("speedY", 0f);
+	}
+
+	public void TakeDamage(int amount) {
+		hp -= amount;
+		if (hp <= 0) {
+			Debug.Log("Combatant should die now. Add this later.");
+		}
+		PopUpText(Color.red,"-"+amount.ToString());
+		infoBox.SetHP(hp);
+	}
+
+	public void PopUpText(Color color, string text) {
+		popUpText.color = color;
+		popUpText.text = text;
+		popUpText.GetComponent<Animator>().SetTrigger("popUp");
 	}
 }

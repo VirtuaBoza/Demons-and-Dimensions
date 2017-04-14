@@ -16,7 +16,7 @@ public class FightManager : MonoBehaviour {
 	private bool spellMode = false;
 	private bool buffMode = false;
 
-	void Start() {
+	void Awake() {
 		fightMenuFrame = FindObjectOfType<FightMenuFrame>();
 	}
 
@@ -89,7 +89,7 @@ public class FightManager : MonoBehaviour {
 
 	public void ExitTargetSelection() {
 		
-		Debug.Log("Resolve the selection.");
+		Debug.Log("Resolve the selection and make the buttons go away.");
 
 		fightMenuFrame.ActivateFightMenu(true);
 		fightMenuFrame.ActivateTargetPanel(false);
@@ -145,7 +145,6 @@ public class FightManager : MonoBehaviour {
 				FindObjectOfType<MoveButton>().UpdateText(combatant.remainingMoves);
 				if (combatant.remainingMoves > 0) FindObjectOfType<MoveButton>().GetComponent<Button>().Select();
 				else {
-					FindObjectOfType<MoveButton>().GetComponent<Button>().interactable = false;
 					if (combatant.remainingActions > 0) FindObjectOfType<ActionsButton>().GetComponent<Toggle>().Select();
 					else GameObject.Find("EndTurn").GetComponent<Button>().Select();
 				}

@@ -23,8 +23,7 @@ public class Arena : MonoBehaviour {
 	private List<int> initiativeList = new List<int>();
 
 	void Start () {
-		Image myImage = GetComponent<Image>();
-		myImage.overrideSprite = arenas[mapIndex];
+		GetComponent<SpriteRenderer>().sprite = arenas[mapIndex];
 		InstantiateEnemies();
 		InstantiateFriendlies ();
 		FindObjectOfType<FightManager>().StartFight(combatants);

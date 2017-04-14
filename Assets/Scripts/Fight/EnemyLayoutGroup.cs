@@ -6,11 +6,12 @@ public class EnemyLayoutGroup : MonoBehaviour {
 
 	public GameObject enemyInfoBox;
 
-	public GameObject PopulateInfoBox(string name, int hp, int maxHp){
+	public InfoBox PopulateInfoBox(string name, int hp, int maxHp){
 		GameObject thisBox = Instantiate (enemyInfoBox, transform) as GameObject;
-		thisBox.GetComponentsInChildren<Text> () [0].text = name;
-		thisBox.GetComponentsInChildren<Text> () [1].text = "HP: " + hp.ToString () + "/" + maxHp.ToString();
-		return thisBox;
+		InfoBox infoBox = thisBox.GetComponent<InfoBox>();
+		infoBox.SetName(name);
+		infoBox.SetHP(hp,maxHp);
+		return infoBox;
 	}
 
 }
