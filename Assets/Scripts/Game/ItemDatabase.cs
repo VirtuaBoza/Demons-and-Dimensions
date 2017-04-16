@@ -4,6 +4,8 @@ using LitJson;
 using System.Collections.Generic;
 using System.IO;
 
+public enum ITEMTYPE {Armor, Boots, Helmet, Shield, Weapon}
+
 public class ItemDatabase : MonoBehaviour {
 
 	public List<Item> itemDatabase = new List<Item>();
@@ -68,7 +70,7 @@ public class Item {
 	// Properties of all items
 	public int ID { get; set; }
 	public string Title { get; set; }
-	public string Itemtype { get; set; }
+	public ITEMTYPE Itemtype { get; set; }
 
 	// Properties of armor
 	public int Ac { get; set; }
@@ -99,7 +101,12 @@ public class Item {
 	public Item (int id, string title, string itemtype, int ac, bool dexmodifies, bool modifiermax2, int str, bool stealthdisadv, string slug){
 		this.ID = id;
 		this.Title = title;
-		this.Itemtype = itemtype;
+		if (itemtype.Contains("Armor")) this.Itemtype = ITEMTYPE.Armor;
+		else if (itemtype.Contains("Boots")) this.Itemtype = ITEMTYPE.Boots;
+		else if (itemtype.Contains("Helmet")) this.Itemtype = ITEMTYPE.Helmet;
+		else if (itemtype.Contains("Shield")) this.Itemtype = ITEMTYPE.Weapon;
+		else if (itemtype.Contains("Weapon")) this.Itemtype = ITEMTYPE.Weapon;
+		else Debug.LogWarning ("Item constructor doesn't recognize the itemtype");	
 		this.Ac = ac;
 		this.Dexmodifies = dexmodifies;
 		this.Modifiermax2 = modifiermax2;
@@ -114,7 +121,12 @@ public class Item {
 		bool light, bool loading, bool reach, bool thrown, bool twohanded, bool versatile, int range, int maxrange, string slug) {
 		this.ID = id;
 		this.Title = title;
-		this.Itemtype = itemtype;
+		if (itemtype.Contains("Armor")) this.Itemtype = ITEMTYPE.Armor;
+		else if (itemtype.Contains("Boots")) this.Itemtype = ITEMTYPE.Boots;
+		else if (itemtype.Contains("Helmet")) this.Itemtype = ITEMTYPE.Helmet;
+		else if (itemtype.Contains("Shield")) this.Itemtype = ITEMTYPE.Weapon;
+		else if (itemtype.Contains("Weapon")) this.Itemtype = ITEMTYPE.Weapon;
+		else Debug.LogWarning ("Item constructor doesn't recognize the itemtype");
 		this.Damagerange = damagerange;
 		this.Damagemulti = damagemulti;
 		this.Damagetype = damagetype;

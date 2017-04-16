@@ -6,16 +6,19 @@ using UnityEngine.UI;
 public class Combatant : MonoBehaviour {
 
 	public string myName;
-	public int hp;
+	public CHARACTER character;
 	public int maxHp;
+	[HideInInspector]public int currentHp;
 	public int speed;
 	public int remainingMoves;
-	public int remainingActions = 1;
+	public int actions = 1;
+	public int remainingActions;
 	public int initiative;
 	public bool isFriendly;
 	[HideInInspector]public bool isTurn = false;
 	public float moveSpeed = 3f;
 	[HideInInspector]public InfoBox infoBox;
+	public List<Item> equippedItems = new List<Item>();
 
 	private Button button;
 	private Animator animator;
@@ -27,6 +30,7 @@ public class Combatant : MonoBehaviour {
 		button = GetComponentInChildren<Button>();
 		animator = GetComponent<Animator>();
 		popUpText = GetComponentInChildren<Text>();
+		currentHp = maxHp;
 	}
 
 	void Update() {
@@ -46,6 +50,7 @@ public class Combatant : MonoBehaviour {
 		infoBox.GetComponent<Animator>().SetBool("isTurn", true);
 		isTurn = true;
 		remainingMoves = speed;
+		remainingActions = actions;
 		if (GetComponent<AI>()) GetComponent<AI>().StartTurn();
 	}
 
@@ -80,12 +85,18 @@ public class Combatant : MonoBehaviour {
 	}
 
 	public void TakeDamage(int amount) {
-		hp -= amount;
-		if (hp <= 0) {
-			Debug.Log("Combatant should die now. Add this later.");
-		}
+		currentHp -= amount;
 		PopUpText(Color.red,"-"+amount.ToString());
-		infoBox.SetHP(hp);
+		infoBox.SetHP(Mathf.Max(0,currentHp));
+		if (currentHp <= 0) {
+			animator.SetTrigger("die");
+			Invoke("Die",0.9f);
+		} 
+	}
+
+	void Die() {
+		FindObjectOfType<FightManager>().EliminateCombatant(this);
+		Destroy(this.gameObject);
 	}
 
 	public void PopUpText(Color color, string text) {
@@ -93,4 +104,5 @@ public class Combatant : MonoBehaviour {
 		popUpText.text = text;
 		popUpText.GetComponent<Animator>().SetTrigger("popUp");
 	}
+
 }

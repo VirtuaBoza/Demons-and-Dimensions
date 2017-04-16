@@ -22,6 +22,15 @@ public class AI : MonoBehaviour {
 		MoveForMelee();
 	}
 
+	public void FinishTurn() {
+		target = null;
+		Invoke("EndTurn",1f);
+	}
+
+	void EndTurn() {
+		fightManager.EndTurn();
+	}
+
 	void SelectNearestTarget() {
 		Combatant[] combatants = FindObjectsOfType<Combatant>();
 		foreach (Combatant combatant in combatants) {
@@ -60,6 +69,23 @@ public class AI : MonoBehaviour {
 	}
 
 	public void FinishedMoving() {
-		enemyType.Attack();
+		if (myCombatant.remainingActions > 0) Attack();
+	}
+
+	void Attack() {
+		Vector3 myPosition = new Vector3(transform.localPosition.x,transform.localPosition.y);
+		bool withinMeleeRange = false;
+		for (int x = -1; x <= 1; x++) {
+			for (int y = -1; y <= 1; y++) {
+				if (myPosition.Equals(new Vector3(target.transform.localPosition.x + x, target.transform.localPosition.y + y))) {
+					withinMeleeRange = true;
+					break;
+				}
+			}
+			if (withinMeleeRange) break;
+		}
+		if (withinMeleeRange) enemyType.Melee();
+		else enemyType.Ranged();
+		FinishTurn();
 	}
 }

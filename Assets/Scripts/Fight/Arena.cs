@@ -14,13 +14,14 @@ public class Arena : MonoBehaviour {
 	public Sprite[] arenas = new Sprite[2];
 	public int mapIndex = 0;
 	public bool isCrystalPlaying, isDamienPlaying, isHunterPlaying, isTeddyPlaying;
-	public FightMenuFrame fightMenuFrame;
-	public FriendlyLayoutGroup friendlyLayoutGroup;
-	public EnemyLayoutGroup enemyLayoutGroup;
+	public FightMenuFrame fightMenuFrame; //Assigned in inspector
+	public FriendlyLayoutGroup friendlyLayoutGroup; //Assigned in inspector
+	public EnemyLayoutGroup enemyLayoutGroup; //Assigned in inspector
+	public FightManager fightManager; //Assigned in inspector
 	public List<Combatant> combatants = new List<Combatant>();
 
-	private List<Vector3> positionList = new List<Vector3>();
-	private List<int> initiativeList = new List<int>();
+	private List<Vector3> positionList = new List<Vector3>(); //To keep track of positions so that no two combatants have the same position
+	private List<int> initiativeList = new List<int>(); //To keep track of initiative rolls so that no two combatants have the same initiative
 
 	void Start () {
 		GetComponent<SpriteRenderer>().sprite = arenas[mapIndex];
@@ -55,8 +56,8 @@ public class Arena : MonoBehaviour {
 		List<Combatant> sortedList = combatants.OrderByDescending(c => c.initiative).ToList();
 		combatants = sortedList;
 		foreach (Combatant combatant in combatants) {
-			if (combatant.isFriendly) {combatant.infoBox = friendlyLayoutGroup.PopulateInfoBox(combatant.myName,combatant.hp,combatant.maxHp);}
-			else {combatant.infoBox = enemyLayoutGroup.PopulateInfoBox(combatant.myName,combatant.hp,combatant.maxHp);}
+			if (combatant.isFriendly) {combatant.infoBox = friendlyLayoutGroup.PopulateInfoBox(combatant.myName,combatant.currentHp,combatant.maxHp);}
+			else {combatant.infoBox = enemyLayoutGroup.PopulateInfoBox(combatant.myName,combatant.currentHp,combatant.maxHp);}
 		}
 	}
 
@@ -66,7 +67,7 @@ public class Arena : MonoBehaviour {
 		character.transform.SetParent(transform,false);
 		character.GetComponent<SpriteRenderer>().sortingOrder = 10 - ((int)position.y);
 		Combatant combatant = character.GetComponent<Combatant>();
-		combatant.initiative = RollForInitiative(combatant);
+		combatant.initiative = RollForInitiative();
 		combatants.Add(combatant);
 	}
 
@@ -88,9 +89,9 @@ public class Arena : MonoBehaviour {
 		}
 	}
 
-	private int RollForInitiative(Combatant combatant) {
-		int roll = Random.Range(1,21);
-		if (initiativeList.Contains(roll)) return RollForInitiative(combatant);
+	private int RollForInitiative() {
+		int roll = fightManager.RollADie(DIE.d20);
+		if (initiativeList.Contains(roll)) return RollForInitiative();
 		else {
 			initiativeList.Add(roll);
 			return roll;

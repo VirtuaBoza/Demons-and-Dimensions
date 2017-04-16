@@ -35,6 +35,7 @@ public class ItemInfo : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 		this.transform.SetParent (inv.slots[itemSlotID].transform);
 		this.transform.position = inv.slots[itemSlotID].transform.position;
 		GetComponent<CanvasGroup>().blocksRaycasts = true;
+		inv.UpdateInventory();
 	}
 
 	public void OnPointerEnter (PointerEventData eventData) {

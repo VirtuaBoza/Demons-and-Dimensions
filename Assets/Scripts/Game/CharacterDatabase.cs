@@ -145,7 +145,7 @@ public class Character {
 		bool dexMods = true;
 		bool dexModsMax2 = false;
 		foreach(Item item in this.Equipment){
-			if(item.Itemtype == "Armor" || item.Itemtype == "Shield") {
+			if(item.Itemtype == ITEMTYPE.Armor || item.Itemtype == ITEMTYPE.Shield) {
 				ac += item.Ac;
 				if(!item.Dexmodifies) {dexMods = false;}
 				else if (item.Modifiermax2) {dexModsMax2 = true;}

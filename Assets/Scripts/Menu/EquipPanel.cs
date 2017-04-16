@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public enum CHARACTER {Crystal, Teddy, Hunter, Damien}
+public enum CHARACTER {All, Crystal, Teddy, Hunter, Damien, Enemy}
 
 public class EquipPanel : MonoBehaviour {
 
@@ -15,8 +15,12 @@ public class EquipPanel : MonoBehaviour {
 	void Start () {
 		characterPanels = new GameObject[] { crystalPanel, teddyPanel, hunterPanel, damienPanel};
 		Toggle[] toggles = new Toggle[] {blueToggle, orangeToggle, greenToggle, redToggle};
-		toggles[(int)currentCharacter].isOn = true;
+		toggles[0].isOn = true;
 	}
+
+	//
+	// What is calling this below? Also, I fucked with the toggle index above when I added extra CHARACTERs
+	//
 
 	public void SwitchCharacter (int index) {
 		switch (index) {

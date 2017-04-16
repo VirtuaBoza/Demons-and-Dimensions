@@ -8,20 +8,23 @@ public class ActionsButton : MonoBehaviour {
 	private Toggle toggle;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		buttonText = GetComponentInChildren<Text>();
-		buttonText.text = "Actions (" + 1.ToString() + ")"; //TODO This will pull the acting player's action count
-
 		toggle = GetComponent<Toggle>();
-
 	}
 
-	void Update () {
+/*	void Update () {
 		if(Input.GetKeyDown("right") && GetComponent<FightMenuButton>().isSelected){
 			toggle.isOn = true;
 			GetComponentInChildren<ToggleGroup>().SetAllTogglesOff();
 			GetComponentInChildren<AttackButton>().GetComponent<Toggle>().Select();
 		}
+	}*/
+
+	public void UpdateText(int actions) {
+		buttonText.text = "Actions (" + actions.ToString() + ")";
+		if (actions > 0) toggle.interactable = true;
+		else toggle.interactable = false;
 	}
 
 }

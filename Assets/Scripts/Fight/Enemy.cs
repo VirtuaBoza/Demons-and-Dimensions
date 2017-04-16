@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
 
-	public virtual void Attack() {
+	public virtual void Melee() {
+
+	}
+
+	public virtual void Ranged() {
 
 	}
 

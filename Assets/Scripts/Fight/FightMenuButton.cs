@@ -6,7 +6,7 @@ using System.Collections;
 
 public class FightMenuButton : MonoBehaviour, ISelectHandler, IDeselectHandler {
 
-	public bool isSelected = false;
+	//public bool isSelected = false;
 
 	//IF YOU PUT THIS BACK, ADD IPointerEnterHandler to the top!!!!!!!!!!!!!!
 //	public void OnPointerEnter(PointerEventData eventData) {
@@ -14,14 +14,7 @@ public class FightMenuButton : MonoBehaviour, ISelectHandler, IDeselectHandler {
 //	}
 
 	public void OnSelect(BaseEventData eventData) {
-		isSelected = true;
 		EmboldenText();
-
-		if (EventSystem.current.GetComponent<EventSystem>().currentSelectedGameObject != gameObject){
-			EventSystem.current.GetComponent<EventSystem>().SetSelectedGameObject (gameObject);
-
-		}
-
 	}
 	
 	public void EmboldenText(){
@@ -29,7 +22,6 @@ public class FightMenuButton : MonoBehaviour, ISelectHandler, IDeselectHandler {
 	}
 
 	public void OnDeselect(BaseEventData eventData) {
-		isSelected = false;
 		UnboldenText ();
 	}
 

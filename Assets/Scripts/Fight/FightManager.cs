@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
+
+public enum DIE {d20,d12,d10,d8,d6,d4,d00}
 
 public class FightManager : MonoBehaviour {
-
+	
 	public GameObject moveTarget;
 
 	public List<Vector3> currentPositionList = new List<Vector3>();
+	public Combatant currentPlayer;
 
 	private FightMenuFrame fightMenuFrame;
 	private List<Combatant> currentCombatants = new List<Combatant>();
@@ -32,10 +37,16 @@ public class FightManager : MonoBehaviour {
 
 	public void RunGame() {
 		currentCombatants[0].StartTurn();
+		currentPlayer = currentCombatants[0];
 		if (currentCombatants[0].isFriendly) {
 			fightMenuFrame.ActivateWaitPanel(false);
 			fightMenuFrame.ActivateFightMenu(true);
-			FindObjectOfType<MoveButton>().UpdateText(currentCombatants[0].remainingMoves);
+			ActionsButton actionsButton = FindObjectOfType<ActionsButton>();
+			actionsButton.UpdateText(currentCombatants[0].remainingActions);
+			actionsButton.GetComponent<Selectable>().Select();
+			actionsButton.GetComponent<Animator>().SetTrigger("Highlighted");
+			MoveButton moveButton = FindObjectOfType<MoveButton>();
+			moveButton.UpdateText(currentCombatants[0].remainingMoves);
 		} else {
 			fightMenuFrame.ActivateWaitPanel(true);
 			fightMenuFrame.ActivateFightMenu(false);
@@ -155,5 +166,43 @@ public class FightManager : MonoBehaviour {
 	public void UpdatePositionList(Vector3 oldPosition, Vector3 newPosition) {
 		currentPositionList.Remove(oldPosition);
 		currentPositionList.Add(newPosition);
+	}
+
+	public void EliminateCombatant(Combatant combatant) {
+		currentPositionList.Remove(combatant.transform.localPosition);
+		combatantButtons.Remove(combatant);
+		currentCombatants.Remove(combatant);
+	}
+
+	public int RollADie(DIE die) {
+		int roll;
+		switch (die) {
+		case DIE.d20:
+			roll = Random.Range(1,21);
+			break;
+		case DIE.d12:
+			roll = Random.Range(1,13);
+			break;
+		case DIE.d10:
+			roll = Random.Range(1,11);
+			break;
+		case DIE.d8:
+			roll = Random.Range(1,9);
+			break;
+		case DIE.d6:
+			roll = Random.Range(1,7);
+			break;
+		case DIE.d4:
+			roll = Random.Range(1,5);
+			break;
+		case DIE.d00:
+			roll = Random.Range(1,11);
+			roll = roll * 10;
+			break;
+		default:
+			roll = 0;
+			break;
+		}
+		return roll;
 	}
 }

@@ -10,6 +10,7 @@ public class Slot : MonoBehaviour, IDropHandler {
 	public Image armorTypeIcon, bootsTypeIcon, helmetTypeIcon, weaponTypeIcon;
 	public enum SlotType {All, Armor, Boots, Helmet, Weapon}
 	public SlotType slotItemType = SlotType.All;
+	public CHARACTER owner;
 
 	private Inventory inv;
 
@@ -42,10 +43,10 @@ public class Slot : MonoBehaviour, IDropHandler {
 		ItemInfo droppedItem = eventData.pointerDrag.GetComponent<ItemInfo>();
 
 		if (slotItemType == SlotType.All || 
-			(droppedItem.item.Itemtype.Contains("Armor") && slotItemType == SlotType.Armor) || 
-			((droppedItem.item.Itemtype.Contains("Weapon") || droppedItem.item.Itemtype.Contains("Shield")) && slotItemType == SlotType.Weapon) || 
-			(droppedItem.item.Itemtype.Contains("Helmet") && slotItemType == SlotType.Helmet) ||
-			(droppedItem.item.Itemtype.Contains("Boots") && slotItemType == SlotType.Boots)) {
+			(droppedItem.item.Itemtype == ITEMTYPE.Armor && slotItemType == SlotType.Armor) || 
+			((droppedItem.item.Itemtype == ITEMTYPE.Weapon || droppedItem.item.Itemtype == ITEMTYPE.Shield) && slotItemType == SlotType.Weapon) || 
+			(droppedItem.item.Itemtype == ITEMTYPE.Helmet && slotItemType == SlotType.Helmet) ||
+			(droppedItem.item.Itemtype == ITEMTYPE.Boots && slotItemType == SlotType.Boots)) {
 
 			// If the item from the inventory's item list at the index that matches this slot's ID number is a non-item...
 			if (inv.items[slotID].ID == -1) {
@@ -73,6 +74,7 @@ public class Slot : MonoBehaviour, IDropHandler {
 				// ... and put the new item into the index of the item list that matches this slot ID.
 				inv.items[slotID] = droppedItem.item;
 			}
-		} 
+		}
+
 	}
 }
