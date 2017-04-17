@@ -40,18 +40,14 @@
 		"damagemulti": 1,
 		"damagetype": "piercing",
 		"properties": {
-			"ammunition": false,
 			"finesse": true,
 			"heavy": false,
 			"light": true,
-			"loading": false,
 			"reach": false,
-			"thrown": true,
-			"twohanded": false,
-			"versatile": false
+			"twohanded": false
 		},
-		"range": 20,
-		"maxrange": 60,
+		"range": 1,
+		"maxrange": 1,
 		"slug": "dagger"
 	},
 	{
@@ -62,18 +58,14 @@
 		"damagemulti": 1,
 		"damagetype": "slashing",
 		"properties": {
-			"ammunition": false,
 			"finesse": false,
 			"heavy": false,
 			"light": true,
-			"loading": false,
 			"reach": false,
-			"thrown": true,
-			"twohanded": false,
-			"versatile": false
+			"twohanded": false
 		},
-		"range": 20,
-		"maxrange": 60,
+		"range": 1,
+		"maxrange": 1,
 		"slug": "handaxe"
 	},
 	{
@@ -84,18 +76,14 @@
 		"damagemulti": 1,
 		"damagetype": "bludgeoning",
 		"properties": {
-			"ammunition": false,
 			"finesse": false,
 			"heavy": false,
 			"light": false,
-			"loading": false,
 			"reach": false,
-			"thrown": false,
-			"twohanded": false,
-			"versatile": true
+			"twohanded": false
 		},
-		"range": 0,
-		"maxrange": 0,
+		"range": 1,
+		"maxrange": 1,
 		"slug": "quarterstaff"
 	},
 	{
@@ -106,18 +94,14 @@
 		"damagemulti": 1,
 		"damagetype": "slashing",
 		"properties": {
-			"ammunition": false,
 			"finesse": false,
 			"heavy": false,
 			"light": false,
-			"loading": false,
 			"reach": false,
-			"thrown": false,
-			"twohanded": false,
-			"versatile": true
+			"twohanded": false
 		},
-		"range": 0,
-		"maxrange": 0,
+		"range": 1,
+		"maxrange": 1,
 		"slug": "battleaxe"
 	},
 	{
@@ -128,18 +112,14 @@
 		"damagemulti": 1,
 		"damagetype": "piercing",
 		"properties": {
-			"ammunition": false,
 			"finesse": true,
 			"heavy": false,
 			"light": false,
-			"loading": false,
 			"reach": false,
-			"thrown": false,
-			"twohanded": false,
-			"versatile": false
+			"twohanded": false
 		},
-		"range": 0,
-		"maxrange": 0,
+		"range": 1,
+		"maxrange": 1,
 		"slug": "rapier"
 	},
 	{
@@ -150,18 +130,14 @@
 		"damagemulti": 1,
 		"damagetype": "piercing",
 		"properties": {
-			"ammunition": true,
 			"finesse": false,
 			"heavy": false,
 			"light": false,
-			"loading": false,
 			"reach": false,
-			"thrown": false,
-			"twohanded": true,
-			"versatile": false
+			"twohanded": true
 		},
-		"range": 80,
-		"maxrange": 320,
+		"range": 16,
+		"maxrange": 64,
 		"slug": "shortbow"
 	}
 ]

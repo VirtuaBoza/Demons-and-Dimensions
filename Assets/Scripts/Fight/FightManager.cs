@@ -13,9 +13,9 @@ public class FightManager : MonoBehaviour {
 
 	public List<Vector3> currentPositionList = new List<Vector3>();
 	public Combatant currentPlayer;
+	public List<Combatant> currentCombatants = new List<Combatant>();
 
 	private FightMenuFrame fightMenuFrame;
-	private List<Combatant> currentCombatants = new List<Combatant>();
 	private Dictionary<Combatant, Button> combatantButtons = new Dictionary<Combatant, Button>();
 
 	private bool spellMode = false;

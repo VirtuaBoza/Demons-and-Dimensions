@@ -7,8 +7,8 @@ using System.IO;
 public class CharacterDatabase : MonoBehaviour {
 
 	public List<Character> characterDatabase = new List<Character>();
-	private JsonData characterData;
 
+	private JsonData characterData;
 	private ItemDatabase database;
 
 	void Start () {
@@ -71,6 +71,7 @@ public class Character {
 
 	public int Id {	get;set;}
 	public string Name {get;set;}
+	public CHARACTER character;
 	public string Class {get;set;}
 	public string Race {get;set;}
 	public int Speed {get;set;}
@@ -87,6 +88,11 @@ public class Character {
 		bool strprof, bool dexprof, bool conprof, bool intprof, bool wisprof, bool chaprof, List<Item> startingequipment) {
 		this.Id = id;
 		this.Name = cname;
+		if (cname.ToLower().Contains("crystal")) character = CHARACTER.Crystal;
+		else if (cname.ToLower().Contains("damien")) character = CHARACTER.Damien;
+		else if (cname.ToLower().Contains("hunter")) character = CHARACTER.Hunter;
+		else if (cname.ToLower().Contains("teddy")) character = CHARACTER.Teddy;
+		else Debug.LogWarning ("Character constructor doesn't recognize CHARACTER");
 		this.Class = cclass;
 		this.Race = race;
 		this.Speed = speed;

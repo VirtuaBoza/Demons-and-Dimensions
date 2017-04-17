@@ -12,13 +12,35 @@ public class AttackOptions : MonoBehaviour {
 			GameObject.Destroy(child.gameObject);
 		}
 		Inventory inventory = FindObjectOfType<Inventory>();
+		bool isAtLeastOneWeapon = false;
 		foreach (CHARACTER character in inventory.characterEquippedItems.Keys) {
 			if (character == fightManager.currentPlayer.character) {
 				foreach (Item item in inventory.characterEquippedItems[character]) {
-					GameObject option = Instantiate(attackOptionPrefab,transform) as GameObject;
-					option.GetComponent<Text>().text = item.Title;
+					if (item.Itemtype == ITEMTYPE.Weapon) {
+						GameObject prefab = Instantiate(attackOptionPrefab,transform) as GameObject;
+						AttackOptionPrefab option = prefab.GetComponent<AttackOptionPrefab>();
+						option.title = item.Title;
+						option.damageRange = item.Damagerange;
+						option.damageMulti = item.Damagemulti;
+						option.damageType = item.Damagetype;
+						option.finesse = item.Finesse;
+						option.heavy = item.Heavy;
+						option.isLight = item.Light;
+						option.reach = item.Reach;
+						option.twoHanded = item.Twohanded;
+						option.range = item.Range;
+						option.maxRange = item.Maxrange;
+						option.UpdateFields();
+
+						isAtLeastOneWeapon = true;
+					}
 				}
 			}
+		}
+		if (!isAtLeastOneWeapon) {
+			GameObject prefab = Instantiate(attackOptionPrefab,transform) as GameObject;
+			AttackOptionPrefab option = prefab.GetComponent<AttackOptionPrefab>();
+			option.DisplayNoWeapon();
 		}
 	}
 

@@ -14,14 +14,10 @@ public class CharacterPanel : MonoBehaviour {
 	public List<Character> characters = new List<Character>();
 
 	private CHARACTER currentCharacter;
-	CharacterDatabase database;
 
 	void Start () {
-		
-		database = FindObjectOfType<CharacterDatabase>();
-		for (int i = 0; i < database.characterDatabase.Count; i++) {
-			characters.Add(database.FetchCharacterByID(i));
-		}
+
+		characters = FindObjectOfType<CharacterKeeper>().characters;
 
 		Toggle[] toggles = new Toggle[] {blueToggle, orangeToggle, greenToggle, redToggle};
 		toggles[(int)currentCharacter].isOn = true;
