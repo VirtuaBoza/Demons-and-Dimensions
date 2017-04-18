@@ -5,19 +5,19 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CombatantButton : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler {
+public class CombatantButton : MonoBehaviour, ISelectHandler, IDeselectHandler {
 
 	private Button button;
 	private FightManager fightManager;
 
-	// Use this for initialization
 	void Start () {
 		button = GetComponent<Button>();
 		fightManager = FindObjectOfType<FightManager>();
-		button.onClick.AddListener(() => MyOnClick());
+		button.onClick.AddListener(() => OnMouseDown());
 	}
-	
-	public void OnPointerEnter(PointerEventData eventData) {
+
+	public void OnMouseEnter() {
+		Debug.Log("OnMouseEnter called on CombatantButton");
 		if (button.IsInteractable()) {
 			button.Select();
 		}
@@ -31,8 +31,11 @@ public class CombatantButton : MonoBehaviour, ISelectHandler, IDeselectHandler, 
 		foreach (Text text in GetComponentInParent<Combatant>().infoBox.GetComponentsInChildren<Text>()) text.color = Color.black;
 	}
 
-	void MyOnClick() {
-		fightManager.ExitTargetSelection();
+	public void OnMouseDown() {
+		if (button.IsInteractable()) {
+			fightManager.ExitTargetSelection(GetComponentInParent<Combatant>());
+			foreach (Text text in GetComponentInParent<Combatant>().infoBox.GetComponentsInChildren<Text>()) text.color = Color.black;
+		}
 	}
 
 	void Destroy() {

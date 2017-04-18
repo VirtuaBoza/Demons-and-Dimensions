@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class AttackOptionPrefab : MonoBehaviour {
+public class AttackOptionPrefab : MonoBehaviour, IPointerEnterHandler {
 
 	public Text nameText,bonusText,damageAndTypeText; //Assigned in inspector
 
@@ -20,6 +21,7 @@ public class AttackOptionPrefab : MonoBehaviour {
 	public int maxRange;
 
 	public void UpdateFields() {
+		GetComponent<Button>().onClick.AddListener(() => MyOnClick());
 		nameText.text = title;
 		if (TargetsInRange()) {
 			bonusText.text = "+" + GetProfBonus();
@@ -95,15 +97,13 @@ public class AttackOptionPrefab : MonoBehaviour {
 	}
 
 	bool TargetsInRange() {
-		int trueRange = maxRange;
-		if (reach) trueRange++;
-		FightManager fightManager = FindObjectOfType<FightManager>();
+		
 		List<Vector3> enemyPositions = new List<Vector3>();
-
+		FightManager fightManager = FindObjectOfType<FightManager>();
 		foreach (Combatant combatant in fightManager.currentCombatants) {
 			if (!combatant.isFriendly) enemyPositions.Add(combatant.transform.localPosition);
 		}
-
+		int trueRange = GetTrueRange();
 		for (int x = -trueRange; x <= trueRange; x++) {
 			for (int y = -trueRange; y <= trueRange; y++) {
 				if (enemyPositions.Contains(new Vector3(fightManager.currentPlayer.transform.localPosition.x + x,fightManager.currentPlayer.transform.localPosition.y + y))) {
@@ -114,15 +114,38 @@ public class AttackOptionPrefab : MonoBehaviour {
 		return false;
 	}
 
+	int GetTrueRange() {
+		int trueRange = maxRange;
+		if (reach) trueRange++;
+		return trueRange;
+	}
+
 	int GetProfBonus() {
-		Debug.Log("Trying to find " + FindObjectOfType<FightManager>().currentPlayer.character);
-		foreach (Character character in FindObjectOfType<CharacterKeeper>().characters) {
-			Debug.Log("Comparing to " + character.character);
-			if (character.character == FindObjectOfType<FightManager>().currentPlayer.character) {
-				return character.GetProfBonus();
+		CharacterKeeper characterKeeper = FindObjectOfType<CharacterKeeper>();
+		foreach (CHARACTER character in characterKeeper.characters.Keys) {
+			if (character == FindObjectOfType<FightManager>().currentPlayer.character) {
+				int bonus = characterKeeper.characters[character].GetProfBonus();
+				if (maxRange > 1) bonus += characterKeeper.characters[character].GetAbilityScoreModifier(ABILITY.Dex);
+				else bonus += characterKeeper.characters[character].GetAbilityScoreModifier(ABILITY.Str);
+				return bonus;
 			} 
 		}
 		Debug.LogWarning("AttackOptionsPrefab doesn't recognize player to get ProfBonus");
 		return 0;
+	}
+
+	public void OnPointerEnter(PointerEventData eventData) {
+		if (GetComponent<Button>() && GetComponent<Button>().interactable) {
+			GetComponent<Button>().Select();
+			FindObjectOfType<AttackButton>().GetComponent<Animator>().SetTrigger("Normal");
+		}
+	}
+
+	void MyOnClick() {
+		FindObjectOfType<FightManager>().InitiateAttack(GetProfBonus(),damageRange,damageMulti,damageType,GetTrueRange());
+	}
+
+	void Destroy() {
+		GetComponent<Button>().onClick.RemoveAllListeners();
 	}
 }

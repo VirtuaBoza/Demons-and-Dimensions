@@ -20,6 +20,12 @@ public class FightManager : MonoBehaviour {
 
 	private bool spellMode = false;
 	private bool buffMode = false;
+	private ACTION actionType;
+
+	private int profBonus;
+	private DIE damageRange;
+	private int damageMulti;
+	private DAMAGETYPE damageType;
 
 	void Awake() {
 		fightMenuFrame = FindObjectOfType<FightMenuFrame>();
@@ -61,60 +67,80 @@ public class FightManager : MonoBehaviour {
 		RunGame();
 	}
 
-	public void EnterTargetSelection(ACTION action){
-		
-		fightMenuFrame.ActivateFightMenu(false);
-		fightMenuFrame.ActivateTargetPanel(true);
 
-		bool oneIsSelected = false;
-		if(action == ACTION.Attacking || action == ACTION.Casting){
-			foreach (KeyValuePair<Combatant, Button> entry in combatantButtons) {
-				if (!entry.Key.isFriendly) {
-					entry.Value.gameObject.SetActive(true);
-					entry.Value.interactable = true;
-					if (!oneIsSelected) {
-						entry.Value.Select();
-						oneIsSelected = true;
-					}
-				}
-			}
-		} else if (action == ACTION.Buffing) {
-			foreach (KeyValuePair<Combatant, Button> entry in combatantButtons) {
-				if (entry.Key.isFriendly) {
-					entry.Value.gameObject.SetActive(true);
-					entry.Value.interactable = true;
-					if (!oneIsSelected) {
-						entry.Value.Select();
-						oneIsSelected = true;
-					}
-				}
-			}
-			buffMode = true;
-		}
-
-		if (action == ACTION.Casting) {
-			spellMode = true;
-		}
-
+	public void InitiateAttack(int prof, DIE dRange, int multi, DAMAGETYPE dType, int range) {
+		profBonus = prof;
+		damageRange = dRange;
+		damageMulti = multi;
+		damageType = dType;
+		EnterTargetSelection(ACTION.Attacking,range);
+		actionType = ACTION.Attacking;
 	}
 
-	public void ExitTargetSelection() {
+	void ResolveAttack(Combatant target) {
+		Debug.Log ("Pick up here later!");
+	}
+
+	public void EnterTargetSelection(ACTION action, int range){
+		fightMenuFrame.ActivateFightMenu(false);
+		fightMenuFrame.ActivateTargetPanel(true);
+		List<Vector3> combatantsInRange = new List<Vector3>();
+		for (int x = -range; x <= range; x++) {
+			for (int y = -range; y <= range; y++) {
+				Vector3 spot = new Vector3(currentPlayer.transform.localPosition.x + x,currentPlayer.transform.localPosition.y + y);
+				if (currentPositionList.Contains(spot) && spot != currentPlayer.transform.localPosition) {
+					combatantsInRange.Add(spot);
+				} 
+			}
+		}
+		bool oneIsSelected = false;
+		foreach (KeyValuePair<Combatant, Button> entry in combatantButtons) {
+			if (combatantsInRange.Contains(entry.Key.transform.localPosition)) {
+				if ((action == ACTION.Attacking || action == ACTION.Casting) && !entry.Key.isFriendly) {
+					entry.Value.gameObject.SetActive(true);
+					entry.Value.interactable = true;
+					if (!oneIsSelected) {
+						entry.Value.Select();
+						oneIsSelected = true;
+					}
+				} else if (action == ACTION.Buffing && entry.Key.isFriendly) {
+					entry.Value.gameObject.SetActive(true);
+					entry.Value.interactable = true;
+					if (!oneIsSelected) {
+						entry.Value.Select();
+						oneIsSelected = true;
+					}
+				}
+			}
+		}
+		actionType = action;
+	}
+
+	public void ExitTargetSelection(Combatant target) {
 		
-		Debug.Log("Resolve the selection and make the buttons go away.");
+		Debug.Log("Need to resolve the selection");
+		if (actionType == ACTION.Attacking) ResolveAttack(target);
+
+		foreach (KeyValuePair<Combatant, Button> entry in combatantButtons) {
+			if (entry.Key != currentPlayer) entry.Value.gameObject.SetActive(false);
+		}
 
 		fightMenuFrame.ActivateFightMenu(true);
 		fightMenuFrame.ActivateTargetPanel(false);
 
-		if(spellMode){
-			FindObjectOfType<AttackSpellOptions>().GetComponentsInChildren<Button>()[0].Select();
-		} else if(buffMode){
-			FindObjectOfType<BuffSpellOptions>().GetComponentsInChildren<Button>()[0].Select();
-		} else {
+		switch (actionType) {
+		case ACTION.Attacking:
 			FindObjectOfType<AttackOptions>().GetComponentsInChildren<Button>()[0].Select();
+			break;
+		case ACTION.Buffing:
+			FindObjectOfType<BuffSpellOptions>().GetComponentsInChildren<Button>()[0].Select();
+			break;
+		case ACTION.Casting:
+			FindObjectOfType<AttackSpellOptions>().GetComponentsInChildren<Button>()[0].Select();
+			break;
+		default:
+			break;
 		}
-
-		spellMode = false;
-		buffMode = false;
 
 	}
 

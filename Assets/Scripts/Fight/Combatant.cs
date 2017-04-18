@@ -7,6 +7,7 @@ public class Combatant : MonoBehaviour {
 
 	public string myName;
 	public CHARACTER character;
+	public int aC;
 	public int maxHp;
 	[HideInInspector]public int currentHp;
 	public int speed;

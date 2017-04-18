@@ -18,7 +18,9 @@ public class FightMenuButton : MonoBehaviour, ISelectHandler, IDeselectHandler {
 	}
 	
 	public void EmboldenText(){
-		GetComponentInChildren<Text>().fontStyle = FontStyle.Bold;
+		foreach (Text text in GetComponentsInChildren<Text>()) {
+			text.fontStyle = FontStyle.Bold;
+		}
 	}
 
 	public void OnDeselect(BaseEventData eventData) {
@@ -26,7 +28,9 @@ public class FightMenuButton : MonoBehaviour, ISelectHandler, IDeselectHandler {
 	}
 
 	public void UnboldenText(){
-		GetComponentInChildren<Text>().fontStyle = FontStyle.Normal;
+		foreach (Text text in GetComponentsInChildren<Text>()) {
+			text.fontStyle = FontStyle.Normal;
+		}
 	}
 
 }
