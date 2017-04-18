@@ -17,7 +17,6 @@ public class CombatantButton : MonoBehaviour, ISelectHandler, IDeselectHandler {
 	}
 
 	public void OnMouseEnter() {
-		Debug.Log("OnMouseEnter called on CombatantButton");
 		if (button.IsInteractable()) {
 			button.Select();
 		}

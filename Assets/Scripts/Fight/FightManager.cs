@@ -18,14 +18,12 @@ public class FightManager : MonoBehaviour {
 	private FightMenuFrame fightMenuFrame;
 	private Dictionary<Combatant, Button> combatantButtons = new Dictionary<Combatant, Button>();
 
-	private bool spellMode = false;
-	private bool buffMode = false;
 	private ACTION actionType;
 
 	private int profBonus;
 	private DIE damageRange;
 	private int damageMulti;
-	private DAMAGETYPE damageType;
+	//private DAMAGETYPE damageType; //To implement later
 
 	void Awake() {
 		fightMenuFrame = FindObjectOfType<FightMenuFrame>();
@@ -72,13 +70,29 @@ public class FightManager : MonoBehaviour {
 		profBonus = prof;
 		damageRange = dRange;
 		damageMulti = multi;
-		damageType = dType;
+		//damageType = dType; //To implement later
 		EnterTargetSelection(ACTION.Attacking,range);
 		actionType = ACTION.Attacking;
 	}
 
 	void ResolveAttack(Combatant target) {
-		Debug.Log ("Pick up here later!");
+		int attackRoll = RollADie(DIE.d20);
+		attackRoll += profBonus;
+		int totalDamage = 0;
+		if (attackRoll == 1 || attackRoll < target.aC) {
+			Debug.Log ("Miss");
+		} else if (attackRoll == 20) {
+			for (int i = 0; i < damageMulti; i++) {
+				int roll1 = RollADie (damageRange);
+				int roll2 = RollADie (damageRange);
+				totalDamage += Mathf.Max (roll1, roll2);
+			}
+		} else {
+			for (int i = 0; i < damageMulti; i++) {
+				totalDamage += RollADie (damageRange);
+			}
+		}
+		target.TakeDamage (totalDamage);
 	}
 
 	public void EnterTargetSelection(ACTION action, int range){
@@ -117,8 +131,7 @@ public class FightManager : MonoBehaviour {
 	}
 
 	public void ExitTargetSelection(Combatant target) {
-		
-		Debug.Log("Need to resolve the selection");
+
 		if (actionType == ACTION.Attacking) ResolveAttack(target);
 
 		foreach (KeyValuePair<Combatant, Button> entry in combatantButtons) {
@@ -128,18 +141,14 @@ public class FightManager : MonoBehaviour {
 		fightMenuFrame.ActivateFightMenu(true);
 		fightMenuFrame.ActivateTargetPanel(false);
 
-		switch (actionType) {
-		case ACTION.Attacking:
-			FindObjectOfType<AttackOptions>().GetComponentsInChildren<Button>()[0].Select();
-			break;
-		case ACTION.Buffing:
-			FindObjectOfType<BuffSpellOptions>().GetComponentsInChildren<Button>()[0].Select();
-			break;
-		case ACTION.Casting:
-			FindObjectOfType<AttackSpellOptions>().GetComponentsInChildren<Button>()[0].Select();
-			break;
-		default:
-			break;
+		currentPlayer.remainingActions -= 1;
+		FindObjectOfType<ActionsButton> ().UpdateText (currentPlayer.remainingActions);
+
+		foreach (Selectable selectable in FindObjectOfType<FightMenu>().GetComponentsInChildren<Selectable>()) {
+			if (selectable.IsInteractable()) {
+				selectable.Select ();
+				break;
+			}
 		}
 
 	}
@@ -173,19 +182,16 @@ public class FightManager : MonoBehaviour {
 		foreach (MoveTarget targetButton in FindObjectsOfType<MoveTarget>()) {
 			Destroy(targetButton.gameObject);
 		}
-		foreach (Combatant combatant in currentCombatants) {
-			if (combatant.isTurn) {
-				UpdatePositionList(combatant.transform.localPosition,target);
-				combatant.MoveCombatant(target);
-				fightMenuFrame.ActivateFightMenu(true);
-				fightMenuFrame.ActivateTargetPanel(false);
-				FindObjectOfType<MoveButton>().UpdateText(combatant.remainingMoves);
-				if (combatant.remainingMoves > 0) FindObjectOfType<MoveButton>().GetComponent<Button>().Select();
-				else {
-					if (combatant.remainingActions > 0) FindObjectOfType<ActionsButton>().GetComponent<Toggle>().Select();
-					else GameObject.Find("EndTurn").GetComponent<Button>().Select();
-				}
-			}
+
+		UpdatePositionList(currentPlayer.transform.localPosition,target);
+		currentPlayer.MoveCombatant(target);
+		fightMenuFrame.ActivateFightMenu(true);
+		fightMenuFrame.ActivateTargetPanel(false);
+		FindObjectOfType<MoveButton>().UpdateText(currentPlayer.remainingMoves);
+		if (currentPlayer.remainingMoves > 0) FindObjectOfType<MoveButton>().GetComponent<Button>().Select();
+		else {
+			if (currentPlayer.remainingActions > 0) FindObjectOfType<ActionsButton>().GetComponent<Toggle>().Select();
+			else GameObject.Find("EndTurn").GetComponent<Button>().Select();
 		}
 	}
 

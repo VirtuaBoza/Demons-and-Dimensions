@@ -86,12 +86,16 @@ public class Combatant : MonoBehaviour {
 	}
 
 	public void TakeDamage(int amount) {
-		currentHp -= amount;
-		PopUpText(Color.red,"-"+amount.ToString());
-		infoBox.SetHP(Mathf.Max(0,currentHp));
-		if (currentHp <= 0) {
-			animator.SetTrigger("die");
-			Invoke("Die",0.9f);
+		if (amount == 0) {
+			PopUpText (Color.black, "Miss");
+		} else {
+			currentHp -= amount;
+			PopUpText(Color.red,"-"+amount.ToString());
+			infoBox.SetHP(Mathf.Max(0,currentHp));
+			if (currentHp <= 0) {
+				animator.SetTrigger("die");
+				Invoke("Die",0.9f);
+			}
 		} 
 	}
 
