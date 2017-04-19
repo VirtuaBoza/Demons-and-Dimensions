@@ -34,37 +34,40 @@ public class CharacterPanel : MonoBehaviour {
 			Debug.LogWarning("Trying to switch to a character in CharacterPanel that is out of range.");
 			break;
 		}
-		nameText.text = characters[currentCharacter].Name;
-		lvlText.text = "Lvl " + characters[currentCharacter].GetLvl().ToString();
-		classText.text = characters[currentCharacter].Class;
-		xpText.text = characters[currentCharacter].Xp.ToString() + " XP";
-		hpText.text = characters[currentCharacter].CurrentHP.ToString();
-		maxHpText.text = "/" + characters[currentCharacter].BaseHp.ToString();
-		acText.text = characters[currentCharacter].GetAc().ToString();
-		profText.text = "+" + characters[currentCharacter].GetProfBonus().ToString();
-		speedText.text = characters[currentCharacter].Speed.ToString() + "ft";
+		UpdateCharacterStats(currentCharacter);
+	}
 
-		strModText.text = DisplayAbilityScoreModifier(characters[currentCharacter], ABILITY.Str);
-		dexModText.text = DisplayAbilityScoreModifier(characters[currentCharacter], ABILITY.Dex);
-		conModText.text = DisplayAbilityScoreModifier(characters[currentCharacter], ABILITY.Con);
-		intModText.text = DisplayAbilityScoreModifier(characters[currentCharacter], ABILITY.Int);
-		wisModText.text = DisplayAbilityScoreModifier(characters[currentCharacter], ABILITY.Wis);
-		chaModText.text = DisplayAbilityScoreModifier(characters[currentCharacter], ABILITY.Cha);
+	public void UpdateCharacterStats(CHARACTER character) {
+		nameText.text = characters[character].Name;
+		lvlText.text = "Lvl " + characters[character].GetLvl().ToString();
+		classText.text = characters[character].Class;
+		xpText.text = characters[character].Xp.ToString() + " XP";
+		hpText.text = characters[character].CurrentHP.ToString();
+		maxHpText.text = "/" + characters[character].BaseHp.ToString();
+		acText.text = characters[character].GetAc().ToString();
+		profText.text = "+" + characters[character].GetProfBonus().ToString();
+		speedText.text = characters[character].Speed.ToString() + "ft";
 
-		strScoreText.text = characters[currentCharacter].abilityScoreDictionary[ABILITY.Str].ToString();
-		dexScoreText.text = characters[currentCharacter].abilityScoreDictionary[ABILITY.Dex].ToString();
-		conScoreText.text = characters[currentCharacter].abilityScoreDictionary[ABILITY.Con].ToString();
-		intScoreText.text = characters[currentCharacter].abilityScoreDictionary[ABILITY.Int].ToString();
-		wisScoreText.text = characters[currentCharacter].abilityScoreDictionary[ABILITY.Wis].ToString();
-		chaScoreText.text = characters[currentCharacter].abilityScoreDictionary[ABILITY.Cha].ToString();
+		strModText.text = DisplayAbilityScoreModifier(characters[character], ABILITY.Str);
+		dexModText.text = DisplayAbilityScoreModifier(characters[character], ABILITY.Dex);
+		conModText.text = DisplayAbilityScoreModifier(characters[character], ABILITY.Con);
+		intModText.text = DisplayAbilityScoreModifier(characters[character], ABILITY.Int);
+		wisModText.text = DisplayAbilityScoreModifier(characters[character], ABILITY.Wis);
+		chaModText.text = DisplayAbilityScoreModifier(characters[character], ABILITY.Cha);
 
-		strThrowModText.text = DisplayThrowModifier(characters[currentCharacter], ABILITY.Str);
-		dexThrowModText.text = DisplayThrowModifier(characters[currentCharacter], ABILITY.Dex);
-		conThrowModText.text = DisplayThrowModifier(characters[currentCharacter], ABILITY.Con);
-		intThrowModText.text = DisplayThrowModifier(characters[currentCharacter], ABILITY.Int);
-		wisThrowModText.text = DisplayThrowModifier(characters[currentCharacter], ABILITY.Wis);
-		chaThrowModText.text = DisplayThrowModifier(characters[currentCharacter], ABILITY.Cha);
+		strScoreText.text = characters[character].abilityScoreDictionary[ABILITY.Str].ToString();
+		dexScoreText.text = characters[character].abilityScoreDictionary[ABILITY.Dex].ToString();
+		conScoreText.text = characters[character].abilityScoreDictionary[ABILITY.Con].ToString();
+		intScoreText.text = characters[character].abilityScoreDictionary[ABILITY.Int].ToString();
+		wisScoreText.text = characters[character].abilityScoreDictionary[ABILITY.Wis].ToString();
+		chaScoreText.text = characters[character].abilityScoreDictionary[ABILITY.Cha].ToString();
 
+		strThrowModText.text = DisplayThrowModifier(characters[character], ABILITY.Str);
+		dexThrowModText.text = DisplayThrowModifier(characters[character], ABILITY.Dex);
+		conThrowModText.text = DisplayThrowModifier(characters[character], ABILITY.Con);
+		intThrowModText.text = DisplayThrowModifier(characters[character], ABILITY.Int);
+		wisThrowModText.text = DisplayThrowModifier(characters[character], ABILITY.Wis);
+		chaThrowModText.text = DisplayThrowModifier(characters[character], ABILITY.Cha);
 	}
 
 	private string DisplayAbilityScoreModifier(Character character, ABILITY ability) {

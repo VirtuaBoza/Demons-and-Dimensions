@@ -28,6 +28,8 @@ public class Arena : MonoBehaviour {
 		InstantiateEnemies();
 		InstantiateFriendlies ();
 		FindObjectOfType<FightManager>().StartFight(combatants);
+		FindObjectOfType<StartOptions>().inMainMenu = false;
+		FindObjectOfType<ShowPanels>().inFight = true;
 	}
 
 	private void InstantiateEnemies() {
