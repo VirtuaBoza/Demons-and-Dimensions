@@ -19,6 +19,7 @@ public class EquipPanel : MonoBehaviour {
 	}
 
 	//
+	// TODO
 	// What is calling this below? Also, I fucked with the toggle index above when I added extra CHARACTERs
 	//
 

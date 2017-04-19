@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum CHARACTERPANEL {Stats, Inventory, Spells, None}
 
@@ -22,6 +23,7 @@ public class ShowPanels : MonoBehaviour {
 	public CHARACTERPANEL currentPanel;
 	private StartOptions startScript;
 	private Pause pauseScript;
+	private Dictionary<Slot,Item> lastItemAssignment = new Dictionary<Slot, Item> ();
 
 	void Awake() {
 		startScript = GetComponent<StartOptions>();
@@ -82,9 +84,10 @@ public class ShowPanels : MonoBehaviour {
 		spellsToggle.interactable = false;
 		inventoryToggle.isOn = true;
 		currentPanel = CHARACTERPANEL.Inventory;
+		lastItemAssignment = FindObjectOfType<Inventory> ().assignedItems;
 	}
 
-	void ExitEquipMode() {
+	void ExitEquipMode() { // TODO Rearrange so that the close button also works
 		inventoryToggle.interactable = false;
 		statToggle.interactable = true;
 		spellsToggle.interactable = true;

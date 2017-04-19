@@ -7,7 +7,7 @@ public class ItemInfo : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
 	public Item item;
 	public int amount = 1;
-	public int itemSlotID;
+	public Slot slot;
 
 	private Inventory inv;
 	private InventoryTooltip tooltip;
@@ -32,8 +32,12 @@ public class ItemInfo : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 	}
 
 	public void OnEndDrag (PointerEventData eventData) {
-		this.transform.SetParent (inv.slots[itemSlotID].transform);
-		this.transform.position = inv.slots[itemSlotID].transform.position;
+		foreach (Slot panelSlot in inv.assignedItems.Keys) {
+			if (panelSlot == slot) {
+				this.transform.SetParent (panelSlot.transform);
+				this.transform.position = panelSlot.transform.position;
+			}
+		}
 		GetComponent<CanvasGroup>().blocksRaycasts = true;
 		inv.UpdateInventory();
 	}
