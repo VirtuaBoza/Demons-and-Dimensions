@@ -53,7 +53,8 @@ public class ShowPanels : MonoBehaviour {
 			(Input.GetKeyDown (KeyCode.I) && (currentPanel == CHARACTERPANEL.Inventory)) || 
 			(Input.GetKeyDown (KeyCode.S) && (currentPanel == CHARACTERPANEL.Spells))) && !startScript.inMainMenu && !pauseScript.isPaused) 
 		{
-			UnPauseFromCharacterPanel ();
+			if (inFight && currentPanel == CHARACTERPANEL.Inventory) ExitEquipMode ();
+			else UnPauseFromCharacterPanel ();
 		}
 
 	}
@@ -75,7 +76,19 @@ public class ShowPanels : MonoBehaviour {
 	}
 
 	public void EnterEquipMode() {
-		Debug.Log("To flesh out later");
+		ShowStats ();
+		inventoryToggle.interactable = true;
+		statToggle.interactable = false;
+		spellsToggle.interactable = false;
+		inventoryToggle.isOn = true;
+		currentPanel = CHARACTERPANEL.Inventory;
+	}
+
+	void ExitEquipMode() {
+		inventoryToggle.interactable = false;
+		statToggle.interactable = true;
+		spellsToggle.interactable = true;
+		UnPauseFromCharacterPanel ();
 	}
 
 	//Call this function to activate and display the Options panel during the main menu
