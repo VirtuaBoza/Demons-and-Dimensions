@@ -13,7 +13,7 @@ public class EquipButton : MonoBehaviour {
 	}
 
 	void OnMyClick() {
-		FindObjectOfType<ShowPanels> ().EnterEquipMode ();
+		FindObjectOfType<FightManager>().EnterEquip();
 	}
 
 }

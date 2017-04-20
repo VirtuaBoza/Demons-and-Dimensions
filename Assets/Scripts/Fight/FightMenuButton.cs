@@ -17,7 +17,7 @@ public class FightMenuButton : MonoBehaviour, ISelectHandler, IDeselectHandler {
 		EmboldenText();
 	}
 	
-	public void EmboldenText(){
+	public void EmboldenText() {
 		foreach (Text text in GetComponentsInChildren<Text>()) {
 			text.fontStyle = FontStyle.Bold;
 		}
@@ -27,9 +27,15 @@ public class FightMenuButton : MonoBehaviour, ISelectHandler, IDeselectHandler {
 		UnboldenText ();
 	}
 
-	public void UnboldenText(){
+	public void UnboldenText() {
 		foreach (Text text in GetComponentsInChildren<Text>()) {
 			text.fontStyle = FontStyle.Normal;
+		}
+	}
+
+	public void MyPointerEnter() {
+		if (GetComponent<Selectable>().IsInteractable()) {
+			GetComponent<Selectable>().Select();
 		}
 	}
 

@@ -23,7 +23,6 @@ public class ShowPanels : MonoBehaviour {
 	public CHARACTERPANEL currentPanel;
 	private StartOptions startScript;
 	private Pause pauseScript;
-	private Dictionary<Slot,Item> lastItemAssignment = new Dictionary<Slot, Item> ();
 
 	void Awake() {
 		startScript = GetComponent<StartOptions>();
@@ -55,8 +54,7 @@ public class ShowPanels : MonoBehaviour {
 			(Input.GetKeyDown (KeyCode.I) && (currentPanel == CHARACTERPANEL.Inventory)) || 
 			(Input.GetKeyDown (KeyCode.S) && (currentPanel == CHARACTERPANEL.Spells))) && !startScript.inMainMenu && !pauseScript.isPaused) 
 		{
-			if (inFight && currentPanel == CHARACTERPANEL.Inventory) ExitEquipMode ();
-			else UnPauseFromCharacterPanel ();
+			UnPauseFromCharacterPanel ();
 		}
 
 	}
@@ -71,6 +69,12 @@ public class ShowPanels : MonoBehaviour {
 
 	public void UnPauseFromCharacterPanel()
 	{
+		if (inFight && currentPanel == CHARACTERPANEL.Inventory) {
+			inventoryToggle.interactable = false;
+			statToggle.interactable = true;
+			spellsToggle.interactable = true;
+			FindObjectOfType<FightManager>().ExitEquip();
+		} 
 		Time.timeScale = 1;
 		characterPanel.SetActive (false);
 		backgroundBlocker.SetActive(false);
@@ -84,14 +88,6 @@ public class ShowPanels : MonoBehaviour {
 		spellsToggle.interactable = false;
 		inventoryToggle.isOn = true;
 		currentPanel = CHARACTERPANEL.Inventory;
-		lastItemAssignment = FindObjectOfType<Inventory> ().assignedItems;
-	}
-
-	void ExitEquipMode() { // TODO Rearrange so that the close button also works
-		inventoryToggle.interactable = false;
-		statToggle.interactable = true;
-		spellsToggle.interactable = true;
-		UnPauseFromCharacterPanel ();
 	}
 
 	//Call this function to activate and display the Options panel during the main menu

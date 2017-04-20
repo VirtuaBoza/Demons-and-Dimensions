@@ -25,6 +25,8 @@ public class FightManager : MonoBehaviour {
 	private int damageMulti;
 	//private DAMAGETYPE damageType; //To implement later
 
+	private Dictionary<int,int> currentPlayerItemIDsAndQuants = new Dictionary<int,int>();
+
 	void Awake() {
 		fightMenuFrame = FindObjectOfType<FightMenuFrame>();
 	}
@@ -144,12 +146,7 @@ public class FightManager : MonoBehaviour {
 		currentPlayer.remainingActions -= 1;
 		FindObjectOfType<ActionsButton> ().UpdateText (currentPlayer.remainingActions);
 
-		foreach (Selectable selectable in FindObjectOfType<FightMenu>().GetComponentsInChildren<Selectable>()) {
-			if (selectable.IsInteractable()) {
-				selectable.Select ();
-				break;
-			}
-		}
+		SelectAppropriateOption();
 
 	}
 
@@ -188,10 +185,49 @@ public class FightManager : MonoBehaviour {
 		fightMenuFrame.ActivateFightMenu(true);
 		fightMenuFrame.ActivateTargetPanel(false);
 		FindObjectOfType<MoveButton>().UpdateText(currentPlayer.remainingMoves);
-		if (currentPlayer.remainingMoves > 0) FindObjectOfType<MoveButton>().GetComponent<Button>().Select();
-		else {
-			if (currentPlayer.remainingActions > 0) FindObjectOfType<ActionsButton>().GetComponent<Toggle>().Select();
-			else GameObject.Find("EndTurn").GetComponent<Button>().Select();
+		SelectAppropriateOption();
+	}
+
+	public void EnterEquip() {
+		FindObjectOfType<ShowPanels>().EnterEquipMode();
+		currentPlayerItemIDsAndQuants = GetCurrentPlayerItems();
+	}
+
+	public void ExitEquip() {
+		if (!CompareDicts(currentPlayerItemIDsAndQuants,GetCurrentPlayerItems())) {
+			currentPlayer.remainingActions -= 1;
+			FindObjectOfType<ActionsButton> ().UpdateText (currentPlayer.remainingActions);
+		}
+		FindObjectOfType<EquipButton>().GetComponent<Selectable>().Select();
+		SelectAppropriateOption();
+	}
+
+	Dictionary<int,int> GetCurrentPlayerItems() {
+		Dictionary<int,int> tempDict = new Dictionary<int,int>();
+		foreach (Item item in FindObjectOfType<Inventory>().characterEquippedItems[currentPlayer.character]) {
+			if (tempDict.ContainsKey(item.ID)) {
+				tempDict[item.ID]++;
+			} else {
+				tempDict.Add(item.ID,1);
+			}
+		}
+		return tempDict;
+	}
+
+	bool CompareDicts(Dictionary<int,int> dict1, Dictionary<int,int> dict2) {
+		if (dict1.Count != dict2.Count) return false;
+		foreach (KeyValuePair<int,int> entry in dict1) {
+			if (!dict2.ContainsKey(entry.Key) || dict2[entry.Key] != entry.Value) return false;
+		}
+		return true;
+	}
+
+	void SelectAppropriateOption() {
+		foreach (Selectable selectable in FindObjectOfType<FightMenu>().GetComponentsInChildren<Selectable>()) {
+			if (selectable.IsInteractable()) {
+				selectable.Select ();
+				break;
+			}
 		}
 	}
 
