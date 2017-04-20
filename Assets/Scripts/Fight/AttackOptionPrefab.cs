@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class AttackOptionPrefab : MonoBehaviour, IPointerEnterHandler {
 
-	public Text nameText,bonusText,damageAndTypeText; //Assigned in inspector
+	public Text weaponText; //Assigned in inspector
 
 	public string title;
 	public DIE damageRange;
@@ -22,24 +22,14 @@ public class AttackOptionPrefab : MonoBehaviour, IPointerEnterHandler {
 
 	public void UpdateFields() {
 		GetComponent<Button>().onClick.AddListener(() => MyOnClick());
-		nameText.text = title;
 		if (TargetsInRange()) {
-			bonusText.text = "+" + GetProfBonus();
-			damageAndTypeText.text = damageMulti.ToString() + GetDieTypeInString(damageRange) + " " + GetDamageTypeInString(damageType);
+			weaponText.text = title + "  AtkBns:+" + GetProfBonus() + "  Dmg:" + damageMulti.ToString() + GetDieTypeInString(damageRange) + " " + GetDamageTypeInString(damageType);
 			GetComponent<Button>().interactable = true; // This is probably not necessary
 		} else {
-			bonusText.text = "No targets in range";
-			damageAndTypeText.text = "";
+			weaponText.text = title + "  No targets in range";
 			GetComponent<Button>().interactable = false;
 		}
 
-	}
-
-	public void DisplayNoWeapon() {
-		nameText.text = "No weapons equipped";
-		bonusText.text = "";
-		damageAndTypeText.text = "";
-		GetComponent<Button>().interactable = false;
 	}
 
 	string GetDieTypeInString(DIE die) {
@@ -58,6 +48,8 @@ public class AttackOptionPrefab : MonoBehaviour, IPointerEnterHandler {
 			return "d6";
 		case DIE.d8:
 			return "d8";
+		case DIE.one:
+			return "";
 		default:
 			return "AttackOptionPrefab doesn't recognize Die type";
 		}
