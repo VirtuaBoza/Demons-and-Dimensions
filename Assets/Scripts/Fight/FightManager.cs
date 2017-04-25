@@ -23,7 +23,7 @@ public class FightManager : MonoBehaviour {
 	private int profBonus;
 	private DIE damageRange;
 	private int damageMulti;
-	//private DAMAGETYPE damageType; //To implement later
+	//private DAMAGETYPE damageType; //TODO implement later
 
 	private Dictionary<int,int> currentPlayerItemIDsAndQuants = new Dictionary<int,int>();
 
@@ -72,7 +72,7 @@ public class FightManager : MonoBehaviour {
 		profBonus = prof;
 		damageRange = dRange;
 		damageMulti = multi;
-		//damageType = dType; //To implement later
+		//damageType = dType; //TODO implement later
 		EnterTargetSelection(ACTION.Attacking,range);
 		actionType = ACTION.Attacking;
 	}

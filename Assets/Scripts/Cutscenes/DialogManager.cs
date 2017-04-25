@@ -24,6 +24,7 @@ public class DialogManager : MonoBehaviour {
 	private Choreographer choreographer;
 	private int choreographyIndex = 0;
 	public Animator animColorFade;
+	private bool sceneIsEnded = false;
 
 	// Use this for initialization
 	void Start() {
@@ -44,7 +45,7 @@ public class DialogManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update() {
-		if (Input.GetKeyDown(KeyCode.Space)){
+		if (Input.GetKeyDown(KeyCode.Space) && !sceneIsEnded){
 			UpdateText ();
 		}
 	}
@@ -63,6 +64,7 @@ public class DialogManager : MonoBehaviour {
 			advanceDialogArrow.gameObject.SetActive (false);
 			choreographer.CueBlocking(choreographyIndex);
 		} else {
+			sceneIsEnded = true;
 			choreographer.CueBlocking(choreographyIndex);
 			EndScene();
 		}
