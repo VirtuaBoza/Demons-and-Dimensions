@@ -38,7 +38,18 @@ public class AttackOptions : MonoBehaviour {
 		if (!isAtLeastOneWeapon) {
 			GameObject prefab = Instantiate(attackOptionPrefab,transform) as GameObject;
 			AttackOptionPrefab option = prefab.GetComponent<AttackOptionPrefab>();
-			option.DisplayNoWeapon();
+			option.title = "Unarmed Strike";
+			option.damageRange = DIE.one;
+			option.damageMulti = 1;
+			option.damageType = DAMAGETYPE.Bludgeoning;
+			option.finesse = false;
+			option.heavy = false;
+			option.isLight = true;
+			option.reach = false;
+			option.twoHanded = false;
+			option.range = 1;
+			option.maxRange = 1;
+			option.UpdateFields ();
 		}
 	}
 

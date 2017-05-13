@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public enum DIE {d20,d12,d10,d8,d6,d4,d00}
+public enum DIE {d20,d12,d10,d8,d6,d4,d00,one}
 
 public class FightManager : MonoBehaviour {
 	
@@ -23,7 +23,7 @@ public class FightManager : MonoBehaviour {
 	private int profBonus;
 	private DIE damageRange;
 	private int damageMulti;
-	//private DAMAGETYPE damageType; //To implement later
+	//private DAMAGETYPE damageType; //TODO implement later
 
 	private Dictionary<int,int> currentPlayerItemIDsAndQuants = new Dictionary<int,int>();
 
@@ -72,7 +72,7 @@ public class FightManager : MonoBehaviour {
 		profBonus = prof;
 		damageRange = dRange;
 		damageMulti = multi;
-		//damageType = dType; //To implement later
+		//damageType = dType; //TODO implement later
 		EnterTargetSelection(ACTION.Attacking,range);
 		actionType = ACTION.Attacking;
 	}
@@ -243,34 +243,26 @@ public class FightManager : MonoBehaviour {
 	}
 
 	public int RollADie(DIE die) {
-		int roll;
 		switch (die) {
 		case DIE.d20:
-			roll = Random.Range(1,21);
-			break;
+			return Random.Range(1,21);
 		case DIE.d12:
-			roll = Random.Range(1,13);
-			break;
+			return Random.Range(1,13);
 		case DIE.d10:
-			roll = Random.Range(1,11);
-			break;
+			return Random.Range(1,11);
 		case DIE.d8:
-			roll = Random.Range(1,9);
-			break;
+			return Random.Range(1,9);
 		case DIE.d6:
-			roll = Random.Range(1,7);
-			break;
+			return Random.Range(1,7);
 		case DIE.d4:
-			roll = Random.Range(1,5);
-			break;
+			return Random.Range(1,5);
 		case DIE.d00:
-			roll = Random.Range(1,11);
-			roll = roll * 10;
-			break;
+			int roll = Random.Range(1,11);
+			return roll * 10;
+		case DIE.one:
+			return 1;
 		default:
-			roll = 0;
-			break;
+			return 0;
 		}
-		return roll;
 	}
 }
