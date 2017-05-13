@@ -1,6 +1,4 @@
-﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-// Legacy shader for older Tiled2Unity builds. Will eventually remove.
+﻿// Legacy shader for older Tiled2Unity builds. Will eventually remove.
 Shader "Tiled2Unity/TextureTintSnap (Legacy)"
 {
     Properties
@@ -35,6 +33,7 @@ Shader "Tiled2Unity/TextureTintSnap (Legacy)"
             #pragma fragment frag
             #pragma multi_compile DUMMY PIXELSNAP_ON
             #include "UnityCG.cginc"
+            #include "Tiled2Unity.cginc"
 
             struct appdata_t
             {

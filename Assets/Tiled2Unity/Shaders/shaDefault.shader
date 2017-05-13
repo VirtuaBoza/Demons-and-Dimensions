@@ -1,6 +1,4 @@
-﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-Shader "Tiled2Unity/Default"
+﻿Shader "Tiled2Unity/Default"
 {
     Properties
     {
@@ -32,6 +30,7 @@ Shader "Tiled2Unity/Default"
             #pragma fragment frag
             #pragma multi_compile DUMMY PIXELSNAP_ON
             #include "UnityCG.cginc"
+            #include "Tiled2Unity.cginc"
 
             struct appdata_t
             {
