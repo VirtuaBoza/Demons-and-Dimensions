@@ -74,21 +74,13 @@ public class Arena : MonoBehaviour {
 	}
 
 	private Vector3 FindOpenPosition(bool isFriendly) {
-		if (isFriendly) {
-			Vector3 position = new Vector3(Random.Range(1, 5), Random.Range(1, 9), transform.position.z);
-			if (positionList.Contains(position)) return FindOpenPosition(true);
-			else {
-				positionList.Add(position);
-				return position;
-			}
-		} else {
-			Vector3 position = new Vector3(Random.Range(5, 9), Random.Range(1, 9), transform.position.z);
-			if (positionList.Contains(position)) return FindOpenPosition(false);
-			else {
-				positionList.Add(position);
-				return position;
-			}
-		}
+		Vector3 position;
+		do {
+			if (isFriendly) position = new Vector3(Random.Range(1, 5), Random.Range(1, 9), transform.position.z);
+			else position = new Vector3(Random.Range(5, 9), Random.Range(1, 9), transform.position.z);
+		} while (positionList.Contains(position));
+		positionList.Add(position);
+		return position;
 	}
 
 	private int RollForInitiative() {
