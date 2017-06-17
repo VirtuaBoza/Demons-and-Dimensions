@@ -90,5 +90,33 @@
 								3,
 								3
 								]
+	},
+	{
+		"id": 3,
+		"name": "Damien",
+		"class": "DM",
+		"race": "Human",
+		"speed": 30,
+		"basehp": 8,
+		"hitdice": 8,
+		"baseabilityscores": {
+			"str": 16,
+			"dex": 12,
+			"con": 12,
+			"int": 10,
+			"wis": 9,
+			"cha": 10
+		},
+		"throwprofs": {
+			"str": true,
+			"dex": true,
+			"con": true,
+			"int": true,
+			"wis": false,
+			"cha": false
+		},
+		"startingequipment": [
+								5
+								]
 	}
 ]
