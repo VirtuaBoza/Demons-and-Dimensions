@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using Assets.Scripts.Game;
 
 public enum DIE {d20,d12,d10,d8,d6,d4,d00,one}
 

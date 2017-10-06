@@ -2,6 +2,7 @@
 using UnityEngine.EventSystems;
 using System.Collections;
 using System;
+using Assets.Scripts.Game;
 
 public class ItemInfo : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler {
 

@@ -3,6 +3,7 @@ using System.Collections;
 using LitJson;
 using System.Collections.Generic;
 using System.IO;
+using Assets.Scripts.Game;
 
 public class CharacterDatabase : MonoBehaviour {
 

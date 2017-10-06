@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using Assets.Scripts.Game;
 
 public class AttackOptions : MonoBehaviour {
 
