@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114989352793305758}
   - component: {fileID: 95328022404840380}
   m_Layer: 5
-  m_Name: AttackOptionPrefab 1
+  m_Name: AttackOptionPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

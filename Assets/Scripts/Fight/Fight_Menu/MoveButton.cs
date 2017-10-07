@@ -1,20 +1,21 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
+﻿using UnityEngine.UI;
 
-public class MoveButton : MonoBehaviour {
+public class MoveButton : FightMenuButton
+{
 
-	private Text buttonText;
+    private Text buttonText;
 
-	// Use this for initialization
-	void Awake () {
-		buttonText = GetComponentInChildren<Text>();
-	}
+    // Use this for initialization
+    void Awake()
+    {
+        buttonText = GetComponentInChildren<Text>();
+    }
 
-	public void UpdateText(int moves) {
-		buttonText.text = "Move (" + moves.ToString() + ")";
-		if (moves > 0) GetComponent<Button>().interactable = true;
-		else GetComponent<Button>().interactable = false;
-	}
+    public void UpdateText(int moves)
+    {
+        buttonText.text = "Move (" + moves.ToString() + ")";
+        if (moves > 0) GetComponent<Button>().interactable = true;
+        else GetComponent<Button>().interactable = false;
+    }
 
 }

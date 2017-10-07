@@ -1,19 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 
-public class EquipButton : MonoBehaviour {
+public class EquipButton : FightMenuButton
+{
 
-	private Button button;
+    private Button button;
 
-	void Start () {
-		button = GetComponent<Button> ();
-		button.onClick.AddListener(() => OnMyClick());
-	}
+    void Start()
+    {
+        button = GetComponent<Button>();
+        button.onClick.AddListener(() => OnMyClick());
+    }
 
-	void OnMyClick() {
-		FindObjectOfType<FightManager>().EnterEquip();
-	}
+    void OnMyClick()
+    {
+        FindObjectOfType<FightManager>().EnterEquip();
+    }
 
 }
