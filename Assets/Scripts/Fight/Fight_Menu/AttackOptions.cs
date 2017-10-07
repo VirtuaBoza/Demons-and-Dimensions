@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Game;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AttackOptions : FightMenuButton
 {

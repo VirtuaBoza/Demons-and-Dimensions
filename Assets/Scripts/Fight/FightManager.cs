@@ -1,9 +1,6 @@
-﻿using Assets.Scripts.Game;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-public enum DIE { d20, d12, d10, d8, d6, d4, d00, one }
 
 public class FightManager : MonoBehaviour
 {
