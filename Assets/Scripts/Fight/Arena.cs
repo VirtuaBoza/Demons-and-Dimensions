@@ -17,7 +17,6 @@ public class Arena : MonoBehaviour {
 	public FightMenuFrame fightMenuFrame; //Assigned in inspector
 	public FriendlyLayoutGroup friendlyLayoutGroup; //Assigned in inspector
 	public EnemyLayoutGroup enemyLayoutGroup; //Assigned in inspector
-	public FightManager fightManager; //Assigned in inspector
 	public List<Combatant> combatants = new List<Combatant>();
 
 	private List<Vector3> positionList = new List<Vector3>(); //To keep track of positions so that no two combatants have the same position
@@ -84,7 +83,7 @@ public class Arena : MonoBehaviour {
 	}
 
 	private int RollForInitiative() {
-		int roll = fightManager.RollADie(DIE.d20);
+		int roll = Die.RollADie(DIE.d20);
 		if (initiativeList.Contains(roll)) return RollForInitiative();
 		else {
 			initiativeList.Add(roll);

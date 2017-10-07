@@ -19,7 +19,9 @@ public class FightManager : MonoBehaviour
     private int profBonus;
     private DIE damageRange;
     private int damageMulti;
-    //private DAMAGETYPE damageType; //TODO implement later
+
+    // TODO implement damageType
+    //private DAMAGETYPE damageType;
 
     private Dictionary<int, int> currentPlayerItemIDsAndQuants = new Dictionary<int, int>();
 
@@ -77,14 +79,15 @@ public class FightManager : MonoBehaviour
         profBonus = prof;
         damageRange = dRange;
         damageMulti = multi;
-        //damageType = dType; //TODO implement later
+        // TODO implement damageType
+        //damageType = dType;
         EnterTargetSelection(ACTION.Attacking, range);
         actionType = ACTION.Attacking;
     }
 
     void ResolveAttack(Combatant target)
     {
-        int attackRoll = RollADie(DIE.d20);
+        int attackRoll = Die.RollADie(DIE.d20);
         attackRoll += profBonus;
         int totalDamage = 0;
         if (attackRoll == 1 || attackRoll < target.aC)
@@ -95,8 +98,8 @@ public class FightManager : MonoBehaviour
         {
             for (int i = 0; i < damageMulti; i++)
             {
-                int roll1 = RollADie(damageRange);
-                int roll2 = RollADie(damageRange);
+                int roll1 = Die.RollADie(damageRange);
+                int roll2 = Die.RollADie(damageRange);
                 totalDamage += Mathf.Max(roll1, roll2);
             }
         }
@@ -104,7 +107,7 @@ public class FightManager : MonoBehaviour
         {
             for (int i = 0; i < damageMulti; i++)
             {
-                totalDamage += RollADie(damageRange);
+                totalDamage += Die.RollADie(damageRange);
             }
         }
         target.TakeDamage(totalDamage);
@@ -292,29 +295,4 @@ public class FightManager : MonoBehaviour
         currentCombatants.Remove(combatant);
     }
 
-    public int RollADie(DIE die)
-    {
-        switch (die)
-        {
-            case DIE.d20:
-                return Random.Range(1, 21);
-            case DIE.d12:
-                return Random.Range(1, 13);
-            case DIE.d10:
-                return Random.Range(1, 11);
-            case DIE.d8:
-                return Random.Range(1, 9);
-            case DIE.d6:
-                return Random.Range(1, 7);
-            case DIE.d4:
-                return Random.Range(1, 5);
-            case DIE.d00:
-                int roll = Random.Range(1, 11);
-                return roll * 10;
-            case DIE.one:
-                return 1;
-            default:
-                return 0;
-        }
-    }
 }
