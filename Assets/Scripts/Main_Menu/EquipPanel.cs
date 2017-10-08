@@ -1,17 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-
-public enum CHARACTER { All, Crystal, Teddy, Hunter, Damien, Enemy }
 
 public class EquipPanel : MonoBehaviour
 {
 
-    public Text nameFrameText;
+    public Text nameFrame;
     public GameObject crystalPanel, teddyPanel, hunterPanel, damienPanel;
-    public GameObject[] characterPanels;
-    public CHARACTER currentCharacter;
     public Toggle blueToggle, orangeToggle, greenToggle, redToggle;
+
+    private GameObject[] characterPanels;
 
     void Start()
     {
@@ -20,40 +17,34 @@ public class EquipPanel : MonoBehaviour
         toggles[0].isOn = true;
     }
 
-    // TODO What is calling this below? Also, I fucked with the toggle index above when I added extra CHARACTERs
-
     public void SwitchCharacter(int index)
     {
         switch (index)
         {
             case 0:
-                currentCharacter = CHARACTER.Crystal;
                 ShowAppropriatePanel(crystalPanel);
-                nameFrameText.text = "Crystal";
+                nameFrame.text = "Crystal";
                 break;
             case 1:
-                currentCharacter = CHARACTER.Teddy;
                 ShowAppropriatePanel(teddyPanel);
-                nameFrameText.text = "Teddy";
+                nameFrame.text = "Teddy";
                 break;
             case 2:
-                currentCharacter = CHARACTER.Hunter;
                 ShowAppropriatePanel(hunterPanel);
-                nameFrameText.text = "Hunter";
+                nameFrame.text = "Hunter";
                 break;
             case 3:
-                currentCharacter = CHARACTER.Damien;
                 ShowAppropriatePanel(damienPanel);
-                nameFrameText.text = "Damien";
+                nameFrame.text = "Damien";
                 break;
         }
     }
 
-    void ShowAppropriatePanel(GameObject rightPanel)
+    void ShowAppropriatePanel(GameObject correctPanel)
     {
         foreach (GameObject panel in characterPanels)
         {
-            if (panel == rightPanel)
+            if (panel == correctPanel)
             {
                 panel.SetActive(true);
             }

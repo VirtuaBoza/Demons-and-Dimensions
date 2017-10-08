@@ -9,7 +9,7 @@ public enum DAMAGETYPE { Acid, Bludgeoning, Cold, Fire, Force, Lightning, Necrot
 public class ItemDatabase : MonoBehaviour
 {
 
-    public List<Item> itemDatabase = new List<Item>(); // Prepares a list in which to keep every type of item
+    public List<Item> allItems = new List<Item>(); // Prepares a list in which to keep every type of item
     private JsonData itemData;
 
     void Start()
@@ -24,7 +24,7 @@ public class ItemDatabase : MonoBehaviour
         {
             if (itemData[i]["itemtype"].ToString().Contains("Armor") || itemData[i]["itemtype"].ToString().Contains("Shield"))
             {
-                itemDatabase.Add(new Item((int)itemData[i]["id"],
+                allItems.Add(new Item((int)itemData[i]["id"],
                     itemData[i]["title"].ToString(),
                     itemData[i]["itemtype"].ToString(),
                     (int)itemData[i]["ac"],
@@ -36,7 +36,7 @@ public class ItemDatabase : MonoBehaviour
             }
             else if (itemData[i]["itemtype"].ToString().Contains("Weapon"))
             {
-                itemDatabase.Add(new Item((int)itemData[i]["id"],
+                allItems.Add(new Item((int)itemData[i]["id"],
                     itemData[i]["title"].ToString(),
                     itemData[i]["itemtype"].ToString(),
                     (int)itemData[i]["damagerange"],
@@ -61,11 +61,11 @@ public class ItemDatabase : MonoBehaviour
 
     public Item FetchItemByID(int id)
     {
-        for (int i = 0; i < itemDatabase.Count; i++)
+        for (int i = 0; i < allItems.Count; i++)
         {
-            if (itemDatabase[i].ID == id)
+            if (allItems[i].ID == id)
             {
-                return itemDatabase[i];
+                return allItems[i];
             }
         }
         return null;

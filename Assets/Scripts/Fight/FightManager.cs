@@ -8,7 +8,7 @@ public class FightManager : MonoBehaviour
     public GameObject moveTarget;
 
     public List<Vector3> currentPositionList = new List<Vector3>();
-    public Combatant currentPlayer;
+    public Combatant currentCombatant;
     public List<Combatant> currentCombatants = new List<Combatant>();
 
     private FightMenuFrame fightMenuFrame;
@@ -23,7 +23,7 @@ public class FightManager : MonoBehaviour
     // TODO implement damageType
     //private DAMAGETYPE damageType;
 
-    private Dictionary<int, int> currentPlayerItemIDsAndQuants = new Dictionary<int, int>();
+    private Dictionary<int, int> currentPlayerItemIDsAndQuantities = new Dictionary<int, int>();
 
     void Awake()
     {
@@ -45,7 +45,13 @@ public class FightManager : MonoBehaviour
     public void RunGame()
     {
         currentCombatants[0].StartTurn();
-        currentPlayer = currentCombatants[0];
+        currentCombatant = currentCombatants[0];
+        if (currentCombatant.character == PLAYERCHARACTER.Crystal || currentCombatant.character == PLAYERCHARACTER.Damien || currentCombatant.character == PLAYERCHARACTER.Hunter || currentCombatant.character == PLAYERCHARACTER.Teddy)
+        {
+            FindObjectOfType<GameManager>().currentCharacter = currentCombatant.character;
+            Debug.Log("Set GameManager's currentCharacter to " + currentCombatant.character);
+        }
+        
         if (currentCombatants[0].isFriendly)
         {
             fightMenuFrame.ActivateWaitPanel(false);
@@ -90,11 +96,8 @@ public class FightManager : MonoBehaviour
         int attackRoll = Die.RollADie(DIE.d20);
         attackRoll += profBonus;
         int totalDamage = 0;
-        if (attackRoll == 1 || attackRoll < target.aC)
-        {
-            Debug.Log("Miss");
-        }
-        else if (attackRoll == 20)
+        
+        if (attackRoll == 20)
         {
             for (int i = 0; i < damageMulti; i++)
             {
@@ -103,13 +106,14 @@ public class FightManager : MonoBehaviour
                 totalDamage += Mathf.Max(roll1, roll2);
             }
         }
-        else
+        else if (attackRoll != 1 && attackRoll >= target.aC)
         {
             for (int i = 0; i < damageMulti; i++)
             {
                 totalDamage += Die.RollADie(damageRange);
             }
         }
+
         target.TakeDamage(totalDamage);
     }
 
@@ -122,8 +126,8 @@ public class FightManager : MonoBehaviour
         {
             for (int y = -range; y <= range; y++)
             {
-                Vector3 spot = new Vector3(currentPlayer.transform.localPosition.x + x, currentPlayer.transform.localPosition.y + y);
-                if (currentPositionList.Contains(spot) && spot != currentPlayer.transform.localPosition)
+                Vector3 spot = new Vector3(currentCombatant.transform.localPosition.x + x, currentCombatant.transform.localPosition.y + y);
+                if (currentPositionList.Contains(spot) && spot != currentCombatant.transform.localPosition)
                 {
                     combatantsInRange.Add(spot);
                 }
@@ -166,14 +170,14 @@ public class FightManager : MonoBehaviour
 
         foreach (KeyValuePair<Combatant, Button> entry in combatantButtons)
         {
-            if (entry.Key != currentPlayer) entry.Value.gameObject.SetActive(false);
+            if (entry.Key != currentCombatant) entry.Value.gameObject.SetActive(false);
         }
 
         fightMenuFrame.ActivateFightMenu(true);
         fightMenuFrame.ActivateTargetPanel(false);
 
-        currentPlayer.remainingActions -= 1;
-        FindObjectOfType<ActionsButton>().UpdateText(currentPlayer.remainingActions);
+        currentCombatant.remainingActions -= 1;
+        FindObjectOfType<ActionsButton>().UpdateText(currentCombatant.remainingActions);
 
         SelectAppropriateOption();
 
@@ -218,26 +222,26 @@ public class FightManager : MonoBehaviour
             Destroy(targetButton.gameObject);
         }
 
-        UpdatePositionList(currentPlayer.transform.localPosition, target);
-        currentPlayer.MoveCombatant(target);
+        UpdatePositionList(currentCombatant.transform.localPosition, target);
+        currentCombatant.MoveCombatant(target);
         fightMenuFrame.ActivateFightMenu(true);
         fightMenuFrame.ActivateTargetPanel(false);
-        FindObjectOfType<MoveButton>().UpdateText(currentPlayer.remainingMoves);
+        FindObjectOfType<MoveButton>().UpdateText(currentCombatant.remainingMoves);
         SelectAppropriateOption();
     }
 
     public void EnterEquip()
     {
         FindObjectOfType<ShowPanels>().EnterEquipMode();
-        currentPlayerItemIDsAndQuants = GetCurrentPlayerItems();
+        currentPlayerItemIDsAndQuantities = GetCurrentPlayerItems();
     }
 
     public void ExitEquip()
     {
-        if (!CompareDicts(currentPlayerItemIDsAndQuants, GetCurrentPlayerItems()))
+        if (!CompareDicts(currentPlayerItemIDsAndQuantities, GetCurrentPlayerItems()))
         {
-            currentPlayer.remainingActions -= 1;
-            FindObjectOfType<ActionsButton>().UpdateText(currentPlayer.remainingActions);
+            currentCombatant.remainingActions -= 1;
+            FindObjectOfType<ActionsButton>().UpdateText(currentCombatant.remainingActions);
         }
         FindObjectOfType<EquipButton>().GetComponent<Selectable>().Select();
         SelectAppropriateOption();
@@ -246,7 +250,7 @@ public class FightManager : MonoBehaviour
     Dictionary<int, int> GetCurrentPlayerItems()
     {
         Dictionary<int, int> tempDict = new Dictionary<int, int>();
-        foreach (Item item in FindObjectOfType<Inventory>().characterEquippedItems[currentPlayer.character])
+        foreach (Item item in FindObjectOfType<Inventory>().characterEquippedItems[currentCombatant.character])
         {
             if (tempDict.ContainsKey(item.ID))
             {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharacterKeeper : MonoBehaviour {
 
-	public Dictionary<CHARACTER,Character> characters = new Dictionary<CHARACTER,Character>();
+	public Dictionary<PLAYERCHARACTER,Character> characters = new Dictionary<PLAYERCHARACTER,Character>();
 
 	void Start () {
 		CharacterDatabase database = GetComponent<CharacterDatabase>();

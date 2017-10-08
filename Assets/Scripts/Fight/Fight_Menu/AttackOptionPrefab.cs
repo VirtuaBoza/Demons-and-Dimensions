@@ -110,7 +110,7 @@ public class AttackOptionPrefab : MonoBehaviour, IPointerEnterHandler
         {
             for (int y = -trueRange; y <= trueRange; y++)
             {
-                if (enemyPositions.Contains(new Vector3(fightManager.currentPlayer.transform.localPosition.x + x, fightManager.currentPlayer.transform.localPosition.y + y)))
+                if (enemyPositions.Contains(new Vector3(fightManager.currentCombatant.transform.localPosition.x + x, fightManager.currentCombatant.transform.localPosition.y + y)))
                 {
                     return true;
                 }
@@ -129,9 +129,9 @@ public class AttackOptionPrefab : MonoBehaviour, IPointerEnterHandler
     int GetProfBonus()
     {
         CharacterKeeper characterKeeper = FindObjectOfType<CharacterKeeper>();
-        foreach (CHARACTER character in characterKeeper.characters.Keys)
+        foreach (PLAYERCHARACTER character in characterKeeper.characters.Keys)
         {
-            if (character == FindObjectOfType<FightManager>().currentPlayer.character)
+            if (character == FindObjectOfType<FightManager>().currentCombatant.character)
             {
                 int bonus = characterKeeper.characters[character].GetProfBonus();
                 if (maxRange > 1) bonus += characterKeeper.characters[character].GetAbilityScoreModifier(ABILITY.Dex);

@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myName: Hunter
-  character: 3
+  character: 2
   aC: 0
   maxHp: 1
   currentHp: 8
@@ -327,6 +327,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!212 &212145254894227294
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -367,6 +369,8 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!222 &222761073671594778
 CanvasRenderer:
   m_ObjectHideFlags: 1

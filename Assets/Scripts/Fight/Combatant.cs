@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Combatant : MonoBehaviour {
 
 	public string myName;
-	public CHARACTER character;
+	public PLAYERCHARACTER character;
 	public int aC;
 	public int maxHp;
 	[HideInInspector]public int currentHp;

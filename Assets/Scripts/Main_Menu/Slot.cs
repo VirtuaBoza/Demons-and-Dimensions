@@ -7,7 +7,7 @@ public class Slot : MonoBehaviour, IDropHandler {
 	public Image armorTypeIcon, bootsTypeIcon, helmetTypeIcon, weaponTypeIcon;
 	public enum SlotType {All, Armor, Boots, Helmet, Weapon}
 	public SlotType slotItemType = SlotType.All;
-	public CHARACTER owner;
+	public PLAYERCHARACTER owner;
 
 	private Inventory inv;
 

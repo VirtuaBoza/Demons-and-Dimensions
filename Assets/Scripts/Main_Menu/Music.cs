@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
-public class PlayMusic : MonoBehaviour {
+public class Music : MonoBehaviour {
 
 
 	public AudioClip titleMusic;					//Assign Audioclip for title music loop

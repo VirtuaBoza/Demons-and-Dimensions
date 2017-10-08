@@ -15,7 +15,7 @@ public class AttackOptions : FightMenuButton
         Inventory inventory = FindObjectOfType<Inventory>();
         bool isAtLeastOneWeapon = false;
 
-        foreach (Item item in inventory.characterEquippedItems[fightManager.currentPlayer.character])
+        foreach (Item item in inventory.characterEquippedItems[fightManager.currentCombatant.character])
         {
             if (item.Itemtype == ITEMTYPE.Weapon)
             {

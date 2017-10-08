@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour {
 	public GameObject inventoryPanel, inventorySlot, inventoryItem;
 
 	public Dictionary<Slot,Item> assignedItems = new Dictionary<Slot, Item>();
-	public Dictionary<CHARACTER,List<Item>> characterEquippedItems = new Dictionary<CHARACTER, List<Item>>();
+	public Dictionary<PLAYERCHARACTER,List<Item>> characterEquippedItems = new Dictionary<PLAYERCHARACTER, List<Item>>();
 
 	private ItemDatabase database;
 
@@ -22,10 +22,10 @@ public class Inventory : MonoBehaviour {
 	void Start () {
 		AddItem(0); //For testing puposes
 		AddItem(3); //For testing puposes
-		characterEquippedItems.Add(CHARACTER.Crystal, new List<Item>());
-		characterEquippedItems.Add(CHARACTER.Damien, new List<Item>());
-		characterEquippedItems.Add(CHARACTER.Hunter, new List<Item>());
-		characterEquippedItems.Add(CHARACTER.Teddy, new List<Item>());
+		characterEquippedItems.Add(PLAYERCHARACTER.Crystal, new List<Item>());
+		characterEquippedItems.Add(PLAYERCHARACTER.Damien, new List<Item>());
+		characterEquippedItems.Add(PLAYERCHARACTER.Hunter, new List<Item>());
+		characterEquippedItems.Add(PLAYERCHARACTER.Teddy, new List<Item>());
 		UpdateInventory();
 	}
 
@@ -52,8 +52,8 @@ public class Inventory : MonoBehaviour {
 	}
 
 	public void UpdateInventory() {
-		CHARACTER[] characters = characterEquippedItems.Keys.ToArray();
-		foreach (CHARACTER character in characters) {
+		PLAYERCHARACTER[] characters = characterEquippedItems.Keys.ToArray();
+		foreach (PLAYERCHARACTER character in characters) {
 			List<Item> tempList = new List<Item>();
 			foreach (Slot slot in inventoryPanel.GetComponentsInChildren<Slot>()) {
 				if (slot.owner == character) {

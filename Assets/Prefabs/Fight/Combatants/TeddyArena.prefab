@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myName: Teddy
-  character: 2
+  character: 1
   aC: 0
   maxHp: 1
   currentHp: 13
@@ -327,6 +327,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!212 &212681177218250882
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -367,6 +369,8 @@ SpriteRenderer:
   m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!222 &222268730333929278
 CanvasRenderer:
   m_ObjectHideFlags: 1
