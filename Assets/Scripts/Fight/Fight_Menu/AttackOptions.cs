@@ -2,7 +2,6 @@
 
 public class AttackOptions : FightMenuButton
 {
-
     public FightManager fightManager; //Assigned in inspector
     public GameObject attackOptionPrefab; //Assigned in inspector
 
@@ -12,12 +11,13 @@ public class AttackOptions : FightMenuButton
         {
             GameObject.Destroy(child.gameObject);
         }
+
         Inventory inventory = FindObjectOfType<Inventory>();
         bool isAtLeastOneWeapon = false;
 
         foreach (Item item in inventory.characterEquippedItems[fightManager.currentCombatant.character])
         {
-            if (item.Itemtype == ITEMTYPE.Weapon)
+            if (item.Itemtype == ItemType.Weapon)
             {
                 GameObject prefab = Instantiate(attackOptionPrefab, transform) as GameObject;
                 AttackOptionPrefab option = prefab.GetComponent<AttackOptionPrefab>();
@@ -43,9 +43,9 @@ public class AttackOptions : FightMenuButton
             GameObject prefab = Instantiate(attackOptionPrefab, transform) as GameObject;
             AttackOptionPrefab option = prefab.GetComponent<AttackOptionPrefab>();
             option.title = "Unarmed Strike";
-            option.damageRange = DIE.one;
+            option.damageRange = DieType.one;
             option.damageMulti = 1;
-            option.damageType = DAMAGETYPE.Bludgeoning;
+            option.damageType = DamageType.Bludgeoning;
             option.finesse = false;
             option.heavy = false;
             option.isLight = true;
@@ -56,5 +56,4 @@ public class AttackOptions : FightMenuButton
             option.UpdateFields();
         }
     }
-
 }

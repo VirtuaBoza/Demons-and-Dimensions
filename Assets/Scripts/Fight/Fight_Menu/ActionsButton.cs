@@ -2,7 +2,6 @@
 
 public class ActionsButton : FightMenuButton
 {
-
     private Text buttonText;
     private Toggle toggle;
 
@@ -18,5 +17,4 @@ public class ActionsButton : FightMenuButton
         if (actions > 0) toggle.interactable = true;
         else toggle.interactable = false;
     }
-
 }

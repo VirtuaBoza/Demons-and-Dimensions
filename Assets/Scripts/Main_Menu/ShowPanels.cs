@@ -1,27 +1,23 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using System.Collections.Generic;
 
-public enum CHARACTERPANEL { Stats, Inventory, Spells, None }
+public enum CharacterPanelType { Stats, Inventory, Spells, None }
 
 public class ShowPanels : MonoBehaviour
 {
-
-    public GameObject optionsPanel;                         //Store a reference to the Game Object OptionsPanel 
-    public GameObject optionsTint;                          //Store a reference to the Game Object OptionsTint 
-    public GameObject menuPanel;                            //Store a reference to the Game Object MenuPanel 
-    public GameObject pausePanel;                           //Store a reference to the Game Object PausePanel 
+    public GameObject optionsPanel; //Store a reference to the Game Object OptionsPanel 
+    public GameObject optionsTint;  //Store a reference to the Game Object OptionsTint 
+    public GameObject menuPanel;    //Store a reference to the Game Object MenuPanel 
+    public GameObject pausePanel;   //Store a reference to the Game Object PausePanel 
     public GameObject characterPanel;
     public GameObject inventoryPanel;
     public GameObject statPanel;
     public GameObject spellPanel;
     public GameObject backgroundBlocker;
-
     public Toggle statToggle, inventoryToggle, spellsToggle;
     public bool inFight = false;
+    public CharacterPanelType currentPanel;
 
-    public CHARACTERPANEL currentPanel;
     private StartOptions startScript;
     private Pause pauseScript;
 
@@ -34,36 +30,34 @@ public class ShowPanels : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.C) && (currentPanel != CHARACTERPANEL.Stats) && !startScript.inMainMenu && !pauseScript.isPaused)
+        if (Input.GetKeyDown(KeyCode.C) && (currentPanel != CharacterPanelType.Stats) && !startScript.inMainMenu && !pauseScript.isPaused)
         {
             ShowCharacterPanel();
             statToggle.isOn = true;
-            currentPanel = CHARACTERPANEL.Stats;
+            currentPanel = CharacterPanelType.Stats;
         }
-        else if (Input.GetKeyDown(KeyCode.I) && (currentPanel != CHARACTERPANEL.Inventory) && !startScript.inMainMenu && !pauseScript.isPaused)
+        else if (Input.GetKeyDown(KeyCode.I) && (currentPanel != CharacterPanelType.Inventory) && !startScript.inMainMenu && !pauseScript.isPaused)
         {
             if (inFight) Debug.Log("Inventory is disabled during combat.");
             else
             {
                 ShowCharacterPanel();
                 inventoryToggle.isOn = true;
-                currentPanel = CHARACTERPANEL.Inventory;
+                currentPanel = CharacterPanelType.Inventory;
             }
-
         }
-        else if (Input.GetKeyDown(KeyCode.S) && (currentPanel != CHARACTERPANEL.Spells) && !startScript.inMainMenu && !pauseScript.isPaused)
+        else if (Input.GetKeyDown(KeyCode.S) && (currentPanel != CharacterPanelType.Spells) && !startScript.inMainMenu && !pauseScript.isPaused)
         {
             ShowCharacterPanel();
             spellsToggle.isOn = true;
-            currentPanel = CHARACTERPANEL.Spells;
+            currentPanel = CharacterPanelType.Spells;
         }
-        else if (((Input.GetKeyDown(KeyCode.C) && (currentPanel == CHARACTERPANEL.Stats)) ||
-          (Input.GetKeyDown(KeyCode.I) && (currentPanel == CHARACTERPANEL.Inventory)) ||
-          (Input.GetKeyDown(KeyCode.S) && (currentPanel == CHARACTERPANEL.Spells))) && !startScript.inMainMenu && !pauseScript.isPaused)
+        else if (((Input.GetKeyDown(KeyCode.C) && (currentPanel == CharacterPanelType.Stats)) ||
+          (Input.GetKeyDown(KeyCode.I) && (currentPanel == CharacterPanelType.Inventory)) ||
+          (Input.GetKeyDown(KeyCode.S) && (currentPanel == CharacterPanelType.Spells))) && !startScript.inMainMenu && !pauseScript.isPaused)
         {
             UnPauseFromCharacterPanel();
         }
-
     }
 
     public void ShowCharacterPanel()
@@ -77,7 +71,7 @@ public class ShowPanels : MonoBehaviour
 
     public void UnPauseFromCharacterPanel()
     {
-        if (inFight && currentPanel == CHARACTERPANEL.Inventory)
+        if (inFight && currentPanel == CharacterPanelType.Inventory)
         {
             inventoryToggle.interactable = false;
             statToggle.interactable = true;
@@ -87,7 +81,7 @@ public class ShowPanels : MonoBehaviour
         Time.timeScale = 1;
         characterPanel.SetActive(false);
         backgroundBlocker.SetActive(false);
-        currentPanel = CHARACTERPANEL.None;
+        currentPanel = CharacterPanelType.None;
     }
 
     public void EnterEquipMode()
@@ -97,7 +91,7 @@ public class ShowPanels : MonoBehaviour
         statToggle.interactable = false;
         spellsToggle.interactable = false;
         inventoryToggle.isOn = true;
-        currentPanel = CHARACTERPANEL.Inventory;
+        currentPanel = CharacterPanelType.Inventory;
     }
 
     //Call this function to activate and display the Options panel during the main menu
@@ -140,6 +134,4 @@ public class ShowPanels : MonoBehaviour
         optionsTint.SetActive(false);
 
     }
-
-
 }

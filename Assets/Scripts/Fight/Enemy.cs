@@ -1,15 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : MonoBehaviour
+{
+    public virtual void Melee()
+    {
+    }
 
-	public virtual void Melee() {
-
-	}
-
-	public virtual void Ranged() {
-
-	}
-
+    public virtual void Ranged()
+    {
+    }
 }

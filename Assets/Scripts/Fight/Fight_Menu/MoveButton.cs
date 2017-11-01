@@ -2,10 +2,8 @@
 
 public class MoveButton : FightMenuButton
 {
-
     private Text buttonText;
 
-    // Use this for initialization
     void Awake()
     {
         buttonText = GetComponentInChildren<Text>();
@@ -17,5 +15,4 @@ public class MoveButton : FightMenuButton
         if (moves > 0) GetComponent<Button>().interactable = true;
         else GetComponent<Button>().interactable = false;
     }
-
 }

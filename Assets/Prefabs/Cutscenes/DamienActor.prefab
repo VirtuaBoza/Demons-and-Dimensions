@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4360516531775110}
   - component: {fileID: 212884620253063558}
   - component: {fileID: 95872407833758102}
-  - component: {fileID: 114205650906217460}
   m_Layer: 0
   m_Name: SpeechBubble
   m_TagString: Untagged
@@ -141,17 +140,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 3
---- !u!114 &114205650906217460
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1467693257679652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efac6490efd5499499cc88d07393f806, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &212725006255005508
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -192,6 +180,8 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
 --- !u!212 &212884620253063558
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -232,3 +222,5 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
