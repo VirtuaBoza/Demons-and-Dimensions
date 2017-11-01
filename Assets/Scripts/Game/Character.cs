@@ -1,9 +1,15 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public enum PLAYERCHARACTER { Crystal, Teddy, Hunter, Damien }
+public enum PlayerCharacter
+{
+    Crystal,
+    Teddy,
+    Hunter,
+    Damien
+}
 
-public enum ABILITY
+public enum AbilityType
 {
     Str,
     Dex,
@@ -17,14 +23,14 @@ public class Character
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public PLAYERCHARACTER character;
+    public PlayerCharacter character;
     public string Class { get; set; }
     public string Race { get; set; }
     public int Speed { get; set; }
     public int BaseHp { get; set; }
     public int HitDice { get; set; }
-    public Dictionary<ABILITY, int> abilityScoreDictionary = new Dictionary<ABILITY, int>();
-    public Dictionary<ABILITY, bool> abilityProfDictionary = new Dictionary<ABILITY, bool>();
+    public Dictionary<AbilityType, int> abilityScoreDictionary = new Dictionary<AbilityType, int>();
+    public Dictionary<AbilityType, bool> abilityProfDictionary = new Dictionary<AbilityType, bool>();
     public List<Item> Equipment { get; set; }
     public int Xp { get; set; }
     public int CurrentHP { get; set; }
@@ -35,28 +41,28 @@ public class Character
     {
         this.Id = id;
         this.Name = characterName;
-        if (characterName.ToLower().Contains("crystal")) character = PLAYERCHARACTER.Crystal;
-        else if (characterName.ToLower().Contains("damien")) character = PLAYERCHARACTER.Damien;
-        else if (characterName.ToLower().Contains("hunter")) character = PLAYERCHARACTER.Hunter;
-        else if (characterName.ToLower().Contains("teddy")) character = PLAYERCHARACTER.Teddy;
-        else Debug.LogWarning("Character constructor doesn't recognize PLAYERCHARACTER");
+        if (characterName.ToLower().Contains("crystal")) character = PlayerCharacter.Crystal;
+        else if (characterName.ToLower().Contains("damien")) character = PlayerCharacter.Damien;
+        else if (characterName.ToLower().Contains("hunter")) character = PlayerCharacter.Hunter;
+        else if (characterName.ToLower().Contains("teddy")) character = PlayerCharacter.Teddy;
+        else Debug.LogWarning("Character constructor doesn't recognize PlayerCharacter");
         this.Class = characterClass;
         this.Race = race;
         this.Speed = speed;
         this.BaseHp = basehp;
         this.HitDice = hitdice;
-        abilityScoreDictionary[ABILITY.Str] = strscore;
-        abilityScoreDictionary[ABILITY.Dex] = dexscore;
-        abilityScoreDictionary[ABILITY.Con] = conscore;
-        abilityScoreDictionary[ABILITY.Int] = intscore;
-        abilityScoreDictionary[ABILITY.Wis] = wisscore;
-        abilityScoreDictionary[ABILITY.Cha] = chascore;
-        abilityProfDictionary[ABILITY.Str] = strprof;
-        abilityProfDictionary[ABILITY.Dex] = dexprof;
-        abilityProfDictionary[ABILITY.Con] = conprof;
-        abilityProfDictionary[ABILITY.Int] = intprof;
-        abilityProfDictionary[ABILITY.Wis] = wisprof;
-        abilityProfDictionary[ABILITY.Cha] = chaprof;
+        abilityScoreDictionary[AbilityType.Str] = strscore;
+        abilityScoreDictionary[AbilityType.Dex] = dexscore;
+        abilityScoreDictionary[AbilityType.Con] = conscore;
+        abilityScoreDictionary[AbilityType.Int] = intscore;
+        abilityScoreDictionary[AbilityType.Wis] = wisscore;
+        abilityScoreDictionary[AbilityType.Cha] = chascore;
+        abilityProfDictionary[AbilityType.Str] = strprof;
+        abilityProfDictionary[AbilityType.Dex] = dexprof;
+        abilityProfDictionary[AbilityType.Con] = conprof;
+        abilityProfDictionary[AbilityType.Int] = intprof;
+        abilityProfDictionary[AbilityType.Wis] = wisprof;
+        abilityProfDictionary[AbilityType.Cha] = chaprof;
         this.Equipment = startingequipment;
         this.Xp = 0;
         this.CurrentHP = basehp;
@@ -102,7 +108,7 @@ public class Character
         bool dexModsMax2 = false;
         foreach (Item item in this.Equipment)
         {
-            if (item.Itemtype == ITEMTYPE.Armor || item.Itemtype == ITEMTYPE.Shield)
+            if (item.Itemtype == ItemType.Armor || item.Itemtype == ItemType.Shield)
             {
                 ac += item.Ac;
                 if (!item.Dexmodifies) { dexMods = false; }
@@ -115,8 +121,8 @@ public class Character
         }
         if (dexMods)
         {
-            if (dexModsMax2) ac += Mathf.Min(GetAbilityScoreModifier(ABILITY.Dex), 2);
-            else ac += GetAbilityScoreModifier(ABILITY.Dex);
+            if (dexModsMax2) ac += Mathf.Min(GetAbilityScoreModifier(AbilityType.Dex), 2);
+            else ac += GetAbilityScoreModifier(AbilityType.Dex);
         }
         return ac;
     }
@@ -153,7 +159,7 @@ public class Character
         this.CurrentHP -= points;
     }
 
-    public int GetAbilityScoreModifier(ABILITY ability)
+    public int GetAbilityScoreModifier(AbilityType ability)
     {
         return DetermineModifier(abilityScoreDictionary[ability]);
     }
@@ -178,10 +184,9 @@ public class Character
         else return 10;
     }
 
-    public int GetThrowMod(ABILITY ability)
+    public int GetThrowMod(AbilityType ability)
     {
         if (abilityProfDictionary[ability]) return GetAbilityScoreModifier(ability) + GetProfBonus();
         else return GetAbilityScoreModifier(ability);
     }
-
 }

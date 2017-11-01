@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class EquipPanel : MonoBehaviour
 {
-
     public Text nameFrame;
     public GameObject crystalPanel, teddyPanel, hunterPanel, damienPanel;
     public Toggle blueToggle, orangeToggle, greenToggle, redToggle;
@@ -54,5 +53,4 @@ public class EquipPanel : MonoBehaviour
             }
         }
     }
-
 }

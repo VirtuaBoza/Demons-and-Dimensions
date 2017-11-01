@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class EventSystemChecker : MonoBehaviour
 {
-
 	void OnEnable()
 	{
 		//Tell our 'OnLevelFinishedLoading' function to start listening for a scene change as soon as this script is enabled.

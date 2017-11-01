@@ -4,24 +4,20 @@ using UnityEngine.UI;
 
 public class FightManager : MonoBehaviour
 {
-
     public GameObject moveTarget;
-
     public List<Vector3> currentPositionList = new List<Vector3>();
     public Combatant currentCombatant;
     public List<Combatant> currentCombatants = new List<Combatant>();
 
     private FightMenuFrame fightMenuFrame;
     private Dictionary<Combatant, Button> combatantButtons = new Dictionary<Combatant, Button>();
-
-    private ACTION actionType;
-
+    private ActionType actionType;
     private int profBonus;
-    private DIE damageRange;
+    private DieType damageRange;
     private int damageMulti;
 
     // TODO implement damageType
-    //private DAMAGETYPE damageType;
+    //private DamageType damageType;
 
     private Dictionary<int, int> currentPlayerItemIDsAndQuantities = new Dictionary<int, int>();
 
@@ -46,12 +42,12 @@ public class FightManager : MonoBehaviour
     {
         currentCombatants[0].StartTurn();
         currentCombatant = currentCombatants[0];
-        if (currentCombatant.character == PLAYERCHARACTER.Crystal || currentCombatant.character == PLAYERCHARACTER.Damien || currentCombatant.character == PLAYERCHARACTER.Hunter || currentCombatant.character == PLAYERCHARACTER.Teddy)
+        if (currentCombatant.character == PlayerCharacter.Crystal || currentCombatant.character == PlayerCharacter.Damien || currentCombatant.character == PlayerCharacter.Hunter || currentCombatant.character == PlayerCharacter.Teddy)
         {
             FindObjectOfType<GameManager>().currentCharacter = currentCombatant.character;
             Debug.Log("Set GameManager's currentCharacter to " + currentCombatant.character);
         }
-        
+
         if (currentCombatants[0].isFriendly)
         {
             fightMenuFrame.ActivateWaitPanel(false);
@@ -79,24 +75,23 @@ public class FightManager : MonoBehaviour
         RunGame();
     }
 
-
-    public void InitiateAttack(int prof, DIE dRange, int multi, DAMAGETYPE dType, int range)
+    public void InitiateAttack(int prof, DieType dRange, int multi, DamageType dType, int range)
     {
         profBonus = prof;
         damageRange = dRange;
         damageMulti = multi;
         // TODO implement damageType
         //damageType = dType;
-        EnterTargetSelection(ACTION.Attacking, range);
-        actionType = ACTION.Attacking;
+        EnterTargetSelection(ActionType.Attacking, range);
+        actionType = ActionType.Attacking;
     }
 
     void ResolveAttack(Combatant target)
     {
-        int attackRoll = Die.RollADie(DIE.d20);
+        int attackRoll = Die.RollADie(DieType.d20);
         attackRoll += profBonus;
         int totalDamage = 0;
-        
+
         if (attackRoll == 20)
         {
             for (int i = 0; i < damageMulti; i++)
@@ -117,7 +112,7 @@ public class FightManager : MonoBehaviour
         target.TakeDamage(totalDamage);
     }
 
-    public void EnterTargetSelection(ACTION action, int range)
+    public void EnterTargetSelection(ActionType action, int range)
     {
         fightMenuFrame.ActivateFightMenu(false);
         fightMenuFrame.ActivateTargetPanel(true);
@@ -138,7 +133,7 @@ public class FightManager : MonoBehaviour
         {
             if (combatantsInRange.Contains(entry.Key.transform.localPosition))
             {
-                if ((action == ACTION.Attacking || action == ACTION.Casting) && !entry.Key.isFriendly)
+                if ((action == ActionType.Attacking || action == ActionType.Casting) && !entry.Key.isFriendly)
                 {
                     entry.Value.gameObject.SetActive(true);
                     entry.Value.interactable = true;
@@ -148,7 +143,7 @@ public class FightManager : MonoBehaviour
                         oneIsSelected = true;
                     }
                 }
-                else if (action == ACTION.Buffing && entry.Key.isFriendly)
+                else if (action == ActionType.Buffing && entry.Key.isFriendly)
                 {
                     entry.Value.gameObject.SetActive(true);
                     entry.Value.interactable = true;
@@ -166,7 +161,7 @@ public class FightManager : MonoBehaviour
     public void ExitTargetSelection(Combatant target)
     {
 
-        if (actionType == ACTION.Attacking) ResolveAttack(target);
+        if (actionType == ActionType.Attacking) ResolveAttack(target);
 
         foreach (KeyValuePair<Combatant, Button> entry in combatantButtons)
         {
@@ -180,12 +175,10 @@ public class FightManager : MonoBehaviour
         FindObjectOfType<ActionsButton>().UpdateText(currentCombatant.remainingActions);
 
         SelectAppropriateOption();
-
     }
 
     public void EnterMoveSelection()
     {
-
         fightMenuFrame.ActivateFightMenu(false);
         fightMenuFrame.ActivateTargetPanel(true);
 
@@ -276,7 +269,7 @@ public class FightManager : MonoBehaviour
 
     void SelectAppropriateOption()
     {
-        foreach (Selectable selectable in FindObjectOfType<FightMenu>().GetComponentsInChildren<Selectable>())
+        foreach (Selectable selectable in GameObject.Find("FightMenu").transform.GetComponentsInChildren<Selectable>())
         {
             if (selectable.IsInteractable())
             {
@@ -298,5 +291,4 @@ public class FightManager : MonoBehaviour
         combatantButtons.Remove(combatant);
         currentCombatants.Remove(combatant);
     }
-
 }

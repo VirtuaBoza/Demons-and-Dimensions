@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public enum ITEMTYPE { Armor, Boots, Helmet, Shield, Weapon }
-public enum DAMAGETYPE { Acid, Bludgeoning, Cold, Fire, Force, Lightning, Necrotic, Piercing, Poison, Psychic, Radiant, Slashing, Thunder }
+public enum ItemType { Armor, Boots, Helmet, Shield, Weapon }
+public enum DamageType { Acid, Bludgeoning, Cold, Fire, Force, Lightning, Necrotic, Piercing, Poison, Psychic, Radiant, Slashing, Thunder }
 
 public class ItemDatabase : MonoBehaviour
 {
-
     public List<Item> allItems = new List<Item>(); // Prepares a list in which to keep every type of item
     private JsonData itemData;
 
@@ -55,7 +54,6 @@ public class ItemDatabase : MonoBehaviour
             {
                 Debug.LogWarning("ConstructItemDatabase doesn't recognize the itemtype");
             }
-
         }
     }
 
@@ -70,6 +68,5 @@ public class ItemDatabase : MonoBehaviour
         }
         return null;
     }
-
 }
 

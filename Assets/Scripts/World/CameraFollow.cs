@@ -1,54 +1,58 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class CameraFollow : MonoBehaviour {
+public class CameraFollow : MonoBehaviour
+{
+    public GameObject player;
+    public float xMargin, yMargin;
+    public Vector2 minXandY, maxXandY;
 
-	public GameObject player;
-	public float xMargin, yMargin;
-	public Vector2 minXandY, maxXandY;
+    void LateUpdate()
+    {
+        TrackPlayer();
+    }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void LateUpdate () {
-		TrackPlayer();
-	}
+    void TrackPlayer()
+    {
+        float targetX = transform.position.x;
+        float targetY = transform.position.y;
 
-	void TrackPlayer(){
+        if (CheckXMargin())
+        {
+            if (transform.position.x - player.transform.position.x > 0)
+            {
+                targetX = player.transform.position.x + xMargin;
+            }
+            else if (transform.position.x - player.transform.position.x < 0)
+            {
+                targetX = player.transform.position.x - xMargin;
+            }
+        }
 
-		float targetX = transform.position.x;
-		float targetY = transform.position.y;
+        if (CheckYMargin())
+        {
+            if (transform.position.y - player.transform.position.y > 0)
+            {
+                targetY = player.transform.position.y + yMargin;
+            }
+            else if (transform.position.y - player.transform.position.y < 0)
+            {
+                targetY = player.transform.position.y - yMargin;
+            }
+        }
 
-		if (CheckXMargin()){
-			if (transform.position.x - player.transform.position.x > 0){
-				targetX = player.transform.position.x + xMargin;
-			} else if (transform.position.x - player.transform.position.x < 0){
-				targetX = player.transform.position.x - xMargin;
-			}
-		}
+        targetX = Mathf.Clamp(targetX, minXandY.x, maxXandY.x);
+        targetY = Mathf.Clamp(targetY, minXandY.y, maxXandY.y);
 
-		if (CheckYMargin()){
-			if (transform.position.y - player.transform.position.y > 0){
-				targetY = player.transform.position.y + yMargin;
-			} else if (transform.position.y - player.transform.position.y < 0) {
-				targetY = player.transform.position.y - yMargin;
-			}
-		}
+        transform.position = new Vector3(targetX, targetY, transform.position.z);
+    }
 
-		targetX = Mathf.Clamp(targetX, minXandY.x, maxXandY.x);
-		targetY = Mathf.Clamp(targetY, minXandY.y, maxXandY.y);
+    bool CheckXMargin()
+    {
+        return Mathf.Abs(transform.position.x - player.transform.position.x) > xMargin;
+    }
 
-		transform.position = new Vector3(targetX, targetY, transform.position.z);
-	}
-
-	bool CheckXMargin(){
-		return Mathf.Abs(transform.position.x - player.transform.position.x) > xMargin;
-	}
-
-	bool CheckYMargin(){
-		return Mathf.Abs(transform.position.y - player.transform.position.y) > yMargin;
-	}
+    bool CheckYMargin()
+    {
+        return Mathf.Abs(transform.position.y - player.transform.position.y) > yMargin;
+    }
 }

@@ -5,13 +5,11 @@ using UnityEngine.UI;
 
 public class AttackOptionPrefab : MonoBehaviour, IPointerEnterHandler
 {
-
-    public Text weaponText; //Assigned in inspector
-
+    public Text weaponText; //Assigned in inspector.... why?
     public string title;
-    public DIE damageRange;
+    public DieType damageRange;
     public int damageMulti;
-    public DAMAGETYPE damageType;
+    public DamageType damageType;
     public bool finesse;
     public bool heavy;
     public bool isLight;
@@ -33,63 +31,62 @@ public class AttackOptionPrefab : MonoBehaviour, IPointerEnterHandler
             weaponText.text = title + "  No targets in range";
             GetComponent<Button>().interactable = false;
         }
-
     }
 
-    string GetDieTypeInString(DIE die)
+    string GetDieTypeInString(DieType die)
     {
         switch (die)
         {
-            case DIE.d00:
+            case DieType.d00:
                 return "d00";
-            case DIE.d10:
+            case DieType.d10:
                 return "d10";
-            case DIE.d12:
+            case DieType.d12:
                 return "d12";
-            case DIE.d20:
+            case DieType.d20:
                 return "d20";
-            case DIE.d4:
+            case DieType.d4:
                 return "d4";
-            case DIE.d6:
+            case DieType.d6:
                 return "d6";
-            case DIE.d8:
+            case DieType.d8:
                 return "d8";
-            case DIE.one:
+            case DieType.one:
                 return "";
             default:
                 return "AttackOptionPrefab doesn't recognize Die type";
         }
     }
 
-    string GetDamageTypeInString(DAMAGETYPE damType)
+    string GetDamageTypeInString(DamageType damType)
     {
         switch (damType)
         {
-            case DAMAGETYPE.Acid:
+            case DamageType.Acid:
                 return "Acid";
-            case DAMAGETYPE.Bludgeoning:
+            case DamageType.Bludgeoning:
                 return "Bludgeoning";
-            case DAMAGETYPE.Cold:
+            case DamageType.Cold:
                 return "Cold";
-            case DAMAGETYPE.Fire:
+            case DamageType.Fire:
                 return "Fire";
-            case DAMAGETYPE.Force:
+            case DamageType.Force:
                 return "Force";
-            case DAMAGETYPE.Lightning:
+            case DamageType.Lightning:
                 return "Lightning";
-            case DAMAGETYPE.Necrotic:
+            case DamageType.Necrotic:
                 return "Necrotic";
-            case DAMAGETYPE.Piercing:
+            case DamageType.Piercing:
                 return "Piercing";
-            case DAMAGETYPE.Poison:
+            case DamageType.Poison:
                 return "Poison";
-            case DAMAGETYPE.Psychic:
+            case DamageType.Psychic:
                 return "Psychic";
-            case DAMAGETYPE.Radiant:
+            case DamageType.Radiant:
                 return "Radiant";
-            case DAMAGETYPE.Slashing:
+            case DamageType.Slashing:
                 return "Slashing";
-            case DAMAGETYPE.Thunder:
+            case DamageType.Thunder:
                 return "Thunder";
             default:
                 return "AttackOptionPrefab doesn't recognize DamageType";
@@ -129,13 +126,13 @@ public class AttackOptionPrefab : MonoBehaviour, IPointerEnterHandler
     int GetProfBonus()
     {
         CharacterKeeper characterKeeper = FindObjectOfType<CharacterKeeper>();
-        foreach (PLAYERCHARACTER character in characterKeeper.characters.Keys)
+        foreach (PlayerCharacter character in characterKeeper.characters.Keys)
         {
             if (character == FindObjectOfType<FightManager>().currentCombatant.character)
             {
                 int bonus = characterKeeper.characters[character].GetProfBonus();
-                if (maxRange > 1) bonus += characterKeeper.characters[character].GetAbilityScoreModifier(ABILITY.Dex);
-                else bonus += characterKeeper.characters[character].GetAbilityScoreModifier(ABILITY.Str);
+                if (maxRange > 1) bonus += characterKeeper.characters[character].GetAbilityScoreModifier(AbilityType.Dex);
+                else bonus += characterKeeper.characters[character].GetAbilityScoreModifier(AbilityType.Str);
                 return bonus;
             }
         }
@@ -148,7 +145,7 @@ public class AttackOptionPrefab : MonoBehaviour, IPointerEnterHandler
         if (GetComponent<Button>() && GetComponent<Button>().interactable)
         {
             GetComponent<Button>().Select();
-            FindObjectOfType<AttackButton>().GetComponent<Animator>().SetTrigger("Normal");
+            GameObject.Find("AttackButton").GetComponent<Animator>().SetTrigger("Normal");
         }
     }
 

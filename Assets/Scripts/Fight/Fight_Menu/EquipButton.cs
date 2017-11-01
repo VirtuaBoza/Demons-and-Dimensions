@@ -2,7 +2,6 @@
 
 public class EquipButton : FightMenuButton
 {
-
     private Button button;
 
     void Start()
@@ -15,5 +14,4 @@ public class EquipButton : FightMenuButton
     {
         FindObjectOfType<FightManager>().EnterEquip();
     }
-
 }
