@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // Moves character with mouseclick
+        // Moves character with mouseclick if not receiving other movement input
         if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
