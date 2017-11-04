@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum PlayerCharacter
@@ -23,14 +24,14 @@ public class Character
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public PlayerCharacter character;
+    public PlayerCharacter PlayerCharacter { get; set; }
     public string Class { get; set; }
     public string Race { get; set; }
     public int Speed { get; set; }
     public int BaseHp { get; set; }
     public int HitDice { get; set; }
-    public Dictionary<AbilityType, int> abilityScoreDictionary = new Dictionary<AbilityType, int>();
-    public Dictionary<AbilityType, bool> abilityProfDictionary = new Dictionary<AbilityType, bool>();
+    public Dictionary<AbilityType, int> AbilityScoreDictionary { get; set; }
+    public Dictionary<AbilityType, bool> AbilityProfDictionary { get; set; }
     public List<Item> Equipment { get; set; }
     public int Xp { get; set; }
     public int CurrentHP { get; set; }
@@ -39,65 +40,82 @@ public class Character
         int strscore, int dexscore, int conscore, int intscore, int wisscore, int chascore,
         bool strprof, bool dexprof, bool conprof, bool intprof, bool wisprof, bool chaprof, List<Item> startingequipment)
     {
-        this.Id = id;
-        this.Name = characterName;
-        if (characterName.ToLower().Contains("crystal")) character = PlayerCharacter.Crystal;
-        else if (characterName.ToLower().Contains("damien")) character = PlayerCharacter.Damien;
-        else if (characterName.ToLower().Contains("hunter")) character = PlayerCharacter.Hunter;
-        else if (characterName.ToLower().Contains("teddy")) character = PlayerCharacter.Teddy;
+        Id = id;
+        Name = characterName;
+        
+        // Leaving below code commented out bc I'm not sure if my handmade 'TryParse' below it works yet
+        /*
+        if (characterName.ToLower().Contains("crystal")) PlayerCharacter = PlayerCharacter.Crystal;
+        else if (characterName.ToLower().Contains("damien")) PlayerCharacter = PlayerCharacter.Damien;
+        else if (characterName.ToLower().Contains("hunter")) PlayerCharacter = PlayerCharacter.Hunter;
+        else if (characterName.ToLower().Contains("teddy")) PlayerCharacter = PlayerCharacter.Teddy;
         else Debug.LogWarning("Character constructor doesn't recognize PlayerCharacter");
-        this.Class = characterClass;
-        this.Race = race;
-        this.Speed = speed;
-        this.BaseHp = basehp;
-        this.HitDice = hitdice;
-        abilityScoreDictionary[AbilityType.Str] = strscore;
-        abilityScoreDictionary[AbilityType.Dex] = dexscore;
-        abilityScoreDictionary[AbilityType.Con] = conscore;
-        abilityScoreDictionary[AbilityType.Int] = intscore;
-        abilityScoreDictionary[AbilityType.Wis] = wisscore;
-        abilityScoreDictionary[AbilityType.Cha] = chascore;
-        abilityProfDictionary[AbilityType.Str] = strprof;
-        abilityProfDictionary[AbilityType.Dex] = dexprof;
-        abilityProfDictionary[AbilityType.Con] = conprof;
-        abilityProfDictionary[AbilityType.Int] = intprof;
-        abilityProfDictionary[AbilityType.Wis] = wisprof;
-        abilityProfDictionary[AbilityType.Cha] = chaprof;
-        this.Equipment = startingequipment;
-        this.Xp = 0;
-        this.CurrentHP = basehp;
+        */
+        if(!Enum.IsDefined(typeof(PlayerCharacter),characterName))
+        {
+            Debug.Log("Non PlayerCharacter created");
+        }
+        else
+        {
+            PlayerCharacter = (PlayerCharacter)Enum.Parse(typeof(PlayerCharacter), characterName);
+        }
+
+        Class = characterClass;
+        Race = race;
+        Speed = speed;
+        BaseHp = basehp;
+        HitDice = hitdice;
+
+        AbilityScoreDictionary = new Dictionary<AbilityType, int>();
+        AbilityScoreDictionary[AbilityType.Str] = strscore;
+        AbilityScoreDictionary[AbilityType.Dex] = dexscore;
+        AbilityScoreDictionary[AbilityType.Con] = conscore;
+        AbilityScoreDictionary[AbilityType.Int] = intscore;
+        AbilityScoreDictionary[AbilityType.Wis] = wisscore;
+        AbilityScoreDictionary[AbilityType.Cha] = chascore;
+
+        AbilityProfDictionary = new Dictionary<AbilityType, bool>();
+        AbilityProfDictionary[AbilityType.Str] = strprof;
+        AbilityProfDictionary[AbilityType.Dex] = dexprof;
+        AbilityProfDictionary[AbilityType.Con] = conprof;
+        AbilityProfDictionary[AbilityType.Int] = intprof;
+        AbilityProfDictionary[AbilityType.Wis] = wisprof;
+        AbilityProfDictionary[AbilityType.Cha] = chaprof;
+        Equipment = startingequipment;
+        Xp = 0;
+        CurrentHP = basehp;
     }
 
     public int GetLvl()
     {
-        if (this.Xp < 300) return 1;
-        else if (this.Xp < 900) return 2;
-        else if (this.Xp < 2700) return 3;
-        else if (this.Xp < 6500) return 4;
-        else if (this.Xp < 14000) return 5;
-        else if (this.Xp < 23000) return 6;
-        else if (this.Xp < 34000) return 7;
-        else if (this.Xp < 48000) return 8;
-        else if (this.Xp < 64000) return 9;
-        else if (this.Xp < 85000) return 10;
-        else if (this.Xp < 100000) return 11;
-        else if (this.Xp < 120000) return 12;
-        else if (this.Xp < 140000) return 13;
-        else if (this.Xp < 165000) return 14;
-        else if (this.Xp < 195000) return 15;
-        else if (this.Xp < 225000) return 16;
-        else if (this.Xp < 265000) return 17;
-        else if (this.Xp < 305000) return 18;
-        else if (this.Xp < 355000) return 19;
+        if (Xp < 300) return 1;
+        else if (Xp < 900) return 2;
+        else if (Xp < 2700) return 3;
+        else if (Xp < 6500) return 4;
+        else if (Xp < 14000) return 5;
+        else if (Xp < 23000) return 6;
+        else if (Xp < 34000) return 7;
+        else if (Xp < 48000) return 8;
+        else if (Xp < 64000) return 9;
+        else if (Xp < 85000) return 10;
+        else if (Xp < 100000) return 11;
+        else if (Xp < 120000) return 12;
+        else if (Xp < 140000) return 13;
+        else if (Xp < 165000) return 14;
+        else if (Xp < 195000) return 15;
+        else if (Xp < 225000) return 16;
+        else if (Xp < 265000) return 17;
+        else if (Xp < 305000) return 18;
+        else if (Xp < 355000) return 19;
         else return 20;
     }
 
     public int GetProfBonus()
     {
-        if (this.Xp < 6500) return 2;
-        else if (this.Xp < 48000) return 3;
-        else if (this.Xp < 120000) return 4;
-        else if (this.Xp < 225000) return 5;
+        if (Xp < 6500) return 2;
+        else if (Xp < 48000) return 3;
+        else if (Xp < 120000) return 4;
+        else if (Xp < 225000) return 5;
         else return 6;
     }
 
@@ -106,7 +124,7 @@ public class Character
         int ac = 10;
         bool dexMods = true;
         bool dexModsMax2 = false;
-        foreach (Item item in this.Equipment)
+        foreach (Item item in Equipment)
         {
             if (item.Itemtype == ItemType.Armor || item.Itemtype == ItemType.Shield)
             {
@@ -115,7 +133,7 @@ public class Character
                 else if (item.Modifiermax2) { dexModsMax2 = true; }
                 if (item.Str != 0)
                 {
-                    if (this.GetLvl() < item.Str) { this.Speed -= 10; }
+                    if (GetLvl() < item.Str) { Speed -= 10; }
                 }
             }
         }
@@ -129,21 +147,21 @@ public class Character
 
     public void AddXp(int amount)
     {
-        this.Xp += amount;
+        Xp += amount;
     }
 
     public void AddEquipment(Item item)
     {
-        this.Equipment.Add(item);
+        Equipment.Add(item);
     }
 
     public void RemoveEquipment(int itemId)
     {
-        foreach (Item item in this.Equipment)
+        foreach (Item item in Equipment)
         {
             if (itemId == item.ID)
             {
-                this.Equipment.Remove(item);
+                Equipment.Remove(item);
                 break;
             }
         }
@@ -151,17 +169,17 @@ public class Character
 
     public void Heal(int points)
     {
-        this.CurrentHP = Mathf.Min(this.BaseHp, this.CurrentHP + points);
+        CurrentHP = Mathf.Min(BaseHp, CurrentHP + points);
     }
 
     public void Hurt(int points)
     {
-        this.CurrentHP -= points;
+        CurrentHP -= points;
     }
 
     public int GetAbilityScoreModifier(AbilityType ability)
     {
-        return DetermineModifier(abilityScoreDictionary[ability]);
+        return DetermineModifier(AbilityScoreDictionary[ability]);
     }
 
     private int DetermineModifier(int score)
@@ -186,7 +204,7 @@ public class Character
 
     public int GetThrowMod(AbilityType ability)
     {
-        if (abilityProfDictionary[ability]) return GetAbilityScoreModifier(ability) + GetProfBonus();
+        if (AbilityProfDictionary[ability]) return GetAbilityScoreModifier(ability) + GetProfBonus();
         else return GetAbilityScoreModifier(ability);
     }
 }

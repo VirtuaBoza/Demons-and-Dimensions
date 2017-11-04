@@ -125,14 +125,14 @@ public class AttackOptionPrefab : MonoBehaviour, IPointerEnterHandler
 
     int GetProfBonus()
     {
-        CharacterKeeper characterKeeper = FindObjectOfType<CharacterKeeper>();
-        foreach (PlayerCharacter character in characterKeeper.characters.Keys)
+        CharacterDatabase characterDatabase = FindObjectOfType<CharacterDatabase>();
+        foreach (PlayerCharacter playerCharacter in characterDatabase.CharacterDictionary.Keys)
         {
-            if (character == FindObjectOfType<FightManager>().currentCombatant.character)
+            if (playerCharacter == FindObjectOfType<FightManager>().currentCombatant.character)
             {
-                int bonus = characterKeeper.characters[character].GetProfBonus();
-                if (maxRange > 1) bonus += characterKeeper.characters[character].GetAbilityScoreModifier(AbilityType.Dex);
-                else bonus += characterKeeper.characters[character].GetAbilityScoreModifier(AbilityType.Str);
+                int bonus = characterDatabase.CharacterDictionary[playerCharacter].GetProfBonus();
+                if (maxRange > 1) bonus += characterDatabase.CharacterDictionary[playerCharacter].GetAbilityScoreModifier(AbilityType.Dex);
+                else bonus += characterDatabase.CharacterDictionary[playerCharacter].GetAbilityScoreModifier(AbilityType.Str);
                 return bonus;
             }
         }

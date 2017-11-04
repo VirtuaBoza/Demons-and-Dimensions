@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
-    public float playerSpeed;
+    public PlayerCharacter playerCharacter; // Set in Inspector
 
+    private float playerSpeed;
     private Animator animator;
-    private Vector3 target, lastTarget;
+    private Vector3 target;
+    private Vector3 lastTarget;
     private bool isMovingToTarget = true;
 
     void Start()
@@ -13,11 +16,14 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         target = transform.position;
         lastTarget = target;
+
+        Dictionary<PlayerCharacter, Character> characterDictionary = FindObjectOfType<CharacterDatabase>().CharacterDictionary;
+        playerSpeed = characterDictionary[playerCharacter].Speed / 5;
     }
 
     void Update()
     {
-        // Moves character with mouseclick
+        // Moves PlayerCharacter with mouseclick if not receiving other movement input
         if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;

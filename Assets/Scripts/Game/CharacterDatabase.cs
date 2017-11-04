@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class CharacterDatabase : MonoBehaviour
 {
-    public List<Character> characterDatabase = new List<Character>();
+    public List<Character> characterList = new List<Character>();
+    public Dictionary<PlayerCharacter, Character> CharacterDictionary { get; set; }
 
     private JsonData characterData;
     private ItemDatabase itemDatabase;
@@ -14,20 +15,21 @@ public class CharacterDatabase : MonoBehaviour
     {
         itemDatabase = FindObjectOfType<ItemDatabase>();
         characterData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/StreamingAssets/Characters.json"));
-        ConstructCharacterDatabase();
+        ConstructCharacterList();
+        ConstructCharacterDisciontary();
     }
 
-    private void ConstructCharacterDatabase()
+    private void ConstructCharacterList()
     {
         for (int i = 0; i < characterData.Count; i++)
         {
-            List<Item> list = new List<Item>();
+            List<Item> characterItems = new List<Item>();
             int itemCnt = characterData[i]["startingequipment"].Count;
             for (int n = 0; n < itemCnt; n++)
             {
-                list.Add(itemDatabase.allItems[(int)characterData[i]["startingequipment"][n]]);
+                characterItems.Add(itemDatabase.allItems[(int)characterData[i]["startingequipment"][n]]);
             }
-            characterDatabase.Add(new Character((int)characterData[i]["id"],
+            characterList.Add(new Character((int)characterData[i]["id"],
                 characterData[i]["name"].ToString(),
                 characterData[i]["class"].ToString(),
                 characterData[i]["race"].ToString(),
@@ -46,17 +48,26 @@ public class CharacterDatabase : MonoBehaviour
                 (bool)characterData[i]["throwprofs"]["int"],
                 (bool)characterData[i]["throwprofs"]["wis"],
                 (bool)characterData[i]["throwprofs"]["cha"],
-                list));
+                characterItems));
+        }
+    }
+
+    private void ConstructCharacterDisciontary()
+    {
+        CharacterDictionary = new Dictionary<PlayerCharacter, Character>();
+        foreach (Character character in characterList)
+        {
+            CharacterDictionary.Add(character.PlayerCharacter, character);
         }
     }
 
     public Character FetchCharacterByID(int id)
     {
-        for (int i = 0; i < characterDatabase.Count; i++)
+        for (int i = 0; i < characterList.Count; i++)
         {
-            if (characterDatabase[i].Id == id)
+            if (characterList[i].Id == id)
             {
-                return characterDatabase[i];
+                return characterList[i];
             }
         }
         return null;
