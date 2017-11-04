@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CharacterDatabase : MonoBehaviour
 {
-    public List<Character> characterList = new List<Character>();
+    public List<Character> CharacterList { get; set; }
     public Dictionary<PlayerCharacter, Character> CharacterDictionary { get; set; }
 
     private JsonData characterData;
@@ -21,6 +21,7 @@ public class CharacterDatabase : MonoBehaviour
 
     private void ConstructCharacterList()
     {
+        CharacterList = new List<Character>();
         for (int i = 0; i < characterData.Count; i++)
         {
             List<Item> characterItems = new List<Item>();
@@ -29,7 +30,7 @@ public class CharacterDatabase : MonoBehaviour
             {
                 characterItems.Add(itemDatabase.allItems[(int)characterData[i]["startingequipment"][n]]);
             }
-            characterList.Add(new Character((int)characterData[i]["id"],
+            CharacterList.Add(new Character((int)characterData[i]["id"],
                 characterData[i]["name"].ToString(),
                 characterData[i]["class"].ToString(),
                 characterData[i]["race"].ToString(),
@@ -55,7 +56,7 @@ public class CharacterDatabase : MonoBehaviour
     private void ConstructCharacterDisciontary()
     {
         CharacterDictionary = new Dictionary<PlayerCharacter, Character>();
-        foreach (Character character in characterList)
+        foreach (Character character in CharacterList)
         {
             CharacterDictionary.Add(character.PlayerCharacter, character);
         }
@@ -63,11 +64,11 @@ public class CharacterDatabase : MonoBehaviour
 
     public Character FetchCharacterByID(int id)
     {
-        for (int i = 0; i < characterList.Count; i++)
+        for (int i = 0; i < CharacterList.Count; i++)
         {
-            if (characterList[i].Id == id)
+            if (CharacterList[i].Id == id)
             {
-                return characterList[i];
+                return CharacterList[i];
             }
         }
         return null;

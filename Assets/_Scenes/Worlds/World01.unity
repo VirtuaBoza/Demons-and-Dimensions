@@ -152,6 +152,11 @@ Prefab:
       propertyPath: inventoryPanel
       value: 
       objectReference: {fileID: 143404315}
+    - target: {fileID: 114639057318005096, guid: bbff1f48f39150a49b2963be5f0f271c,
+        type: 2}
+      propertyPath: currentCharacter
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bbff1f48f39150a49b2963be5f0f271c, type: 2}
   m_IsPrefabParent: 0
