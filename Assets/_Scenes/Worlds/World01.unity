@@ -4721,9 +4721,20 @@ Prefab:
       propertyPath: inMainMenu
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114484468293182984, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: nameFrame
+      value: 
+      objectReference: {fileID: 1335466274}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1d29064a7f869af4289e66dd92960904, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1335466274 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114740622433999202, guid: 1d29064a7f869af4289e66dd92960904,
+    type: 2}
+  m_PrefabInternal: {fileID: 1335466273}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &1353531069
 GameObject:
   m_ObjectHideFlags: 0
