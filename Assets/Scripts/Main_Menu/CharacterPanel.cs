@@ -15,10 +15,10 @@ public class CharacterPanel : MonoBehaviour
 
     void OnEnable()
     {
-        characters = FindObjectOfType<CharacterKeeper>().characters;
+        characters = FindObjectOfType<CharacterDatabase>().CharacterDictionary;
 
         toggles = new Toggle[] { blueToggle, orangeToggle, greenToggle, redToggle };
-        toggles[(int)FindObjectOfType<GameManager>().currentCharacter].isOn = true;
+        toggles[(int)FindObjectOfType<GameManager>().currentCharacter].isOn = true;     // This is matching the integer value of the PlayerCharacter enum to the index position of the toggles... less than ideal.
     }
 
     public void SwitchCharacter(int index) // Forced to use index here due to rigging in editor.
@@ -38,7 +38,7 @@ public class CharacterPanel : MonoBehaviour
                 UpdateCharacterStats(PlayerCharacter.Damien);
                 break;
             default:
-                Debug.LogWarning("Trying to switch to a character in CharacterPanel that is out of range.");
+                Debug.LogWarning("Trying to switch to a PlayerCharacter in CharacterPanel that is out of range.");
                 break;
         }
     }
@@ -62,12 +62,12 @@ public class CharacterPanel : MonoBehaviour
         wisModText.text = DisplayAbilityScoreModifier(characters[character], AbilityType.Wis);
         chaModText.text = DisplayAbilityScoreModifier(characters[character], AbilityType.Cha);
 
-        strScoreText.text = characters[character].abilityScoreDictionary[AbilityType.Str].ToString();
-        dexScoreText.text = characters[character].abilityScoreDictionary[AbilityType.Dex].ToString();
-        conScoreText.text = characters[character].abilityScoreDictionary[AbilityType.Con].ToString();
-        intScoreText.text = characters[character].abilityScoreDictionary[AbilityType.Int].ToString();
-        wisScoreText.text = characters[character].abilityScoreDictionary[AbilityType.Wis].ToString();
-        chaScoreText.text = characters[character].abilityScoreDictionary[AbilityType.Cha].ToString();
+        strScoreText.text = characters[character].AbilityScoreDictionary[AbilityType.Str].ToString();
+        dexScoreText.text = characters[character].AbilityScoreDictionary[AbilityType.Dex].ToString();
+        conScoreText.text = characters[character].AbilityScoreDictionary[AbilityType.Con].ToString();
+        intScoreText.text = characters[character].AbilityScoreDictionary[AbilityType.Int].ToString();
+        wisScoreText.text = characters[character].AbilityScoreDictionary[AbilityType.Wis].ToString();
+        chaScoreText.text = characters[character].AbilityScoreDictionary[AbilityType.Cha].ToString();
 
         strThrowModText.text = DisplayThrowModifier(characters[character], AbilityType.Str);
         dexThrowModText.text = DisplayThrowModifier(characters[character], AbilityType.Dex);

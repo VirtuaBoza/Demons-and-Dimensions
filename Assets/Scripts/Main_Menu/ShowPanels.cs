@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public enum CharacterPanelType { Stats, Inventory, Spells, None }
+public enum CharacterPanelType { None, Stats, Inventory, Spells }
 
 public class ShowPanels : MonoBehaviour
 {
