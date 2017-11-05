@@ -30,13 +30,15 @@ public class ShowPanels : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetButtonDown("Stats") && (currentPanel != CharacterPanelType.Stats) && !startScript.inMainMenu && !pauseScript.isPaused)
+        if (Input.GetButtonDown("Stats") && (currentPanel != CharacterPanelType.Stats) &&
+            !startScript.inMainMenu && !pauseScript.isPaused)
         {
             ShowCharacterPanel();
             statToggle.isOn = true;
             currentPanel = CharacterPanelType.Stats;
         }
-        else if (Input.GetButtonDown("Inventory") && (currentPanel != CharacterPanelType.Inventory) && !startScript.inMainMenu && !pauseScript.isPaused)
+        else if (Input.GetButtonDown("Inventory") && (currentPanel != CharacterPanelType.Inventory) &&
+            !startScript.inMainMenu && !pauseScript.isPaused)
         {
             if (inFight) Debug.Log("Inventory is disabled during combat.");
             else
@@ -46,7 +48,8 @@ public class ShowPanels : MonoBehaviour
                 currentPanel = CharacterPanelType.Inventory;
             }
         }
-        else if (Input.GetButtonDown("Spells") && (currentPanel != CharacterPanelType.Spells) && !startScript.inMainMenu && !pauseScript.isPaused)
+        else if (Input.GetButtonDown("Spells") && (currentPanel != CharacterPanelType.Spells) &&
+            !startScript.inMainMenu && !pauseScript.isPaused)
         {
             ShowCharacterPanel();
             spellsToggle.isOn = true;
@@ -54,7 +57,8 @@ public class ShowPanels : MonoBehaviour
         }
         else if (((Input.GetButtonDown("Stats") && (currentPanel == CharacterPanelType.Stats)) ||
           (Input.GetButtonDown("Inventory") && (currentPanel == CharacterPanelType.Inventory)) ||
-          (Input.GetButtonDown("Spells") && (currentPanel == CharacterPanelType.Spells))) && !startScript.inMainMenu && !pauseScript.isPaused)
+          (Input.GetButtonDown("Spells") && (currentPanel == CharacterPanelType.Spells))) && 
+          !startScript.inMainMenu && !pauseScript.isPaused)
         {
             UnPauseFromCharacterPanel();
         }

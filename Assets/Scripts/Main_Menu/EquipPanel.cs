@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class EquipPanel : MonoBehaviour
 {
@@ -7,50 +8,67 @@ public class EquipPanel : MonoBehaviour
     public GameObject crystalPanel, teddyPanel, hunterPanel, damienPanel;
     public Toggle blueToggle, orangeToggle, greenToggle, redToggle;
 
-    private GameObject[] characterPanels;
+    private Dictionary<PlayerCharacter, GameObject> playerToPanelDictionary;
+    Toggle[] toggles;
 
-    void Start()
+    void Awake()
     {
-        characterPanels = new GameObject[] { crystalPanel, teddyPanel, hunterPanel, damienPanel };
-        Toggle[] toggles = new Toggle[] { blueToggle, orangeToggle, greenToggle, redToggle };
-        toggles[0].isOn = true;
+        RigPlayersToPanels();
+        toggles = new Toggle[] { blueToggle, orangeToggle, greenToggle, redToggle };
     }
 
+    void OnEnable()
+    {
+        ShowAppropriateInventory(FindObjectOfType<GameManager>().currentCharacter);
+        toggles[(int)FindObjectOfType<GameManager>().currentCharacter].isOn = true;     // This is matching the integer value of the PlayerCharacter enum to the index position of the toggles... less than ideal.
+    }
+
+    private void RigPlayersToPanels()
+    {
+        playerToPanelDictionary = new Dictionary<PlayerCharacter, GameObject>();
+        playerToPanelDictionary.Add(PlayerCharacter.Crystal, crystalPanel);
+        playerToPanelDictionary.Add(PlayerCharacter.Damien, damienPanel);
+        playerToPanelDictionary.Add(PlayerCharacter.Hunter, hunterPanel);
+        playerToPanelDictionary.Add(PlayerCharacter.Teddy, teddyPanel);
+    }
+
+    void ShowAppropriateInventory(PlayerCharacter playerCharacter)
+    {
+        Dictionary<PlayerCharacter, Character> characterDictionary = FindObjectOfType<CharacterDatabase>().CharacterDictionary;
+        foreach (KeyValuePair<PlayerCharacter, GameObject> pair in playerToPanelDictionary)
+        {
+            if (pair.Key == playerCharacter)
+            {
+                pair.Value.SetActive(true);
+                nameFrame.text = characterDictionary[pair.Key].Name;
+            }
+            else
+            {
+                pair.Value.SetActive(false);
+            }
+        }
+    }
+
+    // Forced to use index here due to limitations in Inspector.
     public void SwitchCharacter(int index)
     {
         switch (index)
         {
             case 0:
-                ShowAppropriatePanel(crystalPanel);
-                nameFrame.text = "Crystal";
+                ShowAppropriateInventory(PlayerCharacter.Crystal);
                 break;
             case 1:
-                ShowAppropriatePanel(teddyPanel);
-                nameFrame.text = "Teddy";
+                ShowAppropriateInventory(PlayerCharacter.Teddy);
                 break;
             case 2:
-                ShowAppropriatePanel(hunterPanel);
-                nameFrame.text = "Hunter";
+                ShowAppropriateInventory(PlayerCharacter.Hunter);
                 break;
             case 3:
-                ShowAppropriatePanel(damienPanel);
-                nameFrame.text = "Damien";
+                ShowAppropriateInventory(PlayerCharacter.Damien);
                 break;
-        }
-    }
-
-    void ShowAppropriatePanel(GameObject correctPanel)
-    {
-        foreach (GameObject panel in characterPanels)
-        {
-            if (panel == correctPanel)
-            {
-                panel.SetActive(true);
-            }
-            else
-            {
-                panel.SetActive(false);
-            }
+            default:
+                Debug.LogWarning("Trying to switch to a PlayerCharacter in InventoryPanel that is out of range.");
+                break;
         }
     }
 }
