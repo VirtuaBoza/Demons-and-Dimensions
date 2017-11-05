@@ -17,8 +17,8 @@ public class Arena : MonoBehaviour
     public EnemyLayoutGroup enemyLayoutGroup;
     public List<Combatant> combatants = new List<Combatant>();
 
-    private List<Vector3> positionList = new List<Vector3>(); //To keep track of positions so that no two combatants have the same position
-    private List<int> initiativeList = new List<int>(); //To keep track of initiative rolls so that no two combatants have the same initiative
+    private List<Vector3> positionList = new List<Vector3>();   //To keep track of positions so that no two combatants have the same position
+    private List<int> initiativeList = new List<int>();         //To keep track of initiative rolls so that no two combatants have the same initiative
 
     void Start()
     {
@@ -75,6 +75,8 @@ public class Arena : MonoBehaviour
         GameObject character = Instantiate(prefab, position, Quaternion.identity) as GameObject;
         character.transform.SetParent(transform, false);
         character.GetComponent<SpriteRenderer>().sortingOrder = 10 - ((int)position.y);
+        if (isFriendly) { character.GetComponent<Animator>().SetTrigger("lookRight"); }
+
         Combatant combatant = character.GetComponent<Combatant>();
         combatant.initiative = RollForInitiative();
         combatants.Add(combatant);

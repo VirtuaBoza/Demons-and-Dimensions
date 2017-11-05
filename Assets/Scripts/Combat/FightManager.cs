@@ -115,7 +115,7 @@ public class FightManager : MonoBehaviour
     public void EnterTargetSelection(ActionType action, int range)
     {
         fightMenuFrame.ActivateFightMenu(false);
-        fightMenuFrame.ActivateTargetPanel(true);
+        fightMenuFrame.ActivateSelectTargetPanel(true);
         List<Vector3> combatantsInRange = new List<Vector3>();
         for (int x = -range; x <= range; x++)
         {
@@ -169,7 +169,7 @@ public class FightManager : MonoBehaviour
         }
 
         fightMenuFrame.ActivateFightMenu(true);
-        fightMenuFrame.ActivateTargetPanel(false);
+        fightMenuFrame.ActivateSelectTargetPanel(false);
 
         currentCombatant.remainingActions -= 1;
         FindObjectOfType<ActionsButton>().UpdateText(currentCombatant.remainingActions);
@@ -180,7 +180,7 @@ public class FightManager : MonoBehaviour
     public void EnterMoveSelection()
     {
         fightMenuFrame.ActivateFightMenu(false);
-        fightMenuFrame.ActivateTargetPanel(true);
+        fightMenuFrame.ActivateSelectTargetPanel(true);
 
         bool oneIsSelected = false;
         foreach (Combatant combatant in currentCombatants)
@@ -218,7 +218,7 @@ public class FightManager : MonoBehaviour
         UpdatePositionList(currentCombatant.transform.localPosition, target);
         currentCombatant.MoveCombatant(target);
         fightMenuFrame.ActivateFightMenu(true);
-        fightMenuFrame.ActivateTargetPanel(false);
+        fightMenuFrame.ActivateSelectTargetPanel(false);
         FindObjectOfType<MoveButton>().UpdateText(currentCombatant.remainingMoves);
         SelectAppropriateOption();
     }

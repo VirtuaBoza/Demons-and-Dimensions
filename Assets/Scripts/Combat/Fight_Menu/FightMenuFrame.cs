@@ -2,14 +2,14 @@
 
 public class FightMenuFrame : MonoBehaviour
 {
-    private GameObject fightMenu, targetPanel, waitPanel;
+    private GameObject fightMenu, selectTargetPanel, waitPanel;
 
     void Awake()
     {
         fightMenu = GameObject.Find("FightMenu");
         ActivateFightMenu(true);
-        targetPanel = GameObject.Find("TargetPanel");
-        ActivateTargetPanel(false);
+        selectTargetPanel = GameObject.Find("SelectTargetPanel");
+        ActivateSelectTargetPanel(false);
         waitPanel = GameObject.Find("WaitPanel");
         ActivateWaitPanel(false);
     }
@@ -26,15 +26,15 @@ public class FightMenuFrame : MonoBehaviour
         }
     }
 
-    public void ActivateTargetPanel(bool value)
+    public void ActivateSelectTargetPanel(bool value)
     {
         if (value)
         {
-            targetPanel.SetActive(true);
+            selectTargetPanel.SetActive(true);
         }
         else
         {
-            targetPanel.SetActive(false);
+            selectTargetPanel.SetActive(false);
         }
     }
 
