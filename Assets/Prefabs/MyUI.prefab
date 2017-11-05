@@ -2379,7 +2379,7 @@ GameObject:
   - component: {fileID: 114007293796003828}
   - component: {fileID: 114106720035936152}
   m_Layer: 5
-  m_Name: CharacterToggles
+  m_Name: StatsCharacterToggles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2867,7 +2867,7 @@ GameObject:
   - component: {fileID: 114093736025853866}
   - component: {fileID: 114439364802318644}
   m_Layer: 5
-  m_Name: EquipButtons
+  m_Name: EquipCharacterToggles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5080,7 +5080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToStart: 1
-  inMainMenu: 1
+  inMainMenu: 0
   animColorFade: {fileID: 95616467499405824}
   animMenuAlpha: {fileID: 95656534311633954}
   fadeColorAnimationClip: {fileID: 7400000, guid: ca6f1c3d28a5b4d7fac820172514263f,
@@ -6300,7 +6300,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  m_IsOn: 0
+  m_IsOn: 1
 --- !u!114 &114388802887869082
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7008,7 +7008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85e7606f94e47974abedc4b4a93458d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameFrame: {fileID: 0}
+  nameFrame: {fileID: 114740622433999202}
   crystalPanel: {fileID: 1088258916224604}
   teddyPanel: {fileID: 1436542888090650}
   hunterPanel: {fileID: 1059343979560260}
@@ -12310,8 +12310,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 83.00299, y: -13.774677}
-  m_SizeDelta: {x: 166.00598, y: 27.549355}
+  m_AnchoredPosition: {x: 83.00299, y: -13.785423}
+  m_SizeDelta: {x: 166.00598, y: 27.570847}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224054655574919914
 RectTransform:
@@ -12611,8 +12611,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 83.00299, y: -102.422745}
-  m_SizeDelta: {x: 166.00598, y: 27.549355}
+  m_AnchoredPosition: {x: 83.00299, y: -102.49796}
+  m_SizeDelta: {x: 166.00598, y: 27.570847}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224131181877316818
 RectTransform:
@@ -13829,8 +13829,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 83.00299, y: -43.32403}
-  m_SizeDelta: {x: 166.00598, y: 27.549355}
+  m_AnchoredPosition: {x: 83.00299, y: -43.35627}
+  m_SizeDelta: {x: 166.00598, y: 27.570847}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224479368444543582
 RectTransform:
@@ -14813,8 +14813,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 83.00299, y: -72.87338}
-  m_SizeDelta: {x: 166.00598, y: 27.549355}
+  m_AnchoredPosition: {x: 83.00299, y: -72.92712}
+  m_SizeDelta: {x: 166.00598, y: 27.570847}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224743422223439688
 RectTransform:
