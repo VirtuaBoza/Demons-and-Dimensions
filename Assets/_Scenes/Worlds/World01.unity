@@ -77,15 +77,17 @@ LightmapSettings:
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 500
     m_PVRBounces: 2
-    m_PVRFiltering: 0
+    m_PVRFilterTypeDirect: 0
+    m_PVRFilterTypeIndirect: 0
+    m_PVRFilterTypeAO: 0
     m_PVRFilteringMode: 1
     m_PVRCulling: 1
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
     m_PVRFilteringGaussRadiusAO: 2
-    m_PVRFilteringAtrousColorSigma: 1
-    m_PVRFilteringAtrousNormalSigma: 1
-    m_PVRFilteringAtrousPositionSigma: 1
+    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaIndirect: 2
+    m_PVRFilteringAtrousPositionSigmaAO: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -107,6 +109,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    debug:
+      m_Flags: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1001 &27809385
 Prefab:
@@ -224,6 +228,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -239,6 +244,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -361,6 +367,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -376,6 +383,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -493,6 +501,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -508,6 +517,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -593,6 +603,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -608,6 +619,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -794,6 +806,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -809,6 +822,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -894,6 +908,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -909,6 +924,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1060,6 +1076,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -1075,6 +1092,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -1160,6 +1178,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -1175,6 +1194,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2939,6 +2959,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -2954,6 +2975,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -2983,6 +3005,7 @@ GameObject:
   - component: {fileID: 1009745223}
   - component: {fileID: 1009745222}
   - component: {fileID: 1009745227}
+  - component: {fileID: 1009745228}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3046,7 +3069,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
 --- !u!4 &1009745226
 Transform:
   m_ObjectHideFlags: 0
@@ -3076,6 +3098,21 @@ MonoBehaviour:
   yMargin: 1.5
   minXandY: {x: 16, y: -29}
   maxXandY: {x: 34, y: -9}
+--- !u!114 &1009745228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1009745221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1690312454, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_MaxRayIntersections: 0
 --- !u!1 &1102723715
 GameObject:
   m_ObjectHideFlags: 0
@@ -4355,6 +4392,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -4370,6 +4408,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -4455,6 +4494,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -4470,6 +4510,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -4496,12 +4537,12 @@ Prefab:
     - target: {fileID: 224653629672598798, guid: 1d29064a7f869af4289e66dd92960904,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 574
       objectReference: {fileID: 0}
     - target: {fileID: 224653629672598798, guid: 1d29064a7f869af4289e66dd92960904,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 267.5
       objectReference: {fileID: 0}
     - target: {fileID: 224653629672598798, guid: 1d29064a7f869af4289e66dd92960904,
         type: 2}
@@ -4583,6 +4624,161 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224999640679532432, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.08216095
+      objectReference: {fileID: 0}
+    - target: {fileID: 224999640679532432, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 313.3009
+      objectReference: {fileID: 0}
+    - target: {fileID: 224980950541434856, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.30860138
+      objectReference: {fileID: 0}
+    - target: {fileID: 224980950541434856, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -138.75397
+      objectReference: {fileID: 0}
+    - target: {fileID: 224824572402925202, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -136.7023
+      objectReference: {fileID: 0}
+    - target: {fileID: 224824572402925202, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -391.17538
+      objectReference: {fileID: 0}
+    - target: {fileID: 224741105209493506, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224741105209493506, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 178.63858
+      objectReference: {fileID: 0}
+    - target: {fileID: 224697574076828984, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 126.57059
+      objectReference: {fileID: 0}
+    - target: {fileID: 224646322960942230, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.3056488
+      objectReference: {fileID: 0}
+    - target: {fileID: 224646322960942230, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -308.96936
+      objectReference: {fileID: 0}
+    - target: {fileID: 224597981244753216, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -4.701477
+      objectReference: {fileID: 0}
+    - target: {fileID: 224597981244753216, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -564.46094
+      objectReference: {fileID: 0}
+    - target: {fileID: 224476575660934576, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224476575660934576, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 208.20944
+      objectReference: {fileID: 0}
+    - target: {fileID: 224454192666627562, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -78.06741
+      objectReference: {fileID: 0}
+    - target: {fileID: 224428819860598270, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.30861664
+      objectReference: {fileID: 0}
+    - target: {fileID: 224428819860598270, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 199.07468
+      objectReference: {fileID: 0}
+    - target: {fileID: 224348500118686486, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.30860138
+      objectReference: {fileID: 0}
+    - target: {fileID: 224348500118686486, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 27.607605
+      objectReference: {fileID: 0}
+    - target: {fileID: 224232192356717684, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.83942413
+      objectReference: {fileID: 0}
+    - target: {fileID: 224232192356717684, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 404.15097
+      objectReference: {fileID: 0}
+    - target: {fileID: 224230949686094976, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.41506958
+      objectReference: {fileID: 0}
+    - target: {fileID: 224230949686094976, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 173.13168
+      objectReference: {fileID: 0}
+    - target: {fileID: 224128142718876192, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224128142718876192, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 149.06775
+      objectReference: {fileID: 0}
+    - target: {fileID: 224054655574919914, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.41508484
+      objectReference: {fileID: 0}
+    - target: {fileID: 224054655574919914, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 173.13168
+      objectReference: {fileID: 0}
+    - target: {fileID: 224051025215627012, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224051025215627012, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 237.78027
+      objectReference: {fileID: 0}
+    - target: {fileID: 224894515884241398, guid: 1d29064a7f869af4289e66dd92960904,
+        type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -0.000061035156
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1d29064a7f869af4289e66dd92960904, type: 2}
   m_IsPrefabParent: 0
@@ -4655,6 +4851,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -4670,6 +4867,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -4755,6 +4953,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -4770,6 +4969,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -4919,6 +5119,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -4934,6 +5135,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -5665,6 +5867,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -5680,6 +5883,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -5765,6 +5969,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -5780,6 +5985,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -5865,6 +6071,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -5880,6 +6087,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -5965,6 +6173,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -5980,6 +6189,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -6130,6 +6340,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -6145,6 +6356,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -6591,6 +6803,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -6606,6 +6819,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
