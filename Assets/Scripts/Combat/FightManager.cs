@@ -16,6 +16,7 @@ public class FightManager : MonoBehaviour
     private DieType damageRange;
     private int damageMulti;
 
+    private CharacterDatabase characterDatabase;
     // TODO implement damageType
     //private DamageType damageType;
 
@@ -24,6 +25,7 @@ public class FightManager : MonoBehaviour
     void Awake()
     {
         fightMenuFrame = FindObjectOfType<FightMenuFrame>();
+        characterDatabase = FindObjectOfType<CharacterDatabase>();
     }
 
     public void StartFight(List<Combatant> combatants)
@@ -42,7 +44,7 @@ public class FightManager : MonoBehaviour
     {
         currentCombatants[0].StartTurn();
         currentCombatant = currentCombatants[0];
-        if (currentCombatant.character == PlayerCharacter.Crystal || currentCombatant.character == PlayerCharacter.Damien || currentCombatant.character == PlayerCharacter.Hunter || currentCombatant.character == PlayerCharacter.Teddy)
+        if (currentCombatant.character == PlayerCharacterName.Crystal || currentCombatant.character == PlayerCharacterName.Damien || currentCombatant.character == PlayerCharacterName.Hunter || currentCombatant.character == PlayerCharacterName.Teddy)
         {
             FindObjectOfType<GameManager>().currentCharacter = currentCombatant.character;
             Debug.Log("Set GameManager's currentCharacter to " + currentCombatant.character);
@@ -243,7 +245,7 @@ public class FightManager : MonoBehaviour
     Dictionary<int, int> GetCurrentPlayerItems()
     {
         Dictionary<int, int> tempDict = new Dictionary<int, int>();
-        foreach (Item item in FindObjectOfType<Inventory>().characterEquippedItems[currentCombatant.character])
+        foreach (Item item in characterDatabase.CharacterDictionary[currentCombatant.character].EquippedItems)
         {
             if (tempDict.ContainsKey(item.ID))
             {

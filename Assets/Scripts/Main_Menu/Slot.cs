@@ -5,9 +5,8 @@ using UnityEngine.UI;
 public class Slot : MonoBehaviour, IDropHandler
 {
     public Image armorTypeIcon, bootsTypeIcon, helmetTypeIcon, weaponTypeIcon;
-    public enum SlotType { All, Armor, Boots, Helmet, Weapon }
     public SlotType slotItemType = SlotType.All;
-    public PlayerCharacter owner;
+    public PlayerCharacterName owner;
 
     private Inventory inv;
 
@@ -40,16 +39,16 @@ public class Slot : MonoBehaviour, IDropHandler
         ItemInfo droppedItem = eventData.pointerDrag.GetComponent<ItemInfo>();
 
         if (slotItemType == SlotType.All ||
-            (droppedItem.item.Itemtype == ItemType.Armor && slotItemType == SlotType.Armor) ||
-            ((droppedItem.item.Itemtype == ItemType.Weapon || droppedItem.item.Itemtype == ItemType.Shield) && slotItemType == SlotType.Weapon) ||
-            (droppedItem.item.Itemtype == ItemType.Helmet && slotItemType == SlotType.Helmet) ||
-            (droppedItem.item.Itemtype == ItemType.Boots && slotItemType == SlotType.Boots))
+            (droppedItem.item.ItemType == ItemType.Armor && slotItemType == SlotType.Armor) ||
+            ((droppedItem.item.ItemType == ItemType.Weapon || droppedItem.item.ItemType == ItemType.Shield) && slotItemType == SlotType.Weapon) ||
+            (droppedItem.item.ItemType == ItemType.Helmet && slotItemType == SlotType.Helmet) ||
+            (droppedItem.item.ItemType == ItemType.Boots && slotItemType == SlotType.Boots))
         {
 
-            if (inv.assignedItems[this].ID == -1)
-            { //Test
-                inv.assignedItems[droppedItem.slot] = new Item();
-                inv.assignedItems[this] = droppedItem.item;
+            if (inv.assignedItemBySlot[this].ID == -1)
+            {
+                inv.assignedItemBySlot[droppedItem.slot] = new Item();
+                inv.assignedItemBySlot[this] = droppedItem.item;
                 droppedItem.slot = this;
             }
             else if (droppedItem.slot != this)
@@ -59,8 +58,8 @@ public class Slot : MonoBehaviour, IDropHandler
                 presentItem.transform.SetParent(droppedItem.slot.transform);
                 presentItem.transform.position = droppedItem.slot.transform.position;
                 droppedItem.slot = this;
-                inv.assignedItems[droppedItem.slot] = presentItem.item;
-                inv.assignedItems[this] = droppedItem.item;
+                inv.assignedItemBySlot[droppedItem.slot] = presentItem.item;
+                inv.assignedItemBySlot[this] = droppedItem.item;
             }
         }
     }

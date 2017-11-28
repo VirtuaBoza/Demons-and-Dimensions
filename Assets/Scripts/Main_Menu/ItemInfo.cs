@@ -36,7 +36,7 @@ public class ItemInfo : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        foreach (Slot panelSlot in inv.assignedItems.Keys)
+        foreach (Slot panelSlot in inv.assignedItemBySlot.Keys)
         {
             if (panelSlot == slot)
             {

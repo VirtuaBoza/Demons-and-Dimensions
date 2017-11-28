@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Combatant : MonoBehaviour
 {
     public string myName;
-    public PlayerCharacter character;
+    public PlayerCharacterName character;
     public int aC;
     public int maxHp;
     [HideInInspector] public int currentHp;
@@ -18,7 +18,6 @@ public class Combatant : MonoBehaviour
     [HideInInspector] public bool isTurn = false;
     public float moveSpeed = 3f;
     [HideInInspector] public InfoBox infoBox;
-    public List<Item> equippedItems = new List<Item>();
 
     private Button button;
     private Animator animator;

@@ -18,8 +18,7 @@ public class Player : MonoBehaviour
         target = transform.position;
         lastTarget = target;
 
-        Dictionary<PlayerCharacter, Character> characterDictionary = FindObjectOfType<CharacterDatabase>().CharacterDictionary;
-        playerSpeed = characterDictionary[gameManager.currentCharacter].Speed / 5;
+        playerSpeed = FindObjectOfType<CharacterDatabase>().CharacterDictionary[gameManager.currentCharacter].Speed / 5;
     }
 
     void Update()
@@ -32,30 +31,30 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SwapCharacterTo(PlayerCharacter.Crystal);
+            SwapCharacterTo(PlayerCharacterName.Crystal);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SwapCharacterTo(PlayerCharacter.Teddy);
+            SwapCharacterTo(PlayerCharacterName.Teddy);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            SwapCharacterTo(PlayerCharacter.Hunter);
+            SwapCharacterTo(PlayerCharacterName.Hunter);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            SwapCharacterTo(PlayerCharacter.Damien);
+            SwapCharacterTo(PlayerCharacterName.Damien);
         }
         else if (Input.GetButtonDown("CycleUp"))
         {
             int currentPlayerIndex = (int)gameManager.currentCharacter;
             if (currentPlayerIndex == 3)
             {
-                SwapCharacterTo(PlayerCharacter.Crystal);
+                SwapCharacterTo(PlayerCharacterName.Crystal);
             }
             else
             {
-                SwapCharacterTo((PlayerCharacter)currentPlayerIndex + 1);
+                SwapCharacterTo((PlayerCharacterName)currentPlayerIndex + 1);
             }
         }
         else if (Input.GetButtonDown("CycleDown"))
@@ -63,32 +62,32 @@ public class Player : MonoBehaviour
             int currentPlayerIndex = (int)gameManager.currentCharacter;
             if (currentPlayerIndex == 0)
             {
-                SwapCharacterTo(PlayerCharacter.Damien);
+                SwapCharacterTo(PlayerCharacterName.Damien);
             }
             else
             {
-                SwapCharacterTo((PlayerCharacter)currentPlayerIndex - 1);
+                SwapCharacterTo((PlayerCharacterName)currentPlayerIndex - 1);
             }
         }
     }
 
-    private void SwapCharacterTo(PlayerCharacter playerCharacter)
+    private void SwapCharacterTo(PlayerCharacterName playerCharacter)
     {
         gameManager.currentCharacter = playerCharacter;
 
         Animator animator = GetComponent<Animator>();
         switch (playerCharacter)
         {
-            case PlayerCharacter.Crystal:
+            case PlayerCharacterName.Crystal:
                 animator.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("AnimatorControllers/CrystalController");
                 break;
-            case PlayerCharacter.Teddy:
+            case PlayerCharacterName.Teddy:
                 animator.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("AnimatorControllers/TeddyController");
                 break;
-            case PlayerCharacter.Hunter:
+            case PlayerCharacterName.Hunter:
                 animator.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("AnimatorControllers/HunterController");
                 break;
-            case PlayerCharacter.Damien:
+            case PlayerCharacterName.Damien:
                 animator.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("AnimatorControllers/DamienController");
                 break;
         }

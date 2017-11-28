@@ -5,35 +5,26 @@ using UnityEngine;
 
 public class CharacterDatabase : MonoBehaviour
 {
-    public List<Character> CharacterList { get; set; }
-    public Dictionary<PlayerCharacter, Character> CharacterDictionary { get; set; }
+    public List<PlayerCharacter> CharacterList { get { return characterList; } }
+    
 
     private JsonData characterData;
-    private ItemDatabase itemDatabase;
+    private List<PlayerCharacter> characterList = new List<PlayerCharacter>();
+    public Dictionary<PlayerCharacterName?, PlayerCharacter> characterDictionary = new Dictionary<PlayerCharacterName?, PlayerCharacter>();
 
     void Start()
     {
-        itemDatabase = FindObjectOfType<ItemDatabase>();
         characterData = JsonMapper.ToObject(File.ReadAllText(Application.dataPath + "/StreamingAssets/Characters.json"));
         ConstructCharacterList();
-        ConstructCharacterDisciontary();
     }
 
     private void ConstructCharacterList()
     {
-        CharacterList = new List<Character>();
         for (int i = 0; i < characterData.Count; i++)
         {
-            List<Item> characterItems = new List<Item>();
-            int itemCnt = characterData[i]["startingequipment"].Count;
-            for (int n = 0; n < itemCnt; n++)
-            {
-                characterItems.Add(itemDatabase.allItems[(int)characterData[i]["startingequipment"][n]]);
-            }
-            CharacterList.Add(new Character((int)characterData[i]["id"],
+            characterList.Add(new PlayerCharacter(
                 characterData[i]["name"].ToString(),
                 characterData[i]["class"].ToString(),
-                characterData[i]["race"].ToString(),
                 (int)characterData[i]["speed"],
                 (int)characterData[i]["basehp"],
                 (int)characterData[i]["hitdice"],
@@ -48,29 +39,20 @@ public class CharacterDatabase : MonoBehaviour
                 (bool)characterData[i]["throwprofs"]["con"],
                 (bool)characterData[i]["throwprofs"]["int"],
                 (bool)characterData[i]["throwprofs"]["wis"],
-                (bool)characterData[i]["throwprofs"]["cha"],
-                characterItems));
+                (bool)characterData[i]["throwprofs"]["cha"]));
         }
     }
 
-    private void ConstructCharacterDisciontary()
+    public Dictionary<PlayerCharacterName?, PlayerCharacter> CharacterDictionary
     {
-        CharacterDictionary = new Dictionary<PlayerCharacter, Character>();
-        foreach (Character character in CharacterList)
+        get
         {
-            CharacterDictionary.Add(character.PlayerCharacter, character);
-        }
-    }
-
-    public Character FetchCharacterByID(int id)
-    {
-        for (int i = 0; i < CharacterList.Count; i++)
-        {
-            if (CharacterList[i].Id == id)
+            var characterDictionary = new Dictionary<PlayerCharacterName?, PlayerCharacter>();
+            foreach (PlayerCharacter character in CharacterList)
             {
-                return CharacterList[i];
+                characterDictionary.Add(character.PlayerCharacterName, character);
             }
+            return characterDictionary;
         }
-        return null;
     }
 }

@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 
-public enum DieType { d20, d12, d10, d8, d6, d4, d00, one }
-
 public static class Die
 {
     public static int RollADie(DieType die)
@@ -23,7 +21,7 @@ public static class Die
             case DieType.d00:
                 int roll = Random.Range(1, 11);
                 return roll * 10;
-            case DieType.one:
+            case DieType.d1:
                 return 1;
             default:
                 return 0;

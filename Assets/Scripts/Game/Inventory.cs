@@ -1,34 +1,31 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    public GameObject inventoryPanel, inventorySlot, inventoryItem;
-    public Dictionary<Slot, Item> assignedItems = new Dictionary<Slot, Item>();
-    public Dictionary<PlayerCharacter, List<Item>> characterEquippedItems = new Dictionary<PlayerCharacter, List<Item>>();
+    public GameObject inventoryPanel;
+    public GameObject inventorySlot;
+    public GameObject inventoryItem;
+    public Dictionary<Slot, Item> assignedItemBySlot = new Dictionary<Slot, Item>();
 
-    private ItemDatabase database;
+    private ItemDatabase itemDatabase;
+    private CharacterDatabase characterDatabase;
 
     void Awake()
     {
-        database = FindObjectOfType<ItemDatabase>();
+        itemDatabase = FindObjectOfType<ItemDatabase>();
+        characterDatabase = FindObjectOfType<CharacterDatabase>();
         foreach (Slot slot in inventoryPanel.GetComponentsInChildren<Slot>())
         {
-            assignedItems.Add(slot, new Item()); //Test
+            assignedItemBySlot.Add(slot, new Item());
         }
     }
 
     void Start()
     {
-        AddItem(0); //For testing puposes
-        AddItem(3); //For testing puposes
-        characterEquippedItems.Add(PlayerCharacter.Crystal, new List<Item>());
-        characterEquippedItems.Add(PlayerCharacter.Damien, new List<Item>());
-        characterEquippedItems.Add(PlayerCharacter.Hunter, new List<Item>());
-        characterEquippedItems.Add(PlayerCharacter.Teddy, new List<Item>());
-        UpdateInventory();
+        //UpdateInventory();
     }
 
     void Update()
@@ -38,13 +35,13 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(int id)
     {
-        Item itemToAdd = database.FetchItemByID(id);
+        Item itemToAdd = itemDatabase.FetchItemByID(id);
 
-        foreach (KeyValuePair<Slot, Item> entry in assignedItems)
+        foreach (KeyValuePair<Slot, Item> entry in assignedItemBySlot)
         {
             if (entry.Value.ID == -1)
             {
-                assignedItems[entry.Key] = itemToAdd;
+                assignedItemBySlot[entry.Key] = itemToAdd;
                 GameObject itemObj = Instantiate(inventoryItem);
                 itemObj.GetComponent<ItemInfo>().item = itemToAdd;
                 itemObj.GetComponent<ItemInfo>().amount = 1;
@@ -59,8 +56,7 @@ public class Inventory : MonoBehaviour
 
     public void UpdateInventory()
     {
-        PlayerCharacter[] characters = characterEquippedItems.Keys.ToArray();
-        foreach (PlayerCharacter character in characters)
+        foreach (PlayerCharacterName character in Enum.GetValues(typeof(PlayerCharacterName)))
         {
             List<Item> tempList = new List<Item>();
             foreach (Slot slot in inventoryPanel.GetComponentsInChildren<Slot>())
@@ -73,7 +69,7 @@ public class Inventory : MonoBehaviour
                     }
                 }
             }
-            characterEquippedItems[character] = tempList;
+            characterDatabase.CharacterDictionary[character].EquippedItems = tempList;
         }
     }
 }

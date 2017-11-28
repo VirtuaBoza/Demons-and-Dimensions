@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     // This is part of a singleton pattern that ensures there is only a single instance of GameManager.
     // The GameManager has a public static (there can only be one) GameManager field called "instance" which starts as null.
     public static GameManager instance = null;
-    public PlayerCharacter currentCharacter;
+    public PlayerCharacterName currentCharacter;
 
     void Start()
     {

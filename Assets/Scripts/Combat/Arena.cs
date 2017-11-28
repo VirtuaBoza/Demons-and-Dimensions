@@ -2,8 +2,6 @@
 using System.Linq;
 using System.Collections.Generic;
 
-public enum ActionType { Attacking, Buffing, Casting }
-
 public class Arena : MonoBehaviour
 {
     public GameObject crystalPrefab, damienPrefab, hunterPrefab, teddyPrefab;

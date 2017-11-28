@@ -2,20 +2,16 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
 
 public class AttackOptionPrefab : MonoBehaviour, IPointerEnterHandler
 {
     public Text weaponText; //Assigned in inspector.... why?
     public string title;
-    public DieType damageRange;
     public int damageMulti;
+    public DieType damageRange;
     public DamageType damageType;
-    public bool finesse;
-    public bool heavy;
-    public bool isLight;
     public bool reach;
-    public bool twoHanded;
-    public int range;
     public int maxRange;
 
     public void UpdateFields()
@@ -23,73 +19,14 @@ public class AttackOptionPrefab : MonoBehaviour, IPointerEnterHandler
         GetComponent<Button>().onClick.AddListener(() => MyOnClick());
         if (TargetsInRange())
         {
-            weaponText.text = title + "  AtkBns:+" + GetProfBonus() + "  Dmg:" + damageMulti.ToString() + GetDieTypeInString(damageRange) + " " + GetDamageTypeInString(damageType);
+            weaponText.text = string.Format("{0} AtkBns:+{1} Dmg:{2}{3} {4}", 
+                title, GetProfBonus(), damageMulti.ToString(), damageRange.ToString(), damageType.ToString());
             GetComponent<Button>().interactable = true; // This is probably not necessary
         }
         else
         {
             weaponText.text = title + "  No targets in range";
             GetComponent<Button>().interactable = false;
-        }
-    }
-
-    string GetDieTypeInString(DieType die)
-    {
-        switch (die)
-        {
-            case DieType.d00:
-                return "d00";
-            case DieType.d10:
-                return "d10";
-            case DieType.d12:
-                return "d12";
-            case DieType.d20:
-                return "d20";
-            case DieType.d4:
-                return "d4";
-            case DieType.d6:
-                return "d6";
-            case DieType.d8:
-                return "d8";
-            case DieType.one:
-                return "";
-            default:
-                return "AttackOptionPrefab doesn't recognize Die type";
-        }
-    }
-
-    string GetDamageTypeInString(DamageType damType)
-    {
-        switch (damType)
-        {
-            case DamageType.Acid:
-                return "Acid";
-            case DamageType.Bludgeoning:
-                return "Bludgeoning";
-            case DamageType.Cold:
-                return "Cold";
-            case DamageType.Fire:
-                return "Fire";
-            case DamageType.Force:
-                return "Force";
-            case DamageType.Lightning:
-                return "Lightning";
-            case DamageType.Necrotic:
-                return "Necrotic";
-            case DamageType.Piercing:
-                return "Piercing";
-            case DamageType.Poison:
-                return "Poison";
-            case DamageType.Psychic:
-                return "Psychic";
-            case DamageType.Radiant:
-                return "Radiant";
-            case DamageType.Slashing:
-                return "Slashing";
-            case DamageType.Thunder:
-                return "Thunder";
-            default:
-                return "AttackOptionPrefab doesn't recognize DamageType";
         }
     }
 
@@ -126,11 +63,11 @@ public class AttackOptionPrefab : MonoBehaviour, IPointerEnterHandler
     int GetProfBonus()
     {
         CharacterDatabase characterDatabase = FindObjectOfType<CharacterDatabase>();
-        foreach (PlayerCharacter playerCharacter in characterDatabase.CharacterDictionary.Keys)
+        foreach (PlayerCharacterName playerCharacter in characterDatabase.CharacterDictionary.Keys)
         {
             if (playerCharacter == FindObjectOfType<FightManager>().currentCombatant.character)
             {
-                int bonus = characterDatabase.CharacterDictionary[playerCharacter].GetProfBonus();
+                int bonus = characterDatabase.CharacterDictionary[playerCharacter].ProfBonus;
                 if (maxRange > 1) bonus += characterDatabase.CharacterDictionary[playerCharacter].GetAbilityScoreModifier(AbilityType.Dex);
                 else bonus += characterDatabase.CharacterDictionary[playerCharacter].GetAbilityScoreModifier(AbilityType.Str);
                 return bonus;

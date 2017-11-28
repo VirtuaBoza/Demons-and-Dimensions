@@ -1,0 +1,15 @@
+[
+	{
+		"id": 0,
+        "itemType": "Armor",
+        "title": "Leather Armor",
+        "slug": "leather_armor",
+        "spriteSheetName": "leather_armor",
+        "equipType": "Chestwear",
+		"ac": 1,
+        "dexModifierIsCappedAt2": false,
+        "disadvantagesStealth": false,
+		"isModifiedByDex": true,
+		"strengthRequirement": 0
+	}
+]

@@ -8,7 +8,7 @@ public class EquipPanel : MonoBehaviour
     public GameObject crystalPanel, teddyPanel, hunterPanel, damienPanel;
     public Toggle blueToggle, orangeToggle, greenToggle, redToggle;
 
-    private Dictionary<PlayerCharacter, GameObject> playerToPanelDictionary;
+    private Dictionary<PlayerCharacterName, GameObject> playerToPanelDictionary;
     Toggle[] toggles;
 
     void Awake()
@@ -25,22 +25,22 @@ public class EquipPanel : MonoBehaviour
 
     private void RigPlayersToPanels()
     {
-        playerToPanelDictionary = new Dictionary<PlayerCharacter, GameObject>();
-        playerToPanelDictionary.Add(PlayerCharacter.Crystal, crystalPanel);
-        playerToPanelDictionary.Add(PlayerCharacter.Damien, damienPanel);
-        playerToPanelDictionary.Add(PlayerCharacter.Hunter, hunterPanel);
-        playerToPanelDictionary.Add(PlayerCharacter.Teddy, teddyPanel);
+        playerToPanelDictionary = new Dictionary<PlayerCharacterName, GameObject>();
+        playerToPanelDictionary.Add(PlayerCharacterName.Crystal, crystalPanel);
+        playerToPanelDictionary.Add(PlayerCharacterName.Damien, damienPanel);
+        playerToPanelDictionary.Add(PlayerCharacterName.Hunter, hunterPanel);
+        playerToPanelDictionary.Add(PlayerCharacterName.Teddy, teddyPanel);
     }
 
-    void ShowAppropriateInventory(PlayerCharacter playerCharacter)
+    void ShowAppropriateInventory(PlayerCharacterName playerCharacter)
     {
-        Dictionary<PlayerCharacter, Character> characterDictionary = FindObjectOfType<CharacterDatabase>().CharacterDictionary;
-        foreach (KeyValuePair<PlayerCharacter, GameObject> pair in playerToPanelDictionary)
+        var characterDictionary = FindObjectOfType<CharacterDatabase>().CharacterDictionary;
+        foreach (KeyValuePair<PlayerCharacterName, GameObject> pair in playerToPanelDictionary)
         {
             if (pair.Key == playerCharacter)
             {
                 pair.Value.SetActive(true);
-                nameFrame.text = characterDictionary[pair.Key].Name;
+                nameFrame.text = characterDictionary[pair.Key].PlayerCharacterName.ToString();
             }
             else
             {
@@ -55,16 +55,16 @@ public class EquipPanel : MonoBehaviour
         switch (index)
         {
             case 0:
-                ShowAppropriateInventory(PlayerCharacter.Crystal);
+                ShowAppropriateInventory(PlayerCharacterName.Crystal);
                 break;
             case 1:
-                ShowAppropriateInventory(PlayerCharacter.Teddy);
+                ShowAppropriateInventory(PlayerCharacterName.Teddy);
                 break;
             case 2:
-                ShowAppropriateInventory(PlayerCharacter.Hunter);
+                ShowAppropriateInventory(PlayerCharacterName.Hunter);
                 break;
             case 3:
-                ShowAppropriateInventory(PlayerCharacter.Damien);
+                ShowAppropriateInventory(PlayerCharacterName.Damien);
                 break;
             default:
                 Debug.LogWarning("Trying to switch to a PlayerCharacter in InventoryPanel that is out of range.");
