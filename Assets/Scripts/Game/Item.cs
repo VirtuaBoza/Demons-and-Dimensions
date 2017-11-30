@@ -6,38 +6,33 @@ public class Item
     protected int id;
     protected string itemType;
     protected string title;
-    protected string slug;
-    protected Sprite sprite;
+    protected string spriteName;
     
     public Item()
     {
         id = -1;
         itemType = "Empty";
         title = string.Empty;
-        slug = string.Empty;
-        sprite = new Sprite();
+        spriteName = string.Empty;
     }
 
-    protected Item(int id, string itemType, string title, string slug)
+    protected Item(int id, string itemType, string title, string spriteName)
     {
         this.id = id;
         this.itemType = itemType;
-        
-
         this.title = title;
-        this.slug = slug;
-        sprite = Resources.Load<Sprite>("Sprites/Items/" + slug);
+        this.spriteName = spriteName;
     }
 
     public int ID { get { return id; } }
-    public ItemType? ItemType
+    public ItemType ItemType
     {
         get
         {
             if (!Enum.IsDefined(typeof(ItemType), itemType))
             {
                 Debug.LogWarning("Item constructor did not recognize itemType.");
-                return null;
+                return ItemType.Empty;
             }
             else
             {
@@ -46,6 +41,5 @@ public class Item
         }
     }
     public string Title { get { return title; } }
-    public string Slug { get { return slug; } }
-    public Sprite Sprite { get { return sprite; } }
+    public Sprite Sprite { get { return Resources.Load<Sprite>("Sprites/Items/" + spriteName); } }
 }

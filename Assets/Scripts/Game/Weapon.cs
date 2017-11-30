@@ -17,10 +17,10 @@ public class Weapon : Item, IEquipable
     private bool twoHanded;
     private string weightCategory;
 
-    public Weapon(int id, string title, string slug,
+    public Weapon(int id, string title, string spriteName,
         string spriteSheetName, string equipType,
         int damageMulti, int damageRange, string damageType, bool finesse, int maxRange, int range, bool reach, bool twoHanded, string weightCategory) : 
-        base(id, "Weapon", title, slug)
+        base(id, "Weapon", title, spriteName)
     {
         this.spriteSheetName = spriteSheetName;
         this.equipType = equipType;

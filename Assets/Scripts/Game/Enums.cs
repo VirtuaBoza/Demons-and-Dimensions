@@ -23,7 +23,7 @@ public enum AnimationType
     ThrustUp, ThrustLeft, ThrustDown, ThrustRight,
     LooseUp, LooseLeft, LooseDown, LooseRight,
     SpellcastUp, SpellcastLeft, SpellcastDown, SpellcastRight,
-    Fall
+    Die
 }
 
 public enum CharacterClass

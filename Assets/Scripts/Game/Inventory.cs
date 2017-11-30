@@ -58,18 +58,17 @@ public class Inventory : MonoBehaviour
     {
         foreach (PlayerCharacterName character in Enum.GetValues(typeof(PlayerCharacterName)))
         {
-            List<Item> tempList = new List<Item>();
             foreach (Slot slot in inventoryPanel.GetComponentsInChildren<Slot>())
             {
                 if (slot.owner == character)
                 {
                     if (slot.GetComponentInChildren<ItemInfo>())
                     {
-                        tempList.Add(slot.GetComponentInChildren<ItemInfo>().item);
+                        IEquipable equipment = slot.GetComponentInChildren<ItemInfo>().item as IEquipable;
+                        characterDatabase.CharacterDictionary[character].AddEquipment(equipment);
                     }
                 }
             }
-            characterDatabase.CharacterDictionary[character].EquippedItems = tempList;
         }
     }
 }

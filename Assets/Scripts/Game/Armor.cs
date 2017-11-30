@@ -13,10 +13,10 @@ public class Armor : Item, IEquipable
     private bool isModifiedByDex;
     private int strengthRequirement;
 
-    public Armor(int id, string itemType, string title, string slug,
+    public Armor(int id, string itemType, string title, string spriteName,
         string spriteSheetName, string equipType,
         int armorClass, bool dexModifierIsCappedAt2, bool disadvantagesStealth, bool isModifiedByDex, int strengthRequirement) : 
-        base (id, itemType, title, slug)
+        base (id, itemType, title, spriteName)
     {
         this.spriteSheetName = spriteSheetName;
         this.equipType = equipType;

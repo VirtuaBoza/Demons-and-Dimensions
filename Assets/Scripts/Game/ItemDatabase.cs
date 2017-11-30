@@ -30,16 +30,16 @@ public class ItemDatabase : MonoBehaviour
                 itemIDs.Add((int)itemData[i]["id"]);
                 allItems.Add(new Armor(
                         (int)itemData[i]["id"],
-                        itemData[i]["itemType"].ToString(),
+                        itemData[i]["itemtype"].ToString(),
                         itemData[i]["title"].ToString(),
-                        itemData[i]["slug"].ToString(),
-                        itemData[i]["spriteSheetName"].ToString(),
-                        itemData[i]["equipType"].ToString(),
+                        itemData[i]["spritename"].ToString(),
+                        itemData[i]["spritesheetname"].ToString(),
+                        itemData[i]["equiptype"].ToString(),
                         (int)itemData[i]["ac"],
-                        (bool)itemData[i]["dexModifierIsCappedAt2"],
-                        (bool)itemData[i]["disadvantagesStealth"],
-                        (bool)itemData[i]["isModifiedByDex"],
-                        (int)itemData[i]["strengthRequirement"]));
+                        (bool)itemData[i]["dexmodifieriscappedat2"],
+                        (bool)itemData[i]["disadvantagesstealth"],
+                        (bool)itemData[i]["ismodifiedbydex"],
+                        (int)itemData[i]["strengthrequirement"]));
             }
         }
     }
@@ -59,18 +59,18 @@ public class ItemDatabase : MonoBehaviour
                 allItems.Add(new Weapon(
                         (int)itemData[i]["id"],
                         itemData[i]["title"].ToString(),
-                        itemData[i]["slug"].ToString(),
-                        itemData[i]["spriteSheetName"].ToString(),
-                        itemData[i]["equipType"].ToString(),
-                        (int)itemData[i]["damageMulti"],
-                        (int)itemData[i]["damageRange"],
-                        itemData[i]["damageType"].ToString(),
+                        itemData[i]["spritename"].ToString(),
+                        itemData[i]["spritesheetname"].ToString(),
+                        itemData[i]["equiptype"].ToString(),
+                        (int)itemData[i]["damagemulti"],
+                        (int)itemData[i]["damagerange"],
+                        itemData[i]["damagetype"].ToString(),
                         (bool)itemData[i]["finesse"],
-                        (int)itemData[i]["maxRange"],
+                        (int)itemData[i]["maxrange"],
                         (int)itemData[i]["range"],
                         (bool)itemData[i]["reach"],
-                        (bool)itemData[i]["twoHanded"],
-                        itemData[i]["weightCategory"].ToString()));
+                        (bool)itemData[i]["twohanded"],
+                        itemData[i]["weightcategory"].ToString()));
             }
         }
     }

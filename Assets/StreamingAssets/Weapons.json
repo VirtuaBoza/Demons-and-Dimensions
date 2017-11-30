@@ -2,17 +2,17 @@
 	{
 		"id": 3,
         "title": "Dagger",
-        "slug": "dagger",
-        "spriteSheetName": "leather_armor",
-        "equipType": "Chestwear",
-        "damageMulti": 1,
-		"damageRange": 4,
-		"damageType": "Piercing",
+        "spritename": "dagger",
+        "spritesheetname": "leather_armor",
+        "equiptype": "Chestwear",
+        "damagemulti": 1,
+		"damagerange": 4,
+		"damagetype": "Piercing",
         "finesse": true,
-        "maxRange": 1,
+        "maxrange": 1,
         "range": 1,
 		"reach": false,
-		"twoHanded": false,
-        "weightCategory": "Light"
+		"twohanded": false,
+        "weightcategory": "Light"
 	}
 ]

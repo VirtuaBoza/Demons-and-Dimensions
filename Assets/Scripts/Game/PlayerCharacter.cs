@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerCharacter
 {
     private string playerCharacterName;
+    private string spriteSheetName;
     private string characterClass;
     private int speed;
     private int baseHP;
@@ -23,13 +24,14 @@ public class PlayerCharacter
     private bool wisProf;
     private bool chaProf;
     private int xp = 0;
-    private List<Item> equippedItems = new List<Item>();
+    private Dictionary<EquipType, IEquipable> equippedItems = new Dictionary<EquipType, IEquipable>();
 
-    public PlayerCharacter(string characterName, string characterClass, int speed, int baseHP, int hitDice,
+    public PlayerCharacter(string characterName, string spriteSheetName, string characterClass, int speed, int baseHP, int hitDice,
         int strScore, int dexScore, int conScore, int intScore, int wisScore, int chaScore,
         bool strProf, bool dexProf, bool conProf, bool intProf, bool wisProf, bool chaProf)
     {
         playerCharacterName = characterName;
+        this.spriteSheetName = spriteSheetName;
         this.characterClass = characterClass;
         this.speed = speed;
         this.baseHP = baseHP;
@@ -49,14 +51,14 @@ public class PlayerCharacter
         this.chaProf = chaProf;
     }
 
-    public PlayerCharacterName? PlayerCharacterName
+    public PlayerCharacterName PlayerCharacterName
     {
         get
         {
             if (!Enum.IsDefined(typeof(PlayerCharacterName), playerCharacterName))
             {
                 Debug.LogWarning("Character constructor did not recognize characterName.");
-                return null;
+                return PlayerCharacterName.Crystal;
             }
             else
             {
@@ -64,6 +66,15 @@ public class PlayerCharacter
             }
         }
     }
+
+    public Dictionary<AnimationType, AnimationClip> AnimClipDictionary
+    {
+        get
+        {
+            return AnimationGenerator.CreateAnimationClips(spriteSheetName);
+        }
+    }
+
     public CharacterClass? Class
     {
         get
@@ -127,7 +138,7 @@ public class PlayerCharacter
     }
     public int XP { get { return xp; } }
     public int CurrentHP { get { return currentHP; } }
-    public List<Item> EquippedItems
+    public Dictionary<EquipType, IEquipable> EquippedItems
     {
         get
         {
@@ -185,7 +196,7 @@ public class PlayerCharacter
             int ac = 10;
             bool dexMods = true;
             bool dexModsMax2 = false;
-            foreach (Armor armorItem in EquippedItems)
+            foreach (Armor armorItem in EquippedItems.Values)
             {
                 ac += armorItem.ArmorClass;
                 if (!armorItem.IsModifiedByDex)
@@ -211,21 +222,22 @@ public class PlayerCharacter
         xp += amount;
     }
 
-    public void AddEquipment(Item item)
+    public void AddEquipment(IEquipable equipment)
     {
-        equippedItems.Add(item);
+        ICollection<EquipType> equippedTypes = equippedItems.Keys;
+        if (equippedTypes.Contains(equipment.EquipType))
+        {
+            equippedItems[equipment.EquipType] = equipment;
+        }
+        else
+        {
+            equippedItems.Add(equipment.EquipType, equipment);
+        }
     }
 
-    public void RemoveEquipment(int itemId)
+    public void RemoveEquipment(IEquipable equipment)
     {
-        foreach (Item item in equippedItems)
-        {
-            if (itemId == item.ID)
-            {
-                equippedItems.Remove(item);
-                break;
-            }
-        }
+        equippedItems.Remove(equipment.EquipType);
     }
 
     public void Heal(int points)

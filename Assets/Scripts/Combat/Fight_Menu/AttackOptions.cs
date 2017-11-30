@@ -21,7 +21,7 @@ public class AttackOptions : FightMenuButton
 
         bool isAtLeastOneWeapon = false;
 
-        foreach (Weapon weapon in characterDatabase.CharacterDictionary[fightManager.currentCombatant.character].EquippedItems)
+        foreach (Weapon weapon in characterDatabase.CharacterDictionary[fightManager.currentCombatant.character].EquippedItems.Values)
         {
             isAtLeastOneWeapon = true;
             GameObject prefab = Instantiate(attackOptionPrefab, transform) as GameObject;

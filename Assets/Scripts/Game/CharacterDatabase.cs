@@ -10,7 +10,6 @@ public class CharacterDatabase : MonoBehaviour
 
     private JsonData characterData;
     private List<PlayerCharacter> characterList = new List<PlayerCharacter>();
-    public Dictionary<PlayerCharacterName?, PlayerCharacter> characterDictionary = new Dictionary<PlayerCharacterName?, PlayerCharacter>();
 
     void Start()
     {
@@ -24,6 +23,7 @@ public class CharacterDatabase : MonoBehaviour
         {
             characterList.Add(new PlayerCharacter(
                 characterData[i]["name"].ToString(),
+                characterData[i]["spritesheetname"].ToString(),
                 characterData[i]["class"].ToString(),
                 (int)characterData[i]["speed"],
                 (int)characterData[i]["basehp"],
@@ -43,11 +43,11 @@ public class CharacterDatabase : MonoBehaviour
         }
     }
 
-    public Dictionary<PlayerCharacterName?, PlayerCharacter> CharacterDictionary
+    public Dictionary<PlayerCharacterName, PlayerCharacter> CharacterDictionary
     {
         get
         {
-            var characterDictionary = new Dictionary<PlayerCharacterName?, PlayerCharacter>();
+            var characterDictionary = new Dictionary<PlayerCharacterName, PlayerCharacter>();
             foreach (PlayerCharacter character in CharacterList)
             {
                 characterDictionary.Add(character.PlayerCharacterName, character);

@@ -1,6 +1,7 @@
 [
 	{
 		"name": "Crystal",
+		"spritesheetname": "crystal",
 		"class": "Mage",
 		"speed": 30,
 		"basehp": 7,
@@ -26,6 +27,7 @@
 	},
 	{
 		"name": "Teddy",
+		"spritesheetname": "teddy",
 		"class": "Warrior",
 		"speed": 25,
 		"basehp": 13,
@@ -51,6 +53,7 @@
 	},
 	{
 		"name": "Hunter",
+		"spritesheetname": "hunter",
 		"class": "Thief",
 		"speed": 30,
 		"basehp": 8,
@@ -76,6 +79,7 @@
 	},
 	{
 		"name": "Damien",
+		"spritesheetname": "damien",
 		"class": "DM",
 		"speed": 30,
 		"basehp": 8,

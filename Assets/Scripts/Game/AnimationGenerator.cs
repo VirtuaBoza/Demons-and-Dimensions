@@ -108,7 +108,7 @@ public class AnimationGenerator
             case AnimationType.SpellcastRight:
                 return new int[] { 21, 7 };
 
-            case AnimationType.Fall:
+            case AnimationType.Die:
                 return new int[] { 172, 6 };
 
             default:

@@ -245,7 +245,7 @@ public class FightManager : MonoBehaviour
     Dictionary<int, int> GetCurrentPlayerItems()
     {
         Dictionary<int, int> tempDict = new Dictionary<int, int>();
-        foreach (Item item in characterDatabase.CharacterDictionary[currentCombatant.character].EquippedItems)
+        foreach (Item item in characterDatabase.CharacterDictionary[currentCombatant.character].EquippedItems.Values)
         {
             if (tempDict.ContainsKey(item.ID))
             {
