@@ -23,30 +23,20 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        //UpdateInventory();
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.U)) UpdateInventory();
-    }
-
     public void AddItem(int id)
     {
         Item itemToAdd = itemDatabase.FetchItemByID(id);
 
-        foreach (KeyValuePair<Slot, Item> entry in assignedItemBySlot)
+        foreach (KeyValuePair<Slot, Item> slotItemPair in assignedItemBySlot)
         {
-            if (entry.Value.ID == -1)
+            if (slotItemPair.Value.ID == -1)
             {
-                assignedItemBySlot[entry.Key] = itemToAdd;
+                assignedItemBySlot[slotItemPair.Key] = itemToAdd;
                 GameObject itemObj = Instantiate(inventoryItem);
                 itemObj.GetComponent<ItemInfo>().item = itemToAdd;
                 itemObj.GetComponent<ItemInfo>().amount = 1;
-                itemObj.GetComponent<ItemInfo>().slot = entry.Key;
-                itemObj.transform.SetParent(entry.Key.transform, false);
+                itemObj.GetComponent<ItemInfo>().slot = slotItemPair.Key;
+                itemObj.transform.SetParent(slotItemPair.Key.transform, false);
                 itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
                 itemObj.name = itemToAdd.Title;
                 break;
