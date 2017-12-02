@@ -20,7 +20,7 @@ public class StatPanel : MonoBehaviour
     void OnEnable()
     {
         PopulateCharacterStats(FindObjectOfType<GameManager>().currentCharacter);
-        toggles[(int)FindObjectOfType<GameManager>().currentCharacter].isOn = true;     // This is matching the integer value of the PlayerCharacter enum to the index position of the toggles... less than ideal.
+        toggles[(int)FindObjectOfType<GameManager>().currentCharacter - 1].isOn = true;     // This is matching the integer value of the PlayerCharacter enum to the index position of the toggles... less than ideal.
     }
 
     public void PopulateCharacterStats(PlayerCharacterName playerCharacter)

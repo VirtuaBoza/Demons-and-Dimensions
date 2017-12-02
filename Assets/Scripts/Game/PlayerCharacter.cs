@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerCharacter
 {
-    private string playerCharacterName;
+    private PlayerCharacterName playerCharacterName;
     private string spriteSheetName;
     private string characterClass;
     private int speed;
@@ -30,7 +30,15 @@ public class PlayerCharacter
         int strScore, int dexScore, int conScore, int intScore, int wisScore, int chaScore,
         bool strProf, bool dexProf, bool conProf, bool intProf, bool wisProf, bool chaProf)
     {
-        playerCharacterName = characterName;
+        if (!Enum.IsDefined(typeof(PlayerCharacterName), characterName))
+        {
+            Debug.LogWarning("Character constructor did not recognize characterName.");
+            playerCharacterName = PlayerCharacterName.None;
+        }
+        else
+        {
+            playerCharacterName = (PlayerCharacterName)Enum.Parse(typeof(PlayerCharacterName), characterName, true);
+        }
         this.spriteSheetName = spriteSheetName;
         this.characterClass = characterClass;
         this.speed = speed;
@@ -55,15 +63,7 @@ public class PlayerCharacter
     {
         get
         {
-            if (!Enum.IsDefined(typeof(PlayerCharacterName), playerCharacterName))
-            {
-                Debug.LogWarning("Character constructor did not recognize characterName.");
-                return PlayerCharacterName.Crystal;
-            }
-            else
-            {
-                return (PlayerCharacterName)Enum.Parse(typeof(PlayerCharacterName), playerCharacterName, true);
-            }
+            return playerCharacterName;
         }
     }
 
@@ -235,9 +235,9 @@ public class PlayerCharacter
         }
     }
 
-    public void RemoveEquipment(IEquipable equipment)
+    public void ClearEquipment()
     {
-        equippedItems.Remove(equipment.EquipType);
+        equippedItems = new Dictionary<EquipType, IEquipable>();
     }
 
     public void Heal(int points)

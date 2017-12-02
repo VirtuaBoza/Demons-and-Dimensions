@@ -104,13 +104,13 @@ public class AnimationGenerator
             case AnimationType.LooseRight:
                 return new int[] { 159, 13 };
 
-            case AnimationType.SpellcastUp:
+            case AnimationType.CastUp:
                 return new int[] { 0, 7 };
-            case AnimationType.SpellcastLeft:
+            case AnimationType.CastLeft:
                 return new int[] { 7, 7 };
-            case AnimationType.SpellcastDown:
+            case AnimationType.CastDown:
                 return new int[] { 14, 7 };
-            case AnimationType.SpellcastRight:
+            case AnimationType.CastRight:
                 return new int[] { 21, 7 };
 
             case AnimationType.Die:

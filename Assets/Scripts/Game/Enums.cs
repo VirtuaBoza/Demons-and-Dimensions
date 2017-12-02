@@ -22,7 +22,7 @@ public enum AnimationType
     SlashUp, SlashLeft, SlashDown, SlashRight,
     ThrustUp, ThrustLeft, ThrustDown, ThrustRight,
     LooseUp, LooseLeft, LooseDown, LooseRight,
-    SpellcastUp, SpellcastLeft, SpellcastDown, SpellcastRight,
+    CastUp, CastLeft, CastDown, CastRight,
     Die
 }
 
@@ -97,7 +97,8 @@ public enum ItemType
 }
 public enum PlayerCharacterName
 {
-    Crystal = 0,
+    None = 0,
+    Crystal,
     Teddy,
     Hunter,
     Damien
