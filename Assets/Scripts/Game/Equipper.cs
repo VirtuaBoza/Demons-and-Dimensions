@@ -15,6 +15,7 @@ public class Equipper : MonoBehaviour
     {
         hasEquippedItem = false;
         GetComponent<Animator>().runtimeAnimatorController = new RuntimeAnimatorController();
+        GetComponent<SpriteRenderer>().sprite = null;
     }
 
     public void CreateEquipmentAnimatorFromPlayerAnimator(IEquipable equipment, Animator playerAnimator)

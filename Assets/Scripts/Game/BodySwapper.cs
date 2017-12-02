@@ -67,6 +67,7 @@ public class BodySwapper : MonoBehaviour
     {
         gameManager.currentCharacter = playerCharacter;
         animator.runtimeAnimatorController = AnimatorReplicator.CreateAnimatorFromPlayerAnimator(characterDatabase.CharacterDictionary[playerCharacter].AnimClipDictionary, playerAnimator);
+        GetComponentInParent<Player>().UpdatePlayerEquipment();
     }
 
     public void SetCurrentCharacterAnimator(Animator playerAnimator)
