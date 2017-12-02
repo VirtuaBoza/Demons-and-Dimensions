@@ -42,4 +42,9 @@ public class Item
     }
     public string Title { get { return title; } }
     public Sprite Sprite { get { return Resources.Load<Sprite>("Sprites/Items/" + spriteName); } }
+
+    public override string ToString()
+    {
+        return title;
+    }
 }

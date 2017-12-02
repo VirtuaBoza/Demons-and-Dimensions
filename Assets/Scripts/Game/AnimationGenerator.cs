@@ -32,6 +32,11 @@ public class AnimationGenerator
             {
                 spriteKeyFrames[i] = new ObjectReferenceKeyframe();
                 spriteKeyFrames[i].time = timeValue;
+
+                // These are for debugging
+                //int blah = i + startAndRange[0];
+                //Debug.Log("Grabbing sprite index " + blah + " for " + animationType);
+
                 spriteKeyFrames[i].value = sprites[i + startAndRange[0]];
                 timeValue += 1 / 15f;
             }

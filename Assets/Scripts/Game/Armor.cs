@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Armor : Item, IEquipable
 {
-    private string spriteSheetName;
+    private Dictionary<AnimationType, AnimationClip> animClipDictionary;
     private string equipType;
 
     private int armorClass;
@@ -18,7 +18,7 @@ public class Armor : Item, IEquipable
         int armorClass, bool dexModifierIsCappedAt2, bool disadvantagesStealth, bool isModifiedByDex, int strengthRequirement) : 
         base (id, itemType, title, spriteName)
     {
-        this.spriteSheetName = spriteSheetName;
+        animClipDictionary = AnimationGenerator.CreateAnimationClips(spriteSheetName);
         this.equipType = equipType;
 
         this.armorClass = armorClass;
@@ -32,7 +32,7 @@ public class Armor : Item, IEquipable
     {
         get
         {
-            return AnimationGenerator.CreateAnimationClips(spriteSheetName);
+            return animClipDictionary;
         }
     }
 

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour
 {
     public GameObject inventoryPanel;
-    public GameObject inventorySlot;
     public GameObject inventoryItem;
     public Dictionary<Slot, Item> assignedItemBySlot = new Dictionary<Slot, Item>();
 
@@ -23,14 +22,27 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    // TEST TEST TEST
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.U))
+        {
+            AddItem(0);
+        }
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            AddItem(3);
+        }
+    }
+    // TEST COMPLETE
+
     public void AddItem(int id)
     {
-        Item itemToAdd = itemDatabase.FetchItemByID(id);
-
         foreach (KeyValuePair<Slot, Item> slotItemPair in assignedItemBySlot)
         {
-            if (slotItemPair.Value.ID == -1)
+            if (slotItemPair.Key.slotItemType == SlotType.All && slotItemPair.Value.ID == -1)
             {
+                Item itemToAdd = itemDatabase.FetchItemByID(id);
                 assignedItemBySlot[slotItemPair.Key] = itemToAdd;
                 GameObject itemObj = Instantiate(inventoryItem);
                 itemObj.GetComponent<ItemInfo>().item = itemToAdd;
@@ -39,9 +51,10 @@ public class Inventory : MonoBehaviour
                 itemObj.transform.SetParent(slotItemPair.Key.transform, false);
                 itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
                 itemObj.name = itemToAdd.Title;
-                break;
+                return;
             }
         }
+        Debug.LogWarning("You need to handle what happens when the inventory is full and something attempts to add one more item");
     }
 
     public void UpdateInventory()
@@ -59,6 +72,11 @@ public class Inventory : MonoBehaviour
                     }
                 }
             }
+        }
+        Player player = FindObjectOfType<Player>();
+        if (player)
+        {
+            player.UpdatePlayerEquipment();
         }
     }
 }

@@ -3685,7 +3685,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 4
-  owner: 4
+  owner: 3
 --- !u!114 &114005830488800448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3814,7 +3814,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 1
-  owner: 3
+  owner: 2
 --- !u!114 &114012103520806118
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3949,7 +3949,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 3
-  owner: 4
+  owner: 3
 --- !u!114 &114024152215704478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4165,7 +4165,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 4
-  owner: 3
+  owner: 2
 --- !u!114 &114069049725704398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4213,7 +4213,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 2
-  owner: 1
+  owner: 0
 --- !u!114 &114073147280195186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4311,7 +4311,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 3
-  owner: 1
+  owner: 0
 --- !u!114 &114087962131729128
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4894,7 +4894,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 3
-  owner: 2
+  owner: 1
 --- !u!114 &114151385931050318
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5732,7 +5732,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 2
-  owner: 3
+  owner: 2
 --- !u!114 &114314379449850188
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6436,7 +6436,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 4
-  owner: 2
+  owner: 1
 --- !u!114 &114411178097370090
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6569,7 +6569,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 1
-  owner: 1
+  owner: 0
 --- !u!114 &114418949915760224
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6963,7 +6963,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 3
-  owner: 3
+  owner: 2
 --- !u!114 &114470817832627158
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7447,7 +7447,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 4
-  owner: 2
+  owner: 1
 --- !u!114 &114558585816550706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7495,7 +7495,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 2
-  owner: 2
+  owner: 1
 --- !u!114 &114571219219965786
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7904,7 +7904,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 4
-  owner: 4
+  owner: 3
 --- !u!114 &114629574609902540
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7925,7 +7925,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 1
-  owner: 2
+  owner: 1
 --- !u!114 &114630881885237758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9238,7 +9238,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 4
-  owner: 3
+  owner: 2
 --- !u!114 &114804646299630700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9440,7 +9440,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 2
-  owner: 4
+  owner: 3
 --- !u!114 &114813293342490388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10020,7 +10020,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 4
-  owner: 1
+  owner: 0
 --- !u!114 &114873990334612452
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10822,7 +10822,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 4
-  owner: 1
+  owner: 0
 --- !u!114 &114970160605998666
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10843,7 +10843,7 @@ MonoBehaviour:
   weaponTypeIcon: {fileID: 114000011467554148, guid: 65809e152ad23f6468438460d4680027,
     type: 2}
   slotItemType: 1
-  owner: 4
+  owner: 3
 --- !u!114 &114973658332575656
 MonoBehaviour:
   m_ObjectHideFlags: 1

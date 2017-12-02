@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon : Item, IEquipable
 {
-    private string spriteSheetName;
+    Dictionary<AnimationType, AnimationClip> animClipDictionary;
     private string equipType;
 
     private int damageMulti;
@@ -22,7 +22,7 @@ public class Weapon : Item, IEquipable
         int damageMulti, int damageRange, string damageType, bool finesse, int maxRange, int range, bool reach, bool twoHanded, string weightCategory) : 
         base(id, "Weapon", title, spriteName)
     {
-        this.spriteSheetName = spriteSheetName;
+        animClipDictionary = AnimationGenerator.CreateAnimationClips(spriteSheetName);
         this.equipType = equipType;
 
         this.damageMulti = damageMulti;
@@ -40,7 +40,7 @@ public class Weapon : Item, IEquipable
     {
         get
         {
-            return AnimationGenerator.CreateAnimationClips(spriteSheetName);
+            return animClipDictionary;
         }
     }
 
