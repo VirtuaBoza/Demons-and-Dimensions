@@ -1,79 +1,86 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-    public GameObject inventoryPanel, inventorySlot, inventoryItem;
-    public Dictionary<Slot, Item> assignedItems = new Dictionary<Slot, Item>();
-    public Dictionary<PlayerCharacter, List<Item>> characterEquippedItems = new Dictionary<PlayerCharacter, List<Item>>();
+    public GameObject inventoryPanel;
+    public GameObject inventoryItem;
+    public Dictionary<Slot, Item> assignedItemBySlot = new Dictionary<Slot, Item>();
 
-    private ItemDatabase database;
+    private ItemDatabase itemDatabase;
+    private CharacterDatabase characterDatabase;
 
     void Awake()
     {
-        database = FindObjectOfType<ItemDatabase>();
+        itemDatabase = FindObjectOfType<ItemDatabase>();
+        characterDatabase = FindObjectOfType<CharacterDatabase>();
         foreach (Slot slot in inventoryPanel.GetComponentsInChildren<Slot>())
         {
-            assignedItems.Add(slot, new Item()); //Test
+            assignedItemBySlot.Add(slot, new Item());
         }
-    }
-
-    void Start()
-    {
-        AddItem(0); //For testing puposes
-        AddItem(3); //For testing puposes
-        characterEquippedItems.Add(PlayerCharacter.Crystal, new List<Item>());
-        characterEquippedItems.Add(PlayerCharacter.Damien, new List<Item>());
-        characterEquippedItems.Add(PlayerCharacter.Hunter, new List<Item>());
-        characterEquippedItems.Add(PlayerCharacter.Teddy, new List<Item>());
-        UpdateInventory();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.U)) UpdateInventory();
+        // TEST TEST TEST
+        //if(Input.GetKeyDown(KeyCode.U))
+        //{
+        //    AddItem(0);
+        //}
+        //if(Input.GetKeyDown(KeyCode.I))
+        //{
+        //    AddItem(3);
+        //}
+        // TEST COMPLETE
     }
 
     public void AddItem(int id)
     {
-        Item itemToAdd = database.FetchItemByID(id);
-
-        foreach (KeyValuePair<Slot, Item> entry in assignedItems)
+        foreach (KeyValuePair<Slot, Item> slotItemPair in assignedItemBySlot)
         {
-            if (entry.Value.ID == -1)
+            if (slotItemPair.Key.slotItemType == SlotType.All && slotItemPair.Value.ID == -1)
             {
-                assignedItems[entry.Key] = itemToAdd;
+                Item itemToAdd = itemDatabase.FetchItemByID(id);
+                assignedItemBySlot[slotItemPair.Key] = itemToAdd;
                 GameObject itemObj = Instantiate(inventoryItem);
                 itemObj.GetComponent<ItemInfo>().item = itemToAdd;
                 itemObj.GetComponent<ItemInfo>().amount = 1;
-                itemObj.GetComponent<ItemInfo>().slot = entry.Key;
-                itemObj.transform.SetParent(entry.Key.transform, false);
+                itemObj.GetComponent<ItemInfo>().slot = slotItemPair.Key;
+                itemObj.transform.SetParent(slotItemPair.Key.transform, false);
                 itemObj.GetComponent<Image>().sprite = itemToAdd.Sprite;
                 itemObj.name = itemToAdd.Title;
-                break;
+                return;
             }
         }
+        Debug.LogWarning("You need to handle what happens when the inventory is full and something attempts to add one more item");
     }
 
     public void UpdateInventory()
     {
-        PlayerCharacter[] characters = characterEquippedItems.Keys.ToArray();
-        foreach (PlayerCharacter character in characters)
+        foreach (PlayerCharacterName character in Enum.GetValues(typeof(PlayerCharacterName)))
         {
-            List<Item> tempList = new List<Item>();
-            foreach (Slot slot in inventoryPanel.GetComponentsInChildren<Slot>())
+            if (character != PlayerCharacterName.None)
             {
-                if (slot.owner == character)
+                characterDatabase.CharacterDictionary[character].ClearEquipment();
+                foreach (Slot slot in inventoryPanel.GetComponentsInChildren<Slot>())
                 {
-                    if (slot.GetComponentInChildren<ItemInfo>())
+                    if (slot.owner == character)
                     {
-                        tempList.Add(slot.GetComponentInChildren<ItemInfo>().item);
+                        if (slot.GetComponentInChildren<ItemInfo>())
+                        {
+                            IEquipable equipment = slot.GetComponentInChildren<ItemInfo>().item as IEquipable;
+                            characterDatabase.CharacterDictionary[character].AddEquipment(equipment);
+                        }
                     }
                 }
             }
-            characterEquippedItems[character] = tempList;
+        }
+        Player player = FindObjectOfType<Player>();
+        if (player)
+        {
+            player.UpdatePlayerEquipment();
         }
     }
 }

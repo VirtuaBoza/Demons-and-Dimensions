@@ -10,31 +10,30 @@ public class StatPanel : MonoBehaviour
         strScoreText, dexScoreText, conScoreText, intScoreText, wisScoreText, chaScoreText,
         strThrowModText, dexThrowModText, conThrowModText, intThrowModText, wisThrowModText, chaThrowModText;
 
-    private Dictionary<PlayerCharacter, Character> characterDictionary;
     Toggle[] toggles;
 
     void Awake()
     {
-        characterDictionary = FindObjectOfType<CharacterDatabase>().CharacterDictionary;
         toggles = new Toggle[] { blueToggle, orangeToggle, greenToggle, redToggle };
     }
 
     void OnEnable()
     {
         PopulateCharacterStats(FindObjectOfType<GameManager>().currentCharacter);
-        toggles[(int)FindObjectOfType<GameManager>().currentCharacter].isOn = true;     // This is matching the integer value of the PlayerCharacter enum to the index position of the toggles... less than ideal.
+        toggles[(int)FindObjectOfType<GameManager>().currentCharacter - 1].isOn = true;     // This is matching the integer value of the PlayerCharacter enum to the index position of the toggles... less than ideal.
     }
 
-    public void PopulateCharacterStats(PlayerCharacter playerCharacter)
+    public void PopulateCharacterStats(PlayerCharacterName playerCharacter)
     {
-        nameText.text = characterDictionary[playerCharacter].Name;
-        lvlText.text = "Lvl " + characterDictionary[playerCharacter].GetLvl().ToString();
-        classText.text = characterDictionary[playerCharacter].Class;
-        xpText.text = characterDictionary[playerCharacter].Xp.ToString() + " XP";
+        var characterDictionary = FindObjectOfType<CharacterDatabase>().CharacterDictionary;
+        nameText.text = characterDictionary[playerCharacter].PlayerCharacterName.ToString();
+        lvlText.text = "Lvl " + characterDictionary[playerCharacter].Lvl.ToString();
+        classText.text = characterDictionary[playerCharacter].Class.ToString();
+        xpText.text = characterDictionary[playerCharacter].XP.ToString() + " XP";
         hpText.text = characterDictionary[playerCharacter].CurrentHP.ToString();
-        maxHpText.text = "/" + characterDictionary[playerCharacter].BaseHp.ToString();
-        acText.text = characterDictionary[playerCharacter].GetAc().ToString();
-        profText.text = "+" + characterDictionary[playerCharacter].GetProfBonus().ToString();
+        maxHpText.text = "/" + characterDictionary[playerCharacter].BaseHP.ToString();
+        acText.text = characterDictionary[playerCharacter].ArmorClass.ToString();
+        profText.text = "+" + characterDictionary[playerCharacter].ProfBonus.ToString();
         speedText.text = characterDictionary[playerCharacter].Speed.ToString() + "ft";
 
         strModText.text = DisplayAbilityScoreModifier(characterDictionary[playerCharacter], AbilityType.Str);
@@ -59,14 +58,14 @@ public class StatPanel : MonoBehaviour
         chaThrowModText.text = DisplayThrowModifier(characterDictionary[playerCharacter], AbilityType.Cha);
     }
 
-    private string DisplayAbilityScoreModifier(Character character, AbilityType ability)
+    private string DisplayAbilityScoreModifier(PlayerCharacter character, AbilityType ability)
     {
         string result = character.GetAbilityScoreModifier(ability).ToString();
         if (character.GetAbilityScoreModifier(ability) > 0) result = "+" + result;
         return result;
     }
 
-    private string DisplayThrowModifier(Character character, AbilityType ability)
+    private string DisplayThrowModifier(PlayerCharacter character, AbilityType ability)
     {
         string result = character.GetThrowMod(ability).ToString();
         if (character.GetThrowMod(ability) > 0) result = "+" + result;
@@ -79,16 +78,16 @@ public class StatPanel : MonoBehaviour
         switch (index)
         {
             case 0:
-                PopulateCharacterStats(PlayerCharacter.Crystal);
+                PopulateCharacterStats(PlayerCharacterName.Crystal);
                 break;
             case 1:
-                PopulateCharacterStats(PlayerCharacter.Teddy);
+                PopulateCharacterStats(PlayerCharacterName.Teddy);
                 break;
             case 2:
-                PopulateCharacterStats(PlayerCharacter.Hunter);
+                PopulateCharacterStats(PlayerCharacterName.Hunter);
                 break;
             case 3:
-                PopulateCharacterStats(PlayerCharacter.Damien);
+                PopulateCharacterStats(PlayerCharacterName.Damien);
                 break;
             default:
                 Debug.LogWarning("Trying to switch to a PlayerCharacter in CharacterPanel that is out of range.");

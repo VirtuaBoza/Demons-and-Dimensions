@@ -44,3 +44,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BelowPlayer
+    uniqueID: 2586373495
+    locked: 0
+  - name: PlayerLayer
+    uniqueID: 2430532899
+    locked: 0
+  - name: AbovePlayer
+    uniqueID: 172239773
+    locked: 0

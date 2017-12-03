@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using System;
 
 public class Player : MonoBehaviour
 {
@@ -10,6 +9,7 @@ public class Player : MonoBehaviour
     private Vector3 lastTarget;
     private bool isMovingToTarget = true;
     private GameManager gameManager;
+    private CharacterDatabase characterDatabase;
 
     void Start()
     {
@@ -18,79 +18,30 @@ public class Player : MonoBehaviour
         target = transform.position;
         lastTarget = target;
 
-        Dictionary<PlayerCharacter, Character> characterDictionary = FindObjectOfType<CharacterDatabase>().CharacterDictionary;
-        playerSpeed = characterDictionary[gameManager.currentCharacter].Speed / 5;
+        characterDatabase = FindObjectOfType<CharacterDatabase>();
+        playerSpeed = characterDatabase.CharacterDictionary[gameManager.currentCharacter].Speed / 5;
+        GetComponentInChildren<BodySwapper>().SetCurrentCharacterAnimator(animator);
     }
 
     void Update()
     {
-        CheckForCharacterSwapCommand();
         MovePlayer();
     }
 
-    private void CheckForCharacterSwapCommand()
+    public void UpdatePlayerEquipment()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        ICollection<EquipType> equippedItems = characterDatabase.CharacterDictionary[gameManager.currentCharacter].EquippedItems.Keys;
+        foreach (Equipper equipper in GetComponentsInChildren<Equipper>())
         {
-            SwapCharacterTo(PlayerCharacter.Crystal);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SwapCharacterTo(PlayerCharacter.Teddy);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SwapCharacterTo(PlayerCharacter.Hunter);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            SwapCharacterTo(PlayerCharacter.Damien);
-        }
-        else if (Input.GetButtonDown("CycleUp"))
-        {
-            int currentPlayerIndex = (int)gameManager.currentCharacter;
-            if (currentPlayerIndex == 3)
+            if (equippedItems.Contains(equipper.equipType))
             {
-                SwapCharacterTo(PlayerCharacter.Crystal);
+                equipper.CreateEquipmentAnimatorFromPlayerAnimator(
+                    characterDatabase.CharacterDictionary[gameManager.currentCharacter].EquippedItems[equipper.equipType], animator);
             }
             else
             {
-                SwapCharacterTo((PlayerCharacter)currentPlayerIndex + 1);
+                equipper.ClearAnimator();
             }
-        }
-        else if (Input.GetButtonDown("CycleDown"))
-        {
-            int currentPlayerIndex = (int)gameManager.currentCharacter;
-            if (currentPlayerIndex == 0)
-            {
-                SwapCharacterTo(PlayerCharacter.Damien);
-            }
-            else
-            {
-                SwapCharacterTo((PlayerCharacter)currentPlayerIndex - 1);
-            }
-        }
-    }
-
-    private void SwapCharacterTo(PlayerCharacter playerCharacter)
-    {
-        gameManager.currentCharacter = playerCharacter;
-
-        Animator animator = GetComponent<Animator>();
-        switch (playerCharacter)
-        {
-            case PlayerCharacter.Crystal:
-                animator.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("AnimatorControllers/CrystalController");
-                break;
-            case PlayerCharacter.Teddy:
-                animator.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("AnimatorControllers/TeddyController");
-                break;
-            case PlayerCharacter.Hunter:
-                animator.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("AnimatorControllers/HunterController");
-                break;
-            case PlayerCharacter.Damien:
-                animator.runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("AnimatorControllers/DamienController");
-                break;
         }
     }
 
@@ -147,21 +98,33 @@ public class Player : MonoBehaviour
 
     void Animate(float x, float y)
     {
-        if (Mathf.Abs(x) > Mathf.Abs(y))
+        foreach (Animator anim in GetComponentsInChildren<Animator>())
         {
-            animator.SetFloat("speedX", x);
-            animator.SetFloat("speedY", 0f);
-        }
-        else
-        {
-            animator.SetFloat("speedY", y);
-            animator.SetFloat("speedX", 0f);
+            if (anim.GetComponent<Equipper>() == null || anim.GetComponent<Equipper>().hasEquippedItem)
+            {
+                if (Mathf.Abs(x) > Mathf.Abs(y))
+                {
+                    anim.SetFloat("speedX", x);
+                    anim.SetFloat("speedY", 0f);
+                }
+                else
+                {
+                    anim.SetFloat("speedY", y);
+                    anim.SetFloat("speedX", 0f);
+                }
+            }
         }
     }
 
     void ResetAnimation()
     {
-        animator.SetFloat("speedX", 0f);
-        animator.SetFloat("speedY", 0f);
+        foreach (Animator anim in GetComponentsInChildren<Animator>())
+        {
+            if (anim.GetComponent<Equipper>() == null || anim.GetComponent<Equipper>().hasEquippedItem)
+            {
+                anim.SetFloat("speedX", 0f);
+                anim.SetFloat("speedY", 0f);
+            }
+        }
     }
 }

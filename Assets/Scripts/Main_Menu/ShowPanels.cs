@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public enum CharacterPanelType { None, Stats, Inventory, Spells }
-
 public class ShowPanels : MonoBehaviour
 {
     public GameObject optionsPanel; //Store a reference to the Game Object OptionsPanel 

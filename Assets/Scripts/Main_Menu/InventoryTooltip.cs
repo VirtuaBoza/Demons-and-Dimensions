@@ -15,6 +15,11 @@ public class InventoryTooltip : MonoBehaviour
 
     void Update()
     {
+        UpdatePosition();
+    }
+
+    private void UpdatePosition()
+    {
         if (tooltip.activeSelf)
         {
             tooltip.transform.position = Input.mousePosition;
@@ -35,7 +40,7 @@ public class InventoryTooltip : MonoBehaviour
 
     public void ContstructInfoString()
     {
-        info = "<color=#0047ba><b>" + item.Title + "</b></color>\n\n" + item.Itemtype;
+        info = "<color=#0047ba><b>" + item.Title + "</b></color>\n\n" + item.ItemType;
         tooltip.transform.GetComponentInChildren<Text>().text = info;
     }
 }
