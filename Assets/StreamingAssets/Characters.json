@@ -2,6 +2,7 @@
 	{
 		"name": "Crystal",
 		"spritesheetname": "crystal",
+		"animationcategories": "All",
 		"class": "Mage",
 		"speed": 30,
 		"basehp": 7,
@@ -28,6 +29,7 @@
 	{
 		"name": "Teddy",
 		"spritesheetname": "teddy",
+		"animationcategories": "All",
 		"class": "Warrior",
 		"speed": 25,
 		"basehp": 13,
@@ -54,6 +56,7 @@
 	{
 		"name": "Hunter",
 		"spritesheetname": "hunter",
+		"animationcategories": "All",
 		"class": "Thief",
 		"speed": 30,
 		"basehp": 8,
@@ -80,6 +83,7 @@
 	{
 		"name": "Damien",
 		"spritesheetname": "damien",
+		"animationcategories": "All",
 		"class": "DM",
 		"speed": 30,
 		"basehp": 8,

@@ -15,6 +15,12 @@ public enum ActionType
     Casting
 }
 
+public enum AnimationCategories
+{
+    All = 0,
+    WalkAndSlash
+}
+
 public enum AnimationType
 {
     IdleUp = 0, IdleLeft, IdleDown, IdleRight,

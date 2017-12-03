@@ -24,6 +24,7 @@ public class CharacterDatabase : MonoBehaviour
             characterList.Add(new PlayerCharacter(
                 characterData[i]["name"].ToString(),
                 characterData[i]["spritesheetname"].ToString(),
+                characterData[i]["animationcategories"].ToString(),
                 characterData[i]["class"].ToString(),
                 (int)characterData[i]["speed"],
                 (int)characterData[i]["basehp"],

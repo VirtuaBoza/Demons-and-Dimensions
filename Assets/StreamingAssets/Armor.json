@@ -5,6 +5,7 @@
         "title": "Leather Armor",
         "spritename": "leather_armor",
         "spritesheetname": "leather_armor",
+        "animationcategories": "All",
         "equiptype": "Chestwear",
 		"ac": 1,
         "dexmodifieriscappedat2": false,

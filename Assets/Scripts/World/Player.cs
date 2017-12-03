@@ -26,17 +26,6 @@ public class Player : MonoBehaviour
     void Update()
     {
         MovePlayer();
-        // TEST TEST TEST
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            foreach (Animator anim in GetComponentsInChildren<Animator>())
-        {
-            if (anim.GetComponent<Equipper>() == null || anim.GetComponent<Equipper>().hasEquippedItem)
-            {
-                anim.SetTrigger("slash");
-            }
-        }
-        }
     }
 
     public void UpdatePlayerEquipment()

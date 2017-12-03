@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerCharacter
 {
     private PlayerCharacterName playerCharacterName;
-    private string spriteSheetName;
+    private Dictionary<AnimationType, AnimationClip> animClipDictionary;
+    private AnimationCategories animationCategories;
     private string characterClass;
     private int speed;
     private int baseHP;
@@ -26,7 +27,7 @@ public class PlayerCharacter
     private int xp = 0;
     private Dictionary<EquipType, IEquipable> equippedItems = new Dictionary<EquipType, IEquipable>();
 
-    public PlayerCharacter(string characterName, string spriteSheetName, string characterClass, int speed, int baseHP, int hitDice,
+    public PlayerCharacter(string characterName, string spriteSheetName, string animationCategories, string characterClass, int speed, int baseHP, int hitDice,
         int strScore, int dexScore, int conScore, int intScore, int wisScore, int chaScore,
         bool strProf, bool dexProf, bool conProf, bool intProf, bool wisProf, bool chaProf)
     {
@@ -39,7 +40,16 @@ public class PlayerCharacter
         {
             playerCharacterName = (PlayerCharacterName)Enum.Parse(typeof(PlayerCharacterName), characterName, true);
         }
-        this.spriteSheetName = spriteSheetName;
+        if (!Enum.IsDefined(typeof(AnimationCategories), animationCategories))
+        {
+            Debug.LogWarning("Character constructor did not recognize characterName.");
+            this.animationCategories = AnimationCategories.All;
+        }
+        else
+        {
+            this.animationCategories = (AnimationCategories)Enum.Parse(typeof(AnimationCategories), animationCategories, true);
+        }
+        animClipDictionary = AnimationGenerator.CreateAnimationClips(spriteSheetName, this.animationCategories);
         this.characterClass = characterClass;
         this.speed = speed;
         this.baseHP = baseHP;
@@ -71,7 +81,7 @@ public class PlayerCharacter
     {
         get
         {
-            return AnimationGenerator.CreateAnimationClips(spriteSheetName);
+            return animClipDictionary;
         }
     }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Armor : Item, IEquipable
 {
     private Dictionary<AnimationType, AnimationClip> animClipDictionary;
+    private AnimationCategories animationCategories;
     private string equipType;
 
     private int armorClass;
@@ -14,11 +15,20 @@ public class Armor : Item, IEquipable
     private int strengthRequirement;
 
     public Armor(int id, string itemType, string title, string spriteName,
-        string spriteSheetName, string equipType,
+        string spriteSheetName, string animationCategories, string equipType,
         int armorClass, bool dexModifierIsCappedAt2, bool disadvantagesStealth, bool isModifiedByDex, int strengthRequirement) : 
         base (id, itemType, title, spriteName)
     {
-        animClipDictionary = AnimationGenerator.CreateAnimationClips(spriteSheetName);
+        if (!Enum.IsDefined(typeof(AnimationCategories), animationCategories))
+        {
+            Debug.LogWarning("Character constructor did not recognize characterName.");
+            this.animationCategories = AnimationCategories.All;
+        }
+        else
+        {
+            this.animationCategories = (AnimationCategories)Enum.Parse(typeof(AnimationCategories), animationCategories, true);
+        }
+        animClipDictionary = AnimationGenerator.CreateAnimationClips(spriteSheetName, this.animationCategories);
         this.equipType = equipType;
 
         this.armorClass = armorClass;

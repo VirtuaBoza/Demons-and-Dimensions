@@ -26,7 +26,10 @@ public static class AnimatorReplicator
         }
     }
 
-    private static void AddPlayerAnimatorStatesToNewController(Animator playerAnimator, AnimatorController newController, Dictionary<AnimationType, AnimationClip> animClipDictionary)
+    private static void AddPlayerAnimatorStatesToNewController(
+        Animator playerAnimator, 
+        AnimatorController newController, 
+        Dictionary<AnimationType, AnimationClip> animClipDictionary)
     {
         AnimatorController playerAnimatorController = playerAnimator.runtimeAnimatorController as AnimatorController;
         AnimatorStateMachine rootStateMachine = newController.layers[0].stateMachine;

@@ -22,19 +22,19 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    // TEST TEST TEST
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.U))
-        {
-            AddItem(0);
-        }
-        if(Input.GetKeyDown(KeyCode.I))
-        {
-            AddItem(3);
-        }
+        // TEST TEST TEST
+        //if(Input.GetKeyDown(KeyCode.U))
+        //{
+        //    AddItem(0);
+        //}
+        //if(Input.GetKeyDown(KeyCode.I))
+        //{
+        //    AddItem(3);
+        //}
+        // TEST COMPLETE
     }
-    // TEST COMPLETE
 
     public void AddItem(int id)
     {
