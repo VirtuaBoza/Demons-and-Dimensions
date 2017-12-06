@@ -25,14 +25,14 @@ public class Inventory : MonoBehaviour
     void Update()
     {
         // TEST TEST TEST
-        //if(Input.GetKeyDown(KeyCode.U))
-        //{
+        // if(Input.GetKeyDown(KeyCode.U))
+        // {
         //    AddItem(0);
-        //}
-        //if(Input.GetKeyDown(KeyCode.I))
-        //{
+        // }
+        // if(Input.GetKeyDown(KeyCode.I))
+        // {
         //    AddItem(3);
-        //}
+        // }
         // TEST COMPLETE
     }
 

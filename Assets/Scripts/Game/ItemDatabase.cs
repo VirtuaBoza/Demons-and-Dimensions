@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class ItemDatabase : MonoBehaviour
 {
@@ -79,36 +80,12 @@ public class ItemDatabase : MonoBehaviour
 
     public Item FetchItemByID(int id)
     {
-        for (int i = 0; i < allItems.Count; i++)
-        {
-            if (allItems[i].ID == id)
-            {
-                return allItems[i];
-            }
-        }
-        Debug.LogWarning("No item exists with ID " + id);
-        return new Item();
+        return allItems.FirstOrDefault(i => i.ID == id);
     }
 
     public IEquipable FetchIEquipableByID(int id)
     {
-        for (int i = 0; i < allItems.Count; i++)
-        {
-            if (allItems[i].ID == id)
-            {
-                if (allItems[i] as IEquipable != null)
-                {
-                    return allItems[i] as IEquipable;
-                }
-                else
-                {
-                    Debug.LogWarning("Item with ID " + id + " is not IEquipable");
-                    return null;
-                }
-            }
-        }
-        Debug.LogWarning("No item exists with ID " + id);
-        return null;
+        return allItems.FirstOrDefault(i => i.ID == id) as IEquipable;
     }
 }
 
