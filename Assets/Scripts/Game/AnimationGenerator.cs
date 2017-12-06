@@ -26,14 +26,14 @@ public class AnimationGenerator
                     propertyName = "m_Sprite"
                 };
 
-                int[] startAndRange = GetSpriteStartIndexAndRange(animationType, animationCategories);
-                ObjectReferenceKeyframe[] spriteKeyFrames = new ObjectReferenceKeyframe[startAndRange[1]];
+                StartIndexAndLength startAndLength = GetSpriteStartIndexAndRange(animationType, animationCategories);
+                ObjectReferenceKeyframe[] spriteKeyFrames = new ObjectReferenceKeyframe[startAndLength.Length];
                 float timeValue = 0;
-                for (int i = 0; i < startAndRange[1]; i++)
+                for (int i = 0; i < startAndLength.Length; i++)
                 {
                     spriteKeyFrames[i] = new ObjectReferenceKeyframe();
                     spriteKeyFrames[i].time = timeValue;
-                    spriteKeyFrames[i].value = sprites[i + startAndRange[0]];
+                    spriteKeyFrames[i].value = sprites[i + startAndLength.StartIndex];
                     timeValue += 1 / 15f;
                 }
                 AnimationUtility.SetObjectReferenceCurve(animClip, spriteBinding, spriteKeyFrames);
@@ -82,7 +82,7 @@ public class AnimationGenerator
         }
     }
 
-    private static int[] GetSpriteStartIndexAndRange(AnimationType animationType, AnimationCategories animationCategories)
+    private static StartIndexAndLength GetSpriteStartIndexAndRange(AnimationType animationType, AnimationCategories animationCategories)
     {
         switch (animationCategories)
         {
@@ -90,61 +90,61 @@ public class AnimationGenerator
                 switch (animationType)
                 {
                     case AnimationType.IdleUp:
-                        return new int[] { 60, 1 };
+                        return new StartIndexAndLength(60, 1);
                     case AnimationType.IdleLeft:
-                        return new int[] { 69, 1 };
+                        return new StartIndexAndLength(69, 1);
                     case AnimationType.IdleDown:
-                        return new int[] { 78, 1 };
+                        return new StartIndexAndLength(78, 1);
                     case AnimationType.IdleRight:
-                        return new int[] { 87, 1 };
+                        return new StartIndexAndLength(87, 1);
 
                     case AnimationType.WalkUp:
-                        return new int[] { 61, 8 };
+                        return new StartIndexAndLength(61, 8);
                     case AnimationType.WalkLeft:
-                        return new int[] { 70, 8 };
+                        return new StartIndexAndLength(70, 8);
                     case AnimationType.WalkDown:
-                        return new int[] { 79, 8 };
+                        return new StartIndexAndLength(79, 8);
                     case AnimationType.WalkRight:
-                        return new int[] { 88, 8 };
+                        return new StartIndexAndLength(88, 8);
 
                     case AnimationType.SlashUp:
-                        return new int[] { 96, 6 };
+                        return new StartIndexAndLength(96, 6);
                     case AnimationType.SlashLeft:
-                        return new int[] { 102, 6 };
+                        return new StartIndexAndLength(102, 6);
                     case AnimationType.SlashDown:
-                        return new int[] { 108, 6 };
+                        return new StartIndexAndLength(108, 6);
                     case AnimationType.SlashRight:
-                        return new int[] { 114, 6 };
+                        return new StartIndexAndLength(114, 6);
 
                     case AnimationType.ThrustUp:
-                        return new int[] { 28, 8 };
+                        return new StartIndexAndLength(28, 8);
                     case AnimationType.ThrustLeft:
-                        return new int[] { 36, 8 };
+                        return new StartIndexAndLength(36, 8);
                     case AnimationType.ThrustDown:
-                        return new int[] { 44, 8 };
+                        return new StartIndexAndLength(44, 8);
                     case AnimationType.ThrustRight:
-                        return new int[] { 52, 8 };
+                        return new StartIndexAndLength(52, 8);
 
                     case AnimationType.LooseUp:
-                        return new int[] { 120, 13 };
+                        return new StartIndexAndLength(120, 13);
                     case AnimationType.LooseLeft:
-                        return new int[] { 133, 13 };
+                        return new StartIndexAndLength(133, 13);
                     case AnimationType.LooseDown:
-                        return new int[] { 146, 13 };
+                        return new StartIndexAndLength(146, 13);
                     case AnimationType.LooseRight:
-                        return new int[] { 159, 13 };
+                        return new StartIndexAndLength(159, 13);
 
                     case AnimationType.CastUp:
-                        return new int[] { 0, 7 };
+                        return new StartIndexAndLength(0, 7);
                     case AnimationType.CastLeft:
-                        return new int[] { 7, 7 };
+                        return new StartIndexAndLength(7, 7);
                     case AnimationType.CastDown:
-                        return new int[] { 14, 7 };
+                        return new StartIndexAndLength(14, 7);
                     case AnimationType.CastRight:
-                        return new int[] { 21, 7 };
+                        return new StartIndexAndLength(21, 7);
 
                     case AnimationType.Die:
-                        return new int[] { 172, 6 };
+                        return new StartIndexAndLength(172, 6);
 
                     default:
                         throw new InvalidEnumArgumentException();
@@ -153,29 +153,29 @@ public class AnimationGenerator
                 switch(animationType)
                 {
                     case AnimationType.IdleUp:
-                        return new int[] { 0, 1 };
+                        return new StartIndexAndLength(0, 1);
                     case AnimationType.IdleLeft:
-                        return new int[] { 9, 1 };
+                        return new StartIndexAndLength(9, 1);
                     case AnimationType.IdleDown:
-                        return new int[] { 18, 1 };
+                        return new StartIndexAndLength(18, 1);
                     case AnimationType.IdleRight:
-                        return new int[] { 27, 1 };
+                        return new StartIndexAndLength(27, 1);
                     case AnimationType.WalkUp:
-                        return new int[] { 1, 8 };
+                        return new StartIndexAndLength(1, 8);
                     case AnimationType.WalkLeft:
-                        return new int[] { 10, 8 };
+                        return new StartIndexAndLength(10, 8);
                     case AnimationType.WalkDown:
-                        return new int[] { 19, 8 };
+                        return new StartIndexAndLength(19, 8);
                     case AnimationType.WalkRight:
-                        return new int[] { 28, 8 };
+                        return new StartIndexAndLength(28, 8);
                     case AnimationType.SlashUp:
-                        return new int[] { 36, 6 };
+                        return new StartIndexAndLength(36, 6);
                     case AnimationType.SlashLeft:
-                        return new int[] { 42, 6 };
+                        return new StartIndexAndLength(42, 6);
                     case AnimationType.SlashDown:
-                        return new int[] { 48, 6 };
+                        return new StartIndexAndLength(48, 6);
                     case AnimationType.SlashRight:
-                        return new int[] { 54, 6 };
+                        return new StartIndexAndLength(54, 6);
                     default:
                         throw new ArgumentException("Something must be wrong with AnimationGenerator.DetermineIfHasAnimationType");
                 }
