@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public static class Die
+public static class DieRoller
 {
     public static int RollADie(DieType die)
     {

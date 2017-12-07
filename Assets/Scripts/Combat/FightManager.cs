@@ -90,7 +90,7 @@ public class FightManager : MonoBehaviour
 
     void ResolveAttack(Combatant target)
     {
-        int attackRoll = Die.RollADie(DieType.d20);
+        int attackRoll = DieRoller.RollADie(DieType.d20);
         attackRoll += profBonus;
         int totalDamage = 0;
 
@@ -98,8 +98,8 @@ public class FightManager : MonoBehaviour
         {
             for (int i = 0; i < damageMulti; i++)
             {
-                int roll1 = Die.RollADie(damageRange);
-                int roll2 = Die.RollADie(damageRange);
+                int roll1 = DieRoller.RollADie(damageRange);
+                int roll2 = DieRoller.RollADie(damageRange);
                 totalDamage += Mathf.Max(roll1, roll2);
             }
         }
@@ -107,7 +107,7 @@ public class FightManager : MonoBehaviour
         {
             for (int i = 0; i < damageMulti; i++)
             {
-                totalDamage += Die.RollADie(damageRange);
+                totalDamage += DieRoller.RollADie(damageRange);
             }
         }
 

@@ -94,7 +94,7 @@ public class Arena : MonoBehaviour
 
     private int RollForInitiative()
     {
-        int roll = Die.RollADie(DieType.d20);
+        int roll = DieRoller.RollADie(DieType.d20);
         if (initiativeList.Contains(roll)) return RollForInitiative();
         else
         {
